@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .postbody-ulol {
+    @apply text-lg font-semibold my-5 mx-0 list-decimal list-inside;
+  }
+
+  .postbody-pre {
+    @apply bg-slate-200 py-5 my-5 mx-0 leading-8;
+  }
+}

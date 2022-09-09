@@ -1,4 +1,7 @@
 {
   "prettier.trailingComma": "none",
-  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces": true
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces": true,
+  "prettier.singleQuote": true,
+  "prettier.jsxSingleQuote": true,
+  "prettier.singleAttributePerLine": true
 }

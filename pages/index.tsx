@@ -1,23 +1,32 @@
-import fs from "fs"
-import path from "path"
+import fs from 'fs'
+import path from 'path'
 
-import type { NextPage } from "next"
-import Head from "next/head"
-import Image from "next/image"
-import styles from "../styles/Home.module.css"
-import { Post } from "../interfaces/post"
+import type { NextPage } from 'next'
+import Head from 'next/head'
+import matter from 'gray-matter'
+import Post from '../components/post'
+import { sortByDate } from '../utils'
 
 type Props = {
-  posts: Post[]
+  posts: {
+    [key: string]: any
+  }
 }
 
 const Home: NextPage<Props> = ({ posts }) => {
   console.log(posts)
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Markdown Files</title>
       </Head>
+      <div className='grid grid-cols-1 gap-8 mt-8 md:grid-cols-2'>
+        {posts.map((post: { [key: string]: any }) => (
+          <Post
+            post={post}
+            key={post.frontmatter.date}></Post>
+        ))}
+      </div>
     </div>
   )
 }
@@ -25,15 +34,26 @@ const Home: NextPage<Props> = ({ posts }) => {
 export default Home
 
 export const getStaticProps = async () => {
-  const files = fs.readdirSync(path.join("posts"))
+  const files = fs.readdirSync(path.join('posts'))
 
   const posts = files.map((filename) => {
-    const slug = filename.replace(/.md$/, "")
+    const slug = filename.replace(/.md$/, '')
+
+    const markdownWithMeta = fs.readFileSync(
+      path.join('posts', filename),
+      'utf-8'
+    )
+    const { data: frontmatter } = matter(markdownWithMeta)
+
+    return {
+      slug,
+      frontmatter
+    }
   })
 
   return {
     props: {
-      posts: [{ id: "The Posts" }]
+      posts: posts.sort(sortByDate)
     }
   }
 }
