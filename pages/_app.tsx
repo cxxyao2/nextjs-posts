@@ -1,17 +1,16 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
-import Header from '../components/header'
+import "../styles/globals.css";
+import type { AppProps } from "next/app";
+import Header from "../components/header";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return(
+  return (
     <>
-  <Header />
-    <main className="container">
-
-    <Component {...pageProps} />
-    </main>
+      <Header />
+      <main className="container">
+        <Component {...pageProps} />
+      </main>
     </>
-    )
+  );
 }
 
-export default MyApp
+export default MyApp;
