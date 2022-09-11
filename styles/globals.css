@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  body {
+    @apply antialiased mx-auto;
+    @apply dark:bg-black dark:text-gray-100 bg-gray-100 text-gray-600;
+  }
+}
+
 @layer components {
   .postbody-ulol {
     @apply text-lg font-semibold my-5 mx-0 list-decimal list-inside;

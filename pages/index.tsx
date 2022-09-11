@@ -14,12 +14,12 @@ type Props = {
 }
 
 const Home: NextPage<Props> = ({ posts }) => {
-  console.log(posts)
   return (
     <div>
       <Head>
         <title>Markdown Files</title>
       </Head>
+
       <div className='grid grid-cols-1 gap-8 mt-8 md:grid-cols-2'>
         {posts.map((post: { [key: string]: any }) => (
           <Post
