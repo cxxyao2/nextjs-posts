@@ -18,6 +18,14 @@ const Home: NextPage<Props> = ({ posts }) => {
     <div>
       <Head>
         <title>Markdown Files</title>
+        <meta
+          name='description'
+          content='gas service center'
+        />
+        <link
+          rel='icon'
+          href='/proc.ico'
+        />
       </Head>
 
       <div className='grid grid-cols-1 gap-8 mt-8 md:grid-cols-2'>

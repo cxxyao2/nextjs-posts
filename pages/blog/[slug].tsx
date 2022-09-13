@@ -1,20 +1,16 @@
 import fs from 'fs'
 import path from 'path'
 import Link from 'next/link'
+import Image from 'next/image'
 
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { ParsedUrlQuery } from 'querystring'
 import matter from 'gray-matter'
 import { marked } from 'marked'
+import { PostPageProps } from '../../interfaces/post-page-props'
 
 interface IParams extends ParsedUrlQuery {
   slug: string
-}
-
-export type PostPageProps = {
-  frontmatter: Record<string, any>
-  slug: string
-  content?: string
 }
 
 const PostPage = ({
@@ -32,10 +28,15 @@ const PostPage = ({
       <div className='py-4 px-8 rounded-xl shadow-cyan-500/50    card-page'>
         <h1 className='my-2 mx-0'>{title}</h1>
         <div className='bg-gray-300 mb-5 px-2.5 py-0.5'>Posted on {date}</div>
-        <img
-          src={cover_image}
-          alt=''
-        />
+        <div className='relative w-full'>
+          <Image
+            src={cover_image}
+            alt=''
+            layout='fill'
+            objectFit='cover'
+            priority={true}
+          />
+        </div>
         <div className='[&_ul]:postbody-ulol [&_ol]:postbody-ulol [&_pre]:postbody-pre'>
           <div
             dangerouslySetInnerHTML={{ __html: marked(content || '') }}></div>

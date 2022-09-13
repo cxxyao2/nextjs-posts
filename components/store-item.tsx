@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 import { useShoppingCart } from '../context/ShoppingCartContext'
 import { formatCurrency } from '../utils/formatCurrency'
 import Button from './button'
@@ -18,6 +19,11 @@ const StoreItem = ({ id, name, price, imgUrl }: StoreItemProps) => {
     removeFromCart
   } = useShoppingCart()
   const quantity = getItemQuantity(id)
+  const [usPrice, setUsPrice] = useState('')
+
+  useEffect(() => {
+    setUsPrice(formatCurrency(price))
+  }, [])
 
   return (
     <div className='bg-white rounded-sm flex flex-col justify-start items-center'>
@@ -28,14 +34,13 @@ const StoreItem = ({ id, name, price, imgUrl }: StoreItemProps) => {
           height={90}
           width={160}
           layout='responsive'
+          priority={true}
         />
       </div>
 
       <div className='flex w-full px-2  justify-between items-baseline mb-4'>
         <span className='block text-base text-blue-600'>{name}</span>
-        <span className='block text-sm text-blue-600/80'>
-          {formatCurrency(price)}
-        </span>
+        <span className='block text-sm text-blue-600/80'>{usPrice}</span>
       </div>
       <div className='mt-auto w-full p-2'>
         {quantity === 0 ? (
