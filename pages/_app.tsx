@@ -3,23 +3,29 @@ import type { AppProps } from 'next/app'
 
 import { store } from '../store'
 import { Provider } from 'react-redux'
+import { ThemeProvider } from 'next-themes'
+import { appWithTranslation } from 'next-i18next'
 
-import Header from '../components/header'
+import NavBar from '../components/nav-bar'
 import { ShoppingCardProvider } from '../context/ShoppingCartContext'
+import Footer from '../components/footer'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Provider store={store}>
-      <ShoppingCardProvider>
-        <>
-          <Header />
-          <main className='container mx-auto pt-14 px-4 overflow-auto'>
-            <Component {...pageProps} />
-          </main>
-        </>
-      </ShoppingCardProvider>
-    </Provider>
+    <ThemeProvider attribute='class'>
+      <Provider store={store}>
+        <ShoppingCardProvider>
+          <>
+            <NavBar />
+            <main className='container mt-16 mx-auto p-2 overflow-auto '>
+              <Component {...pageProps} />
+            </main>
+            <Footer />
+          </>
+        </ShoppingCardProvider>
+      </Provider>
+    </ThemeProvider>
   )
 }
 
-export default MyApp
+export default appWithTranslation(MyApp)

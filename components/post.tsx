@@ -11,9 +11,8 @@ const Post = ({ post }: Props) => {
       <Image
         className='rounded-md'
         src={post.frontmatter.cover_image}
-        width={200}
-        height={200}
-        objectFit='cover'
+        width={120}
+        height={100}
         layout='responsive'
         priority={true}
       />
@@ -23,7 +22,7 @@ const Post = ({ post }: Props) => {
       <h3>{post.frontmatter.title}</h3>
       <p className='mb-2'>{post.frontmatter.excerpt}</p>
       <Link href={`/blog/${post.slug}`}>
-        <a className='inline bg-blue-500 text-white border-0  py-2 px-4 rounded-md cursor-pointer no-underline text-sm hover:shadow'>
+        <a className='inline bg-indigo-400 text-white border-0  py-2 px-4 rounded-md cursor-pointer no-underline text-sm hover:shadow'>
           Read More
         </a>
       </Link>

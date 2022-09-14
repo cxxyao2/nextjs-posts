@@ -4,7 +4,7 @@ import storeItems from '../data/items.json'
 
 const Store: NextPage = () => {
   return (
-    <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
+    <div className='flex flex-row flex-wrap  justify-between items-center gap-6'>
       {storeItems.map((item) => (
         <StoreItem
           {...item}

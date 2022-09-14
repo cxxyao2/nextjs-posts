@@ -6,14 +6,15 @@ import Head from 'next/head'
 import matter from 'gray-matter'
 import Post from '../components/post'
 import { sortByDate } from '../utils'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-type Props = {
+interface HomeProps {
   posts: {
     [key: string]: any
   }
 }
 
-const Home: NextPage<Props> = ({ posts }) => {
+const Home = ({ posts }: HomeProps) => {
   return (
     <div>
       <Head>
@@ -22,13 +23,9 @@ const Home: NextPage<Props> = ({ posts }) => {
           name='description'
           content='gas service center'
         />
-        <link
-          rel='icon'
-          href='/proc.ico'
-        />
       </Head>
 
-      <div className='grid grid-cols-1 gap-8 mt-8 md:grid-cols-2'>
+      <div className='grid grid-cols-1 gap-8  md:grid-cols-2'>
         {posts.map((post: { [key: string]: any }) => (
           <Post
             post={post}
@@ -41,7 +38,7 @@ const Home: NextPage<Props> = ({ posts }) => {
 
 export default Home
 
-export const getStaticProps = async () => {
+export const getStaticProps = async ({ locale = 'en' }) => {
   const files = fs.readdirSync(path.join('posts'))
 
   const posts = files.map((filename) => {
@@ -61,7 +58,8 @@ export const getStaticProps = async () => {
 
   return {
     props: {
-      posts: posts.sort(sortByDate)
+      posts: posts.sort(sortByDate),
+      ...(await serverSideTranslations(locale, ['common', 'footer']))
     }
   }
 }
