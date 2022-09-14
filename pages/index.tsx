@@ -1,7 +1,6 @@
 import fs from 'fs'
 import path from 'path'
 
-import type { NextPage } from 'next'
 import Head from 'next/head'
 import matter from 'gray-matter'
 import Post from '../components/post'

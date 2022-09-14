@@ -5,6 +5,7 @@ import { ShoppingCartIcon } from '@heroicons/react/24/solid'
 import { SunIcon, MoonIcon } from '@heroicons/react/24/outline'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
+import SvgComponent from './svgtest'
 
 const NavBar = () => {
   const { openCart, cartQuantity } = useShoppingCart()
@@ -21,7 +22,7 @@ const NavBar = () => {
     const value = router.locale === 'en' ? 'fr' : 'en'
     return (
       <button
-        className='px-2 hover:shadow-md hover:shadow-indigo-400 font-mono'
+        className='px-2 rounded-md hover:shadow-md hover:shadow-indigo-400 font-mono'
         onClick={() =>
           router.push(router.route, router.asPath, { locale: value })
         }>
@@ -44,7 +45,7 @@ const NavBar = () => {
 
     return (
       <MoonIcon
-        className='w-6 h-6 text-gray-600'
+        className='w-6 h-6 rounded-md text-gray-600 hover:shadow hover:shadow-indigo-400'
         onClick={() => {
           console.log('click light')
           setTheme('dark')
@@ -63,7 +64,11 @@ const NavBar = () => {
       <nav className='w-full fixed top-0 z-20 h-14 px-4 t text-sm dark:bg-black bg-white flex  flex-row justify-between items-center mb-3 shadow-sm shadow-neutral-300'>
         <div>
           <Link href='/'>
-            <a className={ancoreStyle('/')}>Dev Log</a>
+            <a>
+              <SvgComponent
+                fill='rgb(234 88 12)'
+                className='w-12 h-12 rounded-md hover:shadow-md hover:shadow-gray-300'></SvgComponent>
+            </a>
           </Link>
         </div>
 
