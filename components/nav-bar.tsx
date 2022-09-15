@@ -6,6 +6,7 @@ import { SunIcon, MoonIcon } from '@heroicons/react/24/outline'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import SvgComponent from './svgtest'
+import LoginButton from './login-btn'
 
 const NavBar = () => {
   const { openCart, cartQuantity } = useShoppingCart()
@@ -45,7 +46,7 @@ const NavBar = () => {
 
     return (
       <MoonIcon
-        className='w-6 h-6 rounded-md text-gray-600 hover:shadow hover:shadow-indigo-400'
+        className='w-6 h-6 rounded-full text-gray-600 hover:shadow hover:shadow-indigo-400'
         onClick={() => {
           console.log('click light')
           setTheme('dark')
@@ -91,6 +92,7 @@ const NavBar = () => {
             </button>
           </Link>
           <div className='hidden md:flex md:flex-row'>
+            <LoginButton />
             {handleLocaleChange()}
             {handleThemeChange()}
           </div>
