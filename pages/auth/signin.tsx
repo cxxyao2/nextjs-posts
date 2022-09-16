@@ -19,9 +19,15 @@ const SignInForm = () => {
       [event.target.id]: event.target.value
     }))
   }
+
+  const validateForm = () => {
+    // todo
+    return true
+  }
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-
+    if (!validateForm()) return
+    console.log('fromdata is', formData)
     try {
       await signIn('credentials', {
         email: formData.email,
@@ -34,58 +40,62 @@ const SignInForm = () => {
   }
 
   return (
-    <section className='mx-auto my-12 max-w-md rounded-md bg-white  shadow-gray-200 shadow-xl p-4 text-center'>
-      <h1 className='text-center text-indigo-500'>Sign In</h1>
+    <section className='m-auto  max-w-md rounded-md bg-white  shadow-gray-200 shadow-xl p-4'>
+      <h1 className='text-center text-2xl mb-6'>Sign In</h1>
       <form onSubmit={handleSubmit}>
-        <div className='mb-2'>
+        <div className='flex flex-col space-y-4 justify-center items-begin'>
           <label
             htmlFor='email'
-            className='block text-indiogo-400 font-bold mb-2'></label>
+            className='font-semibold'>
+            Email
+          </label>
           <input
             id='email'
+            name='email'
             type='email'
             placeholder='abc@email.com'
-            className='invalid:border-red-500 block outline outline-offset-2 outline-indigo-500 bg-gray-100 text-gray-800 rounded-md w-full p-1 text-left'
+            className='invalid:border-red-500  hover:outline hover:outline-offset-2 hover:outline-indigo-500 focus:outline focus:outline-offset-2 focus:outline-indigo-500 bg-gray-100 text-gray-800 rounded-md w-full p-1'
             onChange={handleChange}
             required
           />
-        </div>
-        <div className='mb-2'>
-          <input
-            id='password'
-            type={hidePassword ? 'password' : 'text'}
-            autoCapitalize='off'
-            autoComplete='off'
-            autoCorrect='off'
-            minLength={8}
-            maxLength={20}
-            required
-            className='invalid:border-red-500 outline outline-offset-2 outline-indigo-500 bg-gray-100 text-gray-800 rounded-md  p-1 text-left'
-            onChange={handleChange}
-          />
-          <button
-            className='px-2 py-1'
-            onClick={() => setHidePassword((prevState) => !prevState)}>
-            {' '}
-            {hidePassword ? 'Show' : 'Hide'}{' '}
-          </button>
-        </div>
-        <div className='mt-6 flex flex-col items-center'>
+
+          <label className='font-semibold'>Password</label>
+          <div className='relative bg-gray-100 hover:outline hover:outline-offset-2 hover:outline-indigo-500 focus:outline focus:outline-offset-2 focus:outline-indigo-500 rounded-md w-full'>
+            <input
+              id='password'
+              name='password'
+              type={hidePassword ? 'password' : 'text'}
+              autoCapitalize='off'
+              autoComplete='off'
+              autoCorrect='off'
+              minLength={8}
+              maxLength={100}
+              required
+              className='invalid:border-red-500 p-1 min-w-[200px] bg-gray-100 outline-none rounded-tl-md rounded-bl-md'
+              onChange={handleChange}
+            />
+            <button
+              className='absolute  right-1 top-1 p-1 pb-0 rounded-md text-sm text-right outline-none bg-white'
+              onClick={() => setHidePassword((prevState) => !prevState)}>
+              {hidePassword ? 'Show' : 'Hide'}{' '}
+            </button>
+          </div>
+
           <button
             type='submit'
-            className='cursor-pointer text-white bg-indigo-600 outline outline-offset-2 outline-indigo-200 border-solid'>
+            className='cursor-pointer px-2 py-1 rounded-md text-white bg-indigo-600 outline-none focus:outline  focus:outline-indigo-200 '>
             Sign In
           </button>
-          <p className='text-xs'>
-            Dont't have an account?{' '}
-            <Link href='/auth/signin'>
-              <a className='text-base text-indigo-400'>SIGN IN</a>
+          <p className='text-sm'>
+            Dont't have an account?
+            <Link href='/auth/signup'>
+              <a className='ml-2  text-indigo-400'>SIGN UP</a>
             </Link>
           </p>
-          <p>
-            Forget your password?{' '}
+          <p className='text-sm'>
+            Forget your password?
             <Link href='/auth/forget-password'>
-              <a className='text-normal text-indigo-400'>RESET PASSWORD</a>
+              <a className='ml-2  text-indigo-400'>RESET PASSWORD</a>
             </Link>
           </p>
         </div>

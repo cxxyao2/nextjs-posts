@@ -23,7 +23,7 @@ const NavBar = () => {
     const value = router.locale === 'en' ? 'fr' : 'en'
     return (
       <button
-        className='px-2 rounded-md hover:shadow-md hover:shadow-indigo-400 font-mono'
+        className='w-8 py-1 rounded-md hover:shadow-md hover:shadow-indigo-400'
         onClick={() =>
           router.push(router.route, router.asPath, { locale: value })
         }>
@@ -39,14 +39,14 @@ const NavBar = () => {
     if (currentTheme === 'dark') {
       return (
         <SunIcon
-          className='w-6 h-6  dark:text-gray-200 text-gray-600'
+          className='w-6 h-6   dark:text-gray-200 text-gray-600'
           onClick={() => setTheme('light')}></SunIcon>
       )
     }
 
     return (
       <MoonIcon
-        className='w-6 h-6 rounded-full text-gray-600 hover:shadow hover:shadow-indigo-400'
+        className='w-6 h-6 self-center rounded-full text-gray-600 hover:shadow hover:shadow-indigo-400'
         onClick={() => {
           console.log('click light')
           setTheme('dark')
@@ -92,7 +92,7 @@ const NavBar = () => {
             </button>
           </Link>
           <div className='hidden md:flex md:flex-row'>
-            <LoginButton />
+            <LoginButton className='p-2 rounded-md hover:bg-indigo-400 hover:text-white' />
             {handleLocaleChange()}
             {handleThemeChange()}
           </div>

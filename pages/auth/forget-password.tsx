@@ -13,6 +13,7 @@ const ForgetPassword = () => {
   }
 
   const [formData, setFormData] = useState(defaultFormData)
+  const [successMessage, setSuccessMessage] = useState('')
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -28,44 +29,55 @@ const ForgetPassword = () => {
 
     if (!validateForm()) return
     try {
-      const backendUrl = BACKEND_URL.concat('/auth/send-reset-email')
+      const backendUrl = BACKEND_URL.concat('auth/send-reset-email')
       const res = await fetch(backendUrl, {
         method: 'POST',
-        body: JSON.stringify({ email: formData.email })
+        body: JSON.stringify({ email: formData.email }),
+        headers: {
+          'Content-type': 'application/json'
+        }
       })
-      const result = res.json()
-      // todo if ok. display message on form
-      // hide form input box && button
-    } catch (error) {}
+      const result = await res.json()
+      setSuccessMessage(() => {
+        return result.message
+      })
+    } catch (error) {
+      console.log('error is', error)
+    }
   }
   return (
-    <div className='max-w-prose bg-white'>
+    <section className='m-auto  max-w-md rounded-md bg-white  shadow-gray-200 shadow-xl p-4'>
       <form onSubmit={sentResetPasswordRequest}>
-        <h2 className='text-lg text-center'>Forget Password</h2>
-        <div className='flex flex-col justify-start gap-4'>
-          <label
-            htmlFor='email'
-            className='text-left text-sm'>
-            Enter your email
-          </label>
-          <input
-            id='email'
-            name='email'
-            className='invalid:border-red-500 block outline outline-offset-2 outline-indigo-500 bg-gray-100 text-gray-800 rounded-md w-full p-1 text-left'
-            placeholder='abc@gmail.com'
-            type='email'
-            onChange={handleChange}
-            required
-          />
-          <button
-            type='submit'
-            className='cursor-pointer text-white bg-indigo-600 outline outline-offset-2 outline-indigo-200 border-solid'>
-            Submit
-          </button>
-        </div>
+        <h2 className='text-lg text-center mb-6'>Forget Password</h2>
+        {successMessage ? (
+          <div className='rounded-lg p-1 text-center break-words outline outline-indigo-400'>
+            {successMessage}
+          </div>
+        ) : (
+          <div className='flex flex-col justify-start gap-4'>
+            <label
+              htmlFor='email'
+              className='text-left'>
+              Enter your email
+            </label>
+            <input
+              id='email'
+              name='email'
+              className=' border   hover:outline hover:outline-offset-2 hover:outline-indigo-500 focus:outline focus:outline-offset-2 focus:outline-indigo-500 bg-gray-100 text-gray-800 rounded-md w-full p-1'
+              placeholder='abc@gmail.com'
+              type='email'
+              onChange={handleChange}
+              required
+            />
+            <button
+              type='submit'
+              className='cursor-pointer px-2 py-1 rounded-md text-white bg-indigo-600 outline-none focus:outline  focus:outline-indigo-200 '>
+              Submit
+            </button>
+          </div>
+        )}
       </form>
-      Fortget Password
-    </div>
+    </section>
   )
 }
 export default ForgetPassword

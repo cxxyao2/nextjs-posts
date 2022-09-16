@@ -64,7 +64,7 @@ export function validateEmail(emailAddress: string) {
   return false
 }
 
-export function ValidateLengthRange(
+export function validateLengthRange(
   inputtxt: string,
   minlength: number,
   maxlength: number

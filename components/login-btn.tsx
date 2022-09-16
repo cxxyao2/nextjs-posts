@@ -1,21 +1,29 @@
-import { useSession, singIn, singOut } from 'next-auth/react'
+import { useSession, signIn, signOut } from 'next-auth/react'
+type LoginButtonProps = {
+  className: string
+}
 
-const LoginButton = () => {
+const LoginButton = ({ className }: LoginButtonProps) => {
   const { data: session } = useSession()
   if (session) {
     return (
       <>
-        Singed in as {session?.user?.email} <br />
-        <button onClick={() => singOut()}>Sign out</button>
+        <button
+          className={className}
+          onClick={() => signOut()}>
+          <span className='mr-2'>{session?.user?.name}</span>Sign out
+        </button>
       </>
     )
   }
 
   return (
     <>
-      Not signed in
-      <br />
-      <button onClick={() => singIn()}>Sign in</button>
+      <button
+        className={className}
+        onClick={() => signIn()}>
+        Sign in
+      </button>
     </>
   )
 }

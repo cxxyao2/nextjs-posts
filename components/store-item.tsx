@@ -45,7 +45,7 @@ const StoreItem = ({ id, name, price, imgUrl }: StoreItemProps) => {
       <div className='mt-auto w-full p-2'>
         {quantity === 0 ? (
           <Button
-            className=' w-full'
+            addedClasses=' w-full '
             onClick={() => increaseItemQuantity(id)}>
             + Add to Cart
           </Button>
@@ -53,7 +53,7 @@ const StoreItem = ({ id, name, price, imgUrl }: StoreItemProps) => {
           <div className='flex flex-col justify-center items-center gap-2'>
             <div className='flex justify-center items-center gap-2'>
               <Button
-                className=''
+                addedClasses='!px-3'
                 onClick={() => decreaseItemQuantity(id)}>
                 -
               </Button>
@@ -61,13 +61,13 @@ const StoreItem = ({ id, name, price, imgUrl }: StoreItemProps) => {
                 <span className='text-sm'> {quantity} in cart</span>
               </div>
               <Button
-                className=''
+                addedClasses='!px-3'
                 onClick={() => increaseItemQuantity(id)}>
                 +
               </Button>
             </div>
             <Button
-              className='!bg-red-600'
+              addedClasses='!bg-red-400'
               onClick={() => removeFromCart(id)}>
               Remove
             </Button>

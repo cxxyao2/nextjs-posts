@@ -17,13 +17,13 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ThemeProvider attribute='class'>
         <Provider store={store}>
           <ShoppingCardProvider>
-            <>
+            <div className='w-full h-screen overflow-hidden relative'>
               <NavBar />
               <main className='container mt-16 mx-auto p-2 overflow-auto '>
                 <Component {...pageProps} />
               </main>
               <Footer />
-            </>
+            </div>
           </ShoppingCardProvider>
         </Provider>
       </ThemeProvider>

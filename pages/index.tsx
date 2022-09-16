@@ -6,32 +6,38 @@ import matter from 'gray-matter'
 import Post from '../components/post'
 import { sortByDate } from '../utils'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import SideBar from '../components/sidebar'
 
-interface HomeProps {
+interface PostListProps {
   posts: {
     [key: string]: any
   }
 }
 
-const Home = ({ posts }: HomeProps) => {
+const Home = ({ posts }: PostListProps) => {
+  const isSideBar = false
   return (
-    <div>
+    <>
       <Head>
-        <title>Markdown Files</title>
+        <title>Activities</title>
         <meta
           name='description'
           content='gas service center'
         />
       </Head>
 
-      <div className='grid grid-cols-1 gap-8  md:grid-cols-2'>
-        {posts.map((post: { [key: string]: any }) => (
-          <Post
-            post={post}
-            key={post.frontmatter.date}></Post>
-        ))}
-      </div>
-    </div>
+      {isSideBar ? (
+        <SideBar />
+      ) : (
+        <div className='grid grid-cols-1 gap-8  md:grid-cols-2'>
+          {posts.map((post: { [key: string]: any }) => (
+            <Post
+              post={post}
+              key={post.frontmatter.date}></Post>
+          ))}
+        </div>
+      )}
+    </>
   )
 }
 
