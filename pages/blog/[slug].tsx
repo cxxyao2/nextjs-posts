@@ -47,7 +47,7 @@ const PostPage = ({
           Go Back
         </a>
       </Link>
-      <div className='py-4 px-8 rounded-xl shadow-cyan-500/50    card-page'>
+      <div className='py-4 px-8 rounded-xl shadow shadow-indigo-200/50  card-page'>
         <h1 className='my-2 mx-0'>{title}</h1>
         <div className='bg-gray-300 mb-5 px-2.5 py-0.5'>Posted on {date}</div>
         <div className='relative w-full'>

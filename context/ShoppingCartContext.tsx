@@ -1,4 +1,10 @@
-import { createContext, useContext, useState } from 'react'
+import {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useState
+} from 'react'
 
 type ShoppingCardContextType = {
   openCart: () => void
@@ -9,6 +15,8 @@ type ShoppingCardContextType = {
   removeFromCart: (id: number) => void
   cartQuantity: number
   cartItems: CartItem[]
+  isVisibleSideBar: boolean
+  setIsVisibleSideBar: Dispatch<SetStateAction<boolean>>
 }
 const ShoppingCardContext = createContext({} as ShoppingCardContextType)
 
@@ -27,6 +35,7 @@ export function useShoppingCart() {
 
 export function ShoppingCardProvider({ children }: ShoppingCartProviderProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const [isVisibleSideBar, setIsVisibleSideBar] = useState(false)
 
   const [cartItems, setCartItems] = useState<CartItem[]>([])
 
@@ -94,7 +103,9 @@ export function ShoppingCardProvider({ children }: ShoppingCartProviderProps) {
         cartItems,
         cartQuantity,
         closeCart,
-        openCart
+        openCart,
+        isVisibleSideBar,
+        setIsVisibleSideBar
       }}>
       {children}
     </ShoppingCardContext.Provider>

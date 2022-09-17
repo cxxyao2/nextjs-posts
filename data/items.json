@@ -22,5 +22,53 @@
     "name": "Computer",
     "price": 800.99,
     "imgUrl": "/images/products/computer.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Gas1",
+    "price": 800.99,
+    "imgUrl": "/images/products/gas1.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Computer",
+    "price": 800.99,
+    "imgUrl": "/images/products/gas2.jpg"
+  },
+  {
+    "id": 7,
+    "name": "Computer",
+    "price": 800.99,
+    "imgUrl": "/images/products/gas3.jpg"
+  },
+  {
+    "id": 8,
+    "name": "Computer",
+    "price": 800.99,
+    "imgUrl": "/images/products/gas4.jpg"
+  },
+  {
+    "id": 9,
+    "name": "Computer",
+    "price": 800.99,
+    "imgUrl": "/images/products/gas1.jpg"
+  },
+  {
+    "id": 10,
+    "name": "Computer",
+    "price": 800.99,
+    "imgUrl": "/images/products/gas2.jpg"
+  },
+  {
+    "id": 11,
+    "name": "Computer",
+    "price": 800.99,
+    "imgUrl": "/images/products/computer.jpg"
+  },
+  {
+    "id": 12,
+    "name": "Computer",
+    "price": 800.99,
+    "imgUrl": "/images/products/computer.jpg"
   }
 ]

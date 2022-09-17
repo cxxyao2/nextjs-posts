@@ -10,6 +10,7 @@ import { appWithTranslation } from 'next-i18next'
 import NavBar from '../components/nav-bar'
 import { ShoppingCardProvider } from '../context/ShoppingCartContext'
 import Footer from '../components/footer'
+import SideBar from '../components/sidebar'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -17,9 +18,10 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ThemeProvider attribute='class'>
         <Provider store={store}>
           <ShoppingCardProvider>
-            <div className='w-full h-screen overflow-hidden relative'>
+            <div className='w-full h-screen  relative overflow-hidden'>
               <NavBar />
-              <main className='container mt-16 mx-auto p-2 overflow-auto '>
+              <SideBar />
+              <main className='container h-full mt-16 mx-auto '>
                 <Component {...pageProps} />
               </main>
               <Footer />

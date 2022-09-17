@@ -7,7 +7,7 @@ type Props = {
 
 const Post = ({ post }: Props) => {
   return (
-    <div className='p-4 rounded-lg shadow-md shadow-cyan-200/50'>
+    <div className='p-4 rounded-lg shadow-md shadow-cyan-200/50 '>
       <Image
         className='rounded-md'
         src={post.frontmatter.cover_image}

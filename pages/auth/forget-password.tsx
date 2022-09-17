@@ -45,6 +45,7 @@ const ForgetPassword = () => {
       console.log('error is', error)
     }
   }
+
   return (
     <section className='m-auto  max-w-md rounded-md bg-white  shadow-gray-200 shadow-xl p-4'>
       <form onSubmit={sentResetPasswordRequest}>
@@ -71,7 +72,7 @@ const ForgetPassword = () => {
             />
             <button
               type='submit'
-              className='cursor-pointer px-2 py-1 rounded-md text-white bg-indigo-600 outline-none focus:outline  focus:outline-indigo-200 '>
+              className='cursor-pointer text-white bg-indigo-600 outline outline-offset-2 outline-indigo-200 border-solid'>
               Submit
             </button>
           </div>

@@ -6,7 +6,6 @@ import matter from 'gray-matter'
 import Post from '../components/post'
 import { sortByDate } from '../utils'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import SideBar from '../components/sidebar'
 
 interface PostListProps {
   posts: {
@@ -15,7 +14,6 @@ interface PostListProps {
 }
 
 const Home = ({ posts }: PostListProps) => {
-  const isSideBar = false
   return (
     <>
       <Head>
@@ -26,17 +24,15 @@ const Home = ({ posts }: PostListProps) => {
         />
       </Head>
 
-      {isSideBar ? (
-        <SideBar />
-      ) : (
-        <div className='grid grid-cols-1 gap-8  md:grid-cols-2'>
+      <div className='m-auto h-2/3 overflow-auto'>
+        <div className='grid grid-cols-1 gap-8  md:grid-cols-2 p-2'>
           {posts.map((post: { [key: string]: any }) => (
             <Post
               post={post}
               key={post.frontmatter.date}></Post>
           ))}
         </div>
-      )}
+      </div>
     </>
   )
 }
