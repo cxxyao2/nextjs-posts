@@ -15,6 +15,6 @@
   }
 
   .postbody-pre {
-    @apply bg-slate-200 py-5 my-5 mx-0 leading-8;
+    @apply py-5 my-5 mx-0 leading-8;
   }
 }

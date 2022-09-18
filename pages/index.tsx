@@ -6,14 +6,32 @@ import matter from 'gray-matter'
 import Post from '../components/post'
 import { sortByDate } from '../utils'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import Paginator from '../components/paginator'
+import PagesManifestPlugin from 'next/dist/build/webpack/plugins/pages-manifest-plugin'
+import { useEffect, useState } from 'react'
 
 interface PostListProps {
-  posts: {
-    [key: string]: any
-  }
+  posts: Array<any>
 }
 
 const Home = ({ posts }: PostListProps) => {
+  const [current, setCurrent] = useState(1)
+  const [itemNumber, setItemNumber] = useState(5)
+  const [displayedPosts, setDisplayedPosts] = useState(posts.slice(0, 5))
+  const handlePageChanged = (
+    currentPage: number,
+    itemNumberPerPage: number
+  ) => {
+    setCurrent(currentPage)
+    setItemNumber(itemNumberPerPage)
+  }
+
+  useEffect(() => {
+    setDisplayedPosts(
+      posts.slice((current - 1) * itemNumber, current * itemNumber)
+    )
+  }, [current, itemNumber])
+
   return (
     <>
       <Head>
@@ -25,8 +43,14 @@ const Home = ({ posts }: PostListProps) => {
       </Head>
 
       <div className='m-auto h-full overflow-auto'>
+        <Paginator
+          itemCount={posts?.length}
+          pageChanged={(currentPage, itemNumberPerPage) =>
+            handlePageChanged(currentPage, itemNumberPerPage)
+          }
+          className='mt-2'></Paginator>
         <div className='grid grid-cols-1 gap-8  md:grid-cols-2 p-2'>
-          {posts.map((post: { [key: string]: any }) => (
+          {displayedPosts.map((post: { [key: string]: any }) => (
             <Post
               post={post}
               key={post.frontmatter.date}></Post>

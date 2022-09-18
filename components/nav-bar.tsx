@@ -68,7 +68,7 @@ const NavBar = () => {
           <Link href='/'>
             <a className='flex flex-row items-center'>
               <Bars3Icon
-                className='w-8 h-8 text-gray-500 md:invisible'
+                className='w-8 h-8 text-gray-500 md:hidden'
                 onClick={() => {
                   setIsVisibleSideBar(true)
                 }}></Bars3Icon>
