@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             <div className='w-full h-screen  relative overflow-hidden'>
               <NavBar />
               <SideBar />
-              <main className='container h-full mt-16 mx-auto '>
+              <main className='container h-[calc(100vh_-_4rem)] mt-16 mx-auto '>
                 <Component {...pageProps} />
               </main>
               <Footer />

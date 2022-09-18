@@ -24,7 +24,7 @@ const Home = ({ posts }: PostListProps) => {
         />
       </Head>
 
-      <div className='m-auto h-2/3 overflow-auto'>
+      <div className='m-auto h-full overflow-auto'>
         <div className='grid grid-cols-1 gap-8  md:grid-cols-2 p-2'>
           {posts.map((post: { [key: string]: any }) => (
             <Post
