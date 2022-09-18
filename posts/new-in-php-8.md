@@ -1,5 +1,5 @@
 ---
-title: "What's New In PHP 8?"
+title: "What's New In PHP 8.1?"
 date: 'March 7, 2021'
 excerpt: 'In this article we will look at some of the new features offered in version 8 of PHP'
 cover_image: '/images/posts/img4.jpg'

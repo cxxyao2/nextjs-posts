@@ -85,7 +85,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
       frontmatter,
       slug,
       content
-    }
+    },
+    revalidate: 10
   }
 }
 

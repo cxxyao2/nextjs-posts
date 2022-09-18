@@ -2,7 +2,12 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useShoppingCart } from '../context/ShoppingCartContext'
 import { ShoppingCartIcon } from '@heroicons/react/24/solid'
-import { SunIcon, MoonIcon, Bars3Icon } from '@heroicons/react/24/outline'
+import {
+  SunIcon,
+  MoonIcon,
+  Bars3Icon,
+  MagnifyingGlassCircleIcon
+} from '@heroicons/react/24/outline'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import SvgComponent from './svgtest'
@@ -88,6 +93,11 @@ const NavBar = () => {
           <Link href='/store'>
             <a className={ancoreStyle('/store')}>Store</a>
           </Link>
+
+          <Link href='/search'>
+            <MagnifyingGlassCircleIcon className='inline-flex w-8 h-8 text-indigo-500  hover:text-indigo-400' />
+          </Link>
+
           {cartQuantity > 0 && (
             <Link href='/cart'>
               <button
