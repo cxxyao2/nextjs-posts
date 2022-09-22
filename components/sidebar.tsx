@@ -24,7 +24,7 @@ const SideBar = () => {
         x
       </button>
       <div
-        className={`z-20 fixed top-0  left-0 bg-white text-gray-900 p-5 text-sm
+        className={`z-20 absolute top-0  left-0 bg-white text-gray-900 p-5 text-sm
       border-r border-gray-400 w-1/2 md:max-w-sm h-full overflow-y-auto
        ${
          isVisibleSideBar ? 'translate-x-0' : '-translate-x-full'

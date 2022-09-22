@@ -6,16 +6,15 @@ import {
   SunIcon,
   MoonIcon,
   Bars3Icon,
-  MagnifyingGlassCircleIcon
+  MagnifyingGlassIcon
 } from '@heroicons/react/24/outline'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
-import SvgComponent from './svgtest'
+import SvgNozzleComponent from './svg-nozzle'
 import LoginButton from './login-btn'
 
 const NavBar = () => {
-  const { openCart, cartQuantity, isVisibleSideBar, setIsVisibleSideBar } =
-    useShoppingCart()
+  const { openCart, cartQuantity, setIsVisibleSideBar } = useShoppingCart()
   const router = useRouter()
   const { systemTheme, theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
@@ -44,19 +43,20 @@ const NavBar = () => {
     const currentTheme = theme === 'system' ? systemTheme : theme
     if (currentTheme === 'dark') {
       return (
-        <SunIcon
-          className='w-6 h-6 self-center  dark:text-gray-200 text-gray-600'
-          onClick={() => setTheme('light')}></SunIcon>
+        <button onClick={() => setTheme('light')}>
+          <SunIcon className='w-6 h-6 self-center rounded-full  dark:text-gray-200 text-gray-600'></SunIcon>
+        </button>
       )
     }
 
     return (
-      <MoonIcon
-        className='w-6 h-6 self-center rounded-full text-gray-600 hover:shadow hover:shadow-indigo-400'
+      <button
         onClick={() => {
           console.log('click light')
           setTheme('dark')
-        }}></MoonIcon>
+        }}>
+        <MoonIcon className='w-6 h-6 self-center rounded-full text-gray-600 hover:shadow hover:shadow-indigo-400'></MoonIcon>
+      </button>
     )
   }
 
@@ -67,58 +67,62 @@ const NavBar = () => {
   }
 
   return (
-    <div>
-      <nav className='w-full fixed top-0 z-10 h-14 px-4 t text-sm dark:bg-black bg-white flex  flex-row justify-between items-center mb-3 shadow-sm shadow-neutral-300'>
-        <div>
-          <Link href='/'>
-            <a className='flex flex-row items-center'>
-              <Bars3Icon
-                className='w-8 h-8 text-gray-500 md:hidden'
-                onClick={() => {
-                  setIsVisibleSideBar(true)
-                }}></Bars3Icon>
-              <SvgComponent
-                fill='rgb(129 140 248)'
-                className='w-10 h-10 rounded-md  hover:shadow-md hover:shadow-gray-300'></SvgComponent>
-              <span className='inline'>Excel Gas</span>
-            </a>
-          </Link>
-        </div>
-
-        <div className='justify-between items-center space-x-4'>
-          <Link href='/about'>
-            <a className={ancoreStyle('/about')}>About</a>
-          </Link>
-
-          <Link href='/store'>
-            <a className={ancoreStyle('/store')}>Store</a>
-          </Link>
-
-          <Link href='/search'>
-            <MagnifyingGlassCircleIcon className='inline-flex w-8 h-8 text-indigo-500  hover:text-indigo-400' />
-          </Link>
-
-          {cartQuantity > 0 && (
-            <Link href='/cart'>
-              <button
-                className='w-12 h-12 p-2 border rounded-full shadow-sm shadow-gray-400 text-indigo-400  relative'
-                onClick={openCart}>
-                <ShoppingCartIcon className='text-indigo-400 hover:text-indigo-300' />
-                <div className='absolute bottom-0 right-0 rounded-full translate-x-1 translate-y-1 bg-red-600 text-white  flex justify-center items-center w-6 h-6'>
-                  {cartQuantity}
-                </div>
-              </button>
+    <header className='sticky top-0 z-10  dark:bg-black bg-white border-b border-slate-200 '>
+      <div className='px-4 md:px-6 lg:px-8'>
+        <nav className='h-14 md:h-16  -mb-px  text-sm  flex  flex-row justify-between items-center '>
+          <div>
+            <Link href='/'>
+              <a className='flex flex-row items-center'>
+                <Bars3Icon
+                  className='w-6 h-6 text-gray-500 md:hidden'
+                  onClick={() => {
+                    setIsVisibleSideBar(true)
+                  }}></Bars3Icon>
+                <SvgNozzleComponent
+                  fill='rgb(129 140 248)'
+                  className='w-10 h-10 rounded-md  hover:shadow-md hover:shadow-gray-300'></SvgNozzleComponent>
+                <span className='inline'>Excel Gas</span>
+              </a>
             </Link>
-          )}
-
-          <LoginButton className='p-2 rounded-md hover:bg-indigo-400 hover:text-white' />
-          <div className='hidden md:inline-flex md:flex-row'>
-            {handleLocaleChange()}
-            {handleThemeChange()}
           </div>
-        </div>
-      </nav>
-    </div>
+
+          <div className='justify-between items-center space-x-4'>
+            <Link href='/about'>
+              <a className={ancoreStyle('/about')}>About</a>
+            </Link>
+
+            <Link href='/store'>
+              <a className={ancoreStyle('/store')}>Store</a>
+            </Link>
+
+            <Link href='/search'>
+              <a>
+                <MagnifyingGlassIcon className='inline-flex w-8 h-8 text-indigo-500  hover:text-indigo-400' />
+              </a>
+            </Link>
+
+            {cartQuantity > 0 && (
+              <Link href='/cart'>
+                <button
+                  className='w-12 h-12 p-2 border rounded-full shadow-sm shadow-gray-400 text-indigo-400  relative'
+                  onClick={openCart}>
+                  <ShoppingCartIcon className='text-indigo-400 hover:text-indigo-300' />
+                  <div className='absolute bottom-0 right-0 rounded-full translate-x-1 translate-y-1 bg-red-600 text-white  flex justify-center items-center w-6 h-6'>
+                    {cartQuantity}
+                  </div>
+                </button>
+              </Link>
+            )}
+
+            <div className='hidden md:inline-flex md:flex-row'>
+              {handleLocaleChange()}
+              {handleThemeChange()}
+            </div>
+            <LoginButton className='p-2 rounded-md hover:bg-indigo-400 hover:text-white' />
+          </div>
+        </nav>
+      </div>
+    </header>
   )
 }
 

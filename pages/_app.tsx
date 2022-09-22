@@ -18,13 +18,17 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ThemeProvider attribute='class'>
         <Provider store={store}>
           <ShoppingCardProvider>
-            <div className='w-full h-screen  relative overflow-hidden'>
-              <NavBar />
-              <SideBar />
-              <main className='container h-[calc(100vh_-_4rem)] mt-16 mx-auto overflow-auto'>
-                <Component {...pageProps} />
-              </main>
-              <Footer />
+            <div className='flex h-screen  relative overflow-hidden'>
+              <div className='relative flex flex-col flex-1 overflow-x-hidden overflow-y-auto'>
+                <NavBar />
+                <SideBar />
+                <main>
+                  <div className='px-4 sm:px-6 lg:px-8 py-8 w-full mx-auto max-w-9xl'>
+                    <Component {...pageProps} />
+                  </div>
+                </main>
+                <Footer />
+              </div>
             </div>
           </ShoppingCardProvider>
         </Provider>

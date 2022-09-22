@@ -8,11 +8,13 @@ const LoginButton = ({ className }: LoginButtonProps) => {
   if (session) {
     return (
       <>
-        <button
-          className={className}
-          onClick={() => signOut()}>
-          <span className='mr-2'>{session?.user?.name}</span>Sign out
-        </button>
+        <div className={' relative '.concat(className)}>
+          <span>{session?.user?.name}</span>
+          <div className='absolute top-0 left-0 bg-white'>
+            <div onClick={() => signOut()}>Sign Out</div>
+            <div>Personal Setting TODO </div>
+          </div>
+        </div>
       </>
     )
   }

@@ -4,7 +4,7 @@ type SvgProps = {
   className: string
 }
 
-function SvgComponent({ fill, className }: SvgProps) {
+function SvgNozzleComponent({ fill, className }: SvgProps) {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -21,4 +21,4 @@ function SvgComponent({ fill, className }: SvgProps) {
   )
 }
 
-export default SvgComponent
+export default SvgNozzleComponent

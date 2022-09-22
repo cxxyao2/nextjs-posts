@@ -42,7 +42,7 @@ const Home = ({ posts }: PostListProps) => {
         />
       </Head>
 
-      <div className='mx-auto'>
+      <div>
         <Paginator
           itemCount={posts?.length}
           pageChanged={(currentPage, itemNumberPerPage) =>
