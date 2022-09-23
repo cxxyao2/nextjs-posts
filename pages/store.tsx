@@ -5,8 +5,8 @@ import storeItems from '../data/items.json'
 const Store: NextPage = () => {
   return (
     <>
-      <div>pagination</div>
-      <div className='flex flex-row flex-wrap  justify-between items-center gap-6'>
+      <div>todo - pagination</div>
+      <div className='grid grid-cols-12 gap-6'>
         {storeItems.map((item) => (
           <StoreItem
             {...item}
@@ -14,7 +14,7 @@ const Store: NextPage = () => {
           />
         ))}
       </div>
-      <div>pagination</div>
+      <div>todo - pagination</div>
     </>
   )
 }

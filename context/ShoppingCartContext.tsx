@@ -40,9 +40,6 @@ export function ShoppingCardProvider({ children }: ShoppingCartProviderProps) {
 
   const [cartItems, setCartItems] = useState<CartItem[]>([])
 
-  useEffect(() => {
-    console.log('change1 , now is ', isVisibleSideBar)
-  }, [isVisibleSideBar])
   // localStorage object doesnot exist in server side
   // const [cartItems, setCartItems] = useLocalStorage<CartItem[]>(
   //   'shopping-cart',

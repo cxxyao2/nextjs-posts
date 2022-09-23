@@ -26,14 +26,16 @@ const StoreItem = ({ id, name, price, imgUrl }: StoreItemProps) => {
   }, [])
 
   return (
-    <div className='bg-white rounded-sm    flex flex-col justify-start items-center  min-w-[200px] drop-shadow-[0_5px_5px_rgba(0,0,0,0.25)]'>
-      <div className='relative w-full overflow-hidden rounded-sm'>
+    <div
+      className='col-span-full sm:col-span-6 md:col-span-4  bg-white shadow-lg rounded-sm border border-slate-200
+     drop-shadow-[0_2px_2px_rgba(0,0,0,0.25)]'>
+      <div className='relative block mx-auto w-4/5 sm:w-full overflow-hidden rounded-sm'>
         <Image
           src={imgUrl}
           alt={name}
-          width={200}
-          height={180}
-          objectFit='cover'
+          width={180}
+          height={135}
+          layout='responsive'
           priority={true}
         />
       </div>

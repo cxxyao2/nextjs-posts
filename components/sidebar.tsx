@@ -6,7 +6,8 @@ import {
   HeartIcon,
   RadioIcon,
   ArrowDownIcon,
-  ArrowRightIcon
+  ArrowRightIcon,
+  ChevronDownIcon
 } from '@heroicons/react/24/outline'
 import { useSession, signOut } from 'next-auth/react'
 import { useShoppingCart } from '../context/ShoppingCartContext'
@@ -60,7 +61,7 @@ const SideBar = () => {
                 <div>Search </div>
               </button>
               <a onClick={() => setIsExpanded((prev) => !prev)}>
-                <ArrowDownIcon
+                <ChevronDownIcon
                   className={`w-4 h-4 shrink-0 text-gray-800 translation duration-150 ${
                     isExpanded ? 'rotate-180' : ''
                   }`}
