@@ -1,7 +1,11 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import SearchItem from '../components/search-item'
+import { useState } from 'react'
+import SearchClient from '../components/search-client'
+import SearchService from '../components/search-service'
 
 const SearchPage = () => {
+  const [tab, setTab] = useState(1)
   return (
     <>
       <div className='bg-white  p-4 rounded-sm dark:bg-slate-200'>
@@ -25,6 +29,8 @@ const SearchPage = () => {
             <ul className='flex flex-row text-white font-semifold justify-center items-center space-x-8 mx-auto'>
               <ol>
                 <a
+                  onFocus={() => setTab(1)}
+                  onClick={() => setTab(1)}
                   tabIndex={3}
                   href='#'
                   className='outline-none border-b-2 pb-1 border-indigo-400 focus:border-gray-100  transition-colors duration-300 cursor-pointer'>
@@ -33,6 +39,8 @@ const SearchPage = () => {
               </ol>
               <ol>
                 <a
+                  onFocus={() => setTab(2)}
+                  onClick={() => setTab(2)}
                   tabIndex={4}
                   className='outline-none  border-b-2 pb-1 border-indigo-400 focus:border-gray-100 transform transition-colors duration-300 cursor-pointer'>
                   Client{' '}
@@ -40,8 +48,10 @@ const SearchPage = () => {
               </ol>
               <ol>
                 <a
+                  onFocus={() => setTab(3)}
+                  onClick={() => setTab(3)}
                   tabIndex={5}
-                  className='ouline-none border-b-2 pb-1 border-indigo-400 focus:border-gray-100 transform transition-colors duration-300 cursor-pointer'>
+                  className='outline-none border-b-2 pb-1 border-indigo-400 focus:border-gray-100 transform transition-colors duration-300 cursor-pointer'>
                   Service{' '}
                 </a>
               </ol>
@@ -50,12 +60,26 @@ const SearchPage = () => {
         </div>
 
         <section id='searched'>
-          <h2 className='font-semibold text-lg'>Results</h2>
+          <h2 className='font-semibold text-lg text-slate-600'>Results</h2>
           <div className='grid grid-cols-12 gap-6'>
-            <SearchItem></SearchItem>
-            <SearchItem></SearchItem>
-            <SearchItem></SearchItem>
-            <SearchItem></SearchItem>
+            {tab === 1 && (
+              <>
+                <SearchItem></SearchItem>
+                <SearchItem></SearchItem>
+                <SearchItem></SearchItem>
+                <SearchItem></SearchItem>
+              </>
+            )}
+            {tab === 2 && <SearchClient />}
+            {tab === 3 && (
+              <>
+                <SearchService />
+                <SearchService />
+                <SearchService />
+                <SearchService />
+                <SearchService />
+              </>
+            )}
           </div>
         </section>
       </div>

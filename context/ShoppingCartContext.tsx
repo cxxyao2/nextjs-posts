@@ -3,6 +3,7 @@ import {
   Dispatch,
   SetStateAction,
   useContext,
+  useEffect,
   useState
 } from 'react'
 
@@ -39,6 +40,9 @@ export function ShoppingCardProvider({ children }: ShoppingCartProviderProps) {
 
   const [cartItems, setCartItems] = useState<CartItem[]>([])
 
+  useEffect(() => {
+    console.log('change1 , now is ', isVisibleSideBar)
+  }, [isVisibleSideBar])
   // localStorage object doesnot exist in server side
   // const [cartItems, setCartItems] = useLocalStorage<CartItem[]>(
   //   'shopping-cart',
@@ -51,7 +55,7 @@ export function ShoppingCardProvider({ children }: ShoppingCartProviderProps) {
   )
 
   const openCart = () => setIsOpen(true)
-  const closeCart = () => setIsOpen(false)
+  const closeCart = () => setIsOpen(true)
 
   function getItemQuantity(id: number) {
     return cartItems.find((item) => item.id === id)?.quantity || 0
