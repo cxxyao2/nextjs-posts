@@ -19,7 +19,7 @@ const Post = ({ post }: Props) => {
       <div className='bg-gray-100 mb-5 py-1 px-2'>
         Posted on {post.frontmatter.date}
       </div>
-      <h3>{post.frontmatter.title}</h3>
+      <h3>{post.frontmatter.name}</h3>
       <p className='mb-2'>{post.frontmatter.excerpt}</p>
       <Link href={`/blog/${post.slug}`}>
         <a className='inline bg-indigo-400 text-white   py-1 px-4 rounded-md cursor-pointer no-underline text-sm hover:shadow'>

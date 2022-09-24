@@ -1,52 +1,57 @@
 // todo
+import {
+  ChevronDoubleRightIcon,
+  MagnifyingGlassIcon,
+  MagnifyingGlassMinusIcon,
+  MagnifyingGlassPlusIcon,
+  PlusIcon
+} from '@heroicons/react/24/outline'
 import { NextPage } from 'next'
-import { useEffect } from 'react'
+import { useState } from 'react'
+import Button from '../components/button'
 import CartItem from '../components/cart-item'
-import { BACKEND_URL } from '../data/constants'
-import { ICartItem } from '../models/cart-item'
+import { useShoppingCart } from '../context/ShoppingCartContext'
+import { Customer } from '../models/customer'
+import { formatCurrency } from '../utils/formatCurrency'
 
 const Cart: NextPage = () => {
-  const items: Array<ICartItem> = [
-    {
-      image: '/images/products/gas1.jpg',
-      title: 'gas1',
-      price: 12,
-      quantity: 12
-    },
-    {
-      image: '/images/products/gas2.jpg',
-      title: 'gas2',
-      price: 13,
-      quantity: 13
-    }
-  ]
-  // const getProducts = async () => {
-  //   try {
-  //     const backendUrl = BACKEND_URL.concat('products')
-  //     const res = await fetch(backendUrl, {
-  //       method: 'GET',
-  //       headers: {
-  //         'Content-type': 'application/json'
-  //       }
-  //     })
-  //     const products = await res.json()
-  //     console.log('products', products)
-  //   } catch (error) {
-  //     console.log('error is', error)
-  //   }
-  // }
-  // useEffect(() => {
-  //   getProducts()
-  // }, [])
+  const { cartItems: items, cartAmount } = useShoppingCart()
+  const [customer, setCustomer] = useState({} as Customer)
 
   return (
-    <div>
-      {items.map((item) => (
-        <CartItem
-          item={item}
-          key={item.title}></CartItem>
-      ))}
-    </div>
+    <>
+      <div className='mb-2 flex justify-start items-center space-x-4 pb-1 border-b border-indigo-200'>
+        <span>Customer Name:</span>
+        <span className='bg-white px-4 py-2 text-sm font-semibold rounded-sm text-gray-600'>
+          {customer.id ? customer.name : 'Select a customer'}
+        </span>
+        <Button
+          aria-role='search'
+          className=''
+          onClick={() => {}}>
+          <PlusIcon className='w-6 h-6 text-white' />
+        </Button>
+      </div>
+      <div className='divide-y divide-slate-400 dark:divide-indigo-400 bg-white dark:bg-slate-200'>
+        {items.map((item) => (
+          <CartItem
+            item={item}
+            key={item.name}></CartItem>
+        ))}
+      </div>
+      <div className='flex justify-between items-baseline mt-3'>
+        <div>
+          Total:{' '}
+          <span className='ml-2 font-semibold'>
+            {formatCurrency(cartAmount)}
+          </span>
+        </div>
+        <div className='ring-2 ring-orange-300 rounded-sm'>
+          Check Out{' '}
+          <ChevronDoubleRightIcon className='inline wl-2 w-6 h-6 text-gray-600' />
+        </div>
+      </div>
+    </>
   )
 }
 

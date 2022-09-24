@@ -1,5 +1,5 @@
 ---
-title: 'Tailwind vs. Bootstrap'
+name: 'Tailwind vs. Bootstrap'
 date: 'March 15, 2021'
 excerpt: 'Both Tailwind and Bootstrap are very popular CSS frameworks. In this article, we will compare them'
 cover_image: '/images/posts/img2.jpg'

@@ -1,13 +1,13 @@
 type ButtonProps = {
   isPrimary?: boolean
-  addedClasses: string
+  className: string
   onClick: () => void
   children: React.ReactNode
 }
 
 const Button = ({
   isPrimary = true,
-  addedClasses,
+  className: addedClasses,
   onClick,
   children
 }: ButtonProps) => {

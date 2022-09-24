@@ -21,10 +21,10 @@ const customStyles = {
 
 const SearchItem = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
-  let subtitle: any
+  let subname: any
 
   const afterOpen = () => {
-    subtitle.style.color = '#f00'
+    subname.style.color = '#f00'
   }
   const closeModal = () => {
     setModalIsOpen(false)
@@ -76,7 +76,7 @@ const SearchItem = () => {
         onRequestClose={closeModal}
         contentLabel='Example Modal'>
         <div className='flex justify-between p-1 items-center'>
-          <div ref={(_subtitle) => (subtitle = _subtitle)}>
+          <div ref={(_subname) => (subname = _subname)}>
             Product Description
           </div>
           <button

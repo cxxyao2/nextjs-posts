@@ -1,20 +1,16 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { useShoppingCart } from '../context/ShoppingCartContext'
+import IProduct from '../models/product'
 import { formatCurrency } from '../utils/formatCurrency'
 import Button from './button'
 
-type StoreItemProps = {
-  id: number
-  name: string
-  price: number
-  imgUrl: string
-}
-
-const StoreItem = ({ id, name, price, imgUrl }: StoreItemProps) => {
+const StoreItem = (props: IProduct) => {
+  const { id, name, price, imageUrl } = props
   const {
     getItemQuantity,
     increaseItemQuantity,
+
     decreaseItemQuantity,
     removeFromCart
   } = useShoppingCart()
@@ -31,7 +27,7 @@ const StoreItem = ({ id, name, price, imgUrl }: StoreItemProps) => {
      drop-shadow-[0_2px_2px_rgba(0,0,0,0.25)]'>
       <div className='relative block mx-auto w-4/5 sm:w-full overflow-hidden rounded-sm'>
         <Image
-          src={imgUrl}
+          src={imageUrl}
           alt={name}
           width={180}
           height={135}
@@ -47,15 +43,15 @@ const StoreItem = ({ id, name, price, imgUrl }: StoreItemProps) => {
       <div className='mt-auto w-full p-2'>
         {quantity === 0 ? (
           <Button
-            addedClasses=' w-full '
-            onClick={() => increaseItemQuantity(id)}>
+            className=' w-full '
+            onClick={() => increaseItemQuantity(props)}>
             + Add to Cart
           </Button>
         ) : (
           <div className='flex flex-col justify-center items-center gap-2'>
             <div className='flex justify-center items-center gap-2'>
               <Button
-                addedClasses='!px-3'
+                className='!px-3'
                 onClick={() => decreaseItemQuantity(id)}>
                 -
               </Button>
@@ -63,13 +59,13 @@ const StoreItem = ({ id, name, price, imgUrl }: StoreItemProps) => {
                 <span className='text-sm'> {quantity} in cart</span>
               </div>
               <Button
-                addedClasses='!px-3'
-                onClick={() => increaseItemQuantity(id)}>
+                className='!px-3'
+                onClick={() => increaseItemQuantity(props)}>
                 +
               </Button>
             </div>
             <Button
-              addedClasses='!bg-red-400'
+              className='!bg-red-400'
               onClick={() => removeFromCart(id)}>
               Remove
             </Button>

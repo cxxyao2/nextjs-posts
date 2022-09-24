@@ -7,7 +7,6 @@ import Post from '../components/post'
 import { sortByDate } from '../utils'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Paginator from '../components/paginator'
-import PagesManifestPlugin from 'next/dist/build/webpack/plugins/pages-manifest-plugin'
 import { useEffect, useState } from 'react'
 
 interface PostListProps {

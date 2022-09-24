@@ -35,7 +35,7 @@ const Audience = () => {
   if (aa) return null
 
   return (
-    <div className='bg-white flex flex-col col-span-full sm:col-span-6 xl:col-span-4 shadow-lg rounded-sm border border-slate-200'>
+    <div className='bg-white flex flex-col col-span-full md:col-span-6 xl:col-span-4 shadow-lg rounded-sm border border-slate-200'>
       <div className='px-5 pt-5'>
         <header className='flex justify-between items-start mb-2'>
           <PaperAirplaneIcon className='w-8 h-8 text-indigo-400 stroke-1 fill-indigo-300' />
