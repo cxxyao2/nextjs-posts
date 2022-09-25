@@ -97,10 +97,10 @@ const Cart: NextPage = () => {
             {formatCurrency(cartAmount)}
           </span>
         </div>
-        <div className='ring-2 ring-orange-300 rounded-sm'>
+        <button className='ring-2 ring-orange-300 rounded-sm'>
           Check Out{' '}
           <ChevronDoubleRightIcon className='inline wl-2 w-6 h-6 text-gray-600' />
-        </div>
+        </button>
       </div>
       <Modal
         isOpen={modalIsOpen}
@@ -125,7 +125,9 @@ const Cart: NextPage = () => {
           </div>
           <ul className='overflow-y-auto h-52 divide-y-2 divide-gray-200'>
             {validCustomers.map((item) => (
-              <li className=' flex justify-between p-2 gap-6 '>
+              <li
+                key={item.id}
+                className=' flex justify-between p-2 gap-6 '>
                 <Image
                   src='/avatar/duck.jpg'
                   width={50}
