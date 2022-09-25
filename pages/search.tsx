@@ -31,9 +31,9 @@ const SearchPage = () => {
                 <a
                   onFocus={() => setTab(1)}
                   onClick={() => setTab(1)}
-                  tabIndex={3}
                   href='#'
-                  className='outline-none border-b-2 pb-1 border-indigo-400 focus:border-gray-100  transition-colors duration-300 cursor-pointer'>
+                  tabIndex={3}
+                  className='outline-none pb-1 focus:border-b-2  focus:border-gray-200   transition-colors duration-300 cursor-pointer'>
                   Product{' '}
                 </a>
               </ol>
@@ -42,7 +42,7 @@ const SearchPage = () => {
                   onFocus={() => setTab(2)}
                   onClick={() => setTab(2)}
                   tabIndex={4}
-                  className='outline-none  border-b-2 pb-1 border-indigo-400 focus:border-gray-100 transform transition-colors duration-300 cursor-pointer'>
+                  className='outline-none pb-1 focus:border-b-2  focus:border-gray-200  transform transition-colors duration-300 cursor-pointer'>
                   Client{' '}
                 </a>
               </ol>
@@ -51,7 +51,7 @@ const SearchPage = () => {
                   onFocus={() => setTab(3)}
                   onClick={() => setTab(3)}
                   tabIndex={5}
-                  className='outline-none border-b-2 pb-1 border-indigo-400 focus:border-gray-100 transform transition-colors duration-300 cursor-pointer'>
+                  className='outline-none pb-1 focus:border-b-2  focus:border-gray-200 transform transition-colors duration-300 cursor-pointer'>
                   Service{' '}
                 </a>
               </ol>

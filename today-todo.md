@@ -73,3 +73,7 @@ small screen: only search incon
 - nextjs amd and other.
 
 ## 2022.09.24 other.
+
+- debounce. search bar.
+
+  https://dmitripavlutin.com/react-throttle-debounce/
