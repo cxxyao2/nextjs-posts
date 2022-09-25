@@ -72,7 +72,9 @@ small screen: only search incon
 
 - nextjs amd and other.
 
-## 2022.09.24 other.
+## 2022.09.25
+
+- modal selection
 
 - debounce. search bar.
 

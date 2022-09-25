@@ -9,12 +9,14 @@ import {
 import useSWR from 'swr'
 import { BACKEND_URL } from '../data/constants'
 import ICartItem from '../models/cart-item'
+import { Customer } from '../models/customer'
 import IProduct from '../models/product'
 
 type ShoppingCardContextType = {
   openCart: () => void
   closeCart: () => void
   downloadProductList: () => void
+  downloadCustomerList: () => void
   getItemQuantity: (id: string) => number
   increaseItemQuantity: (item: IProduct | ICartItem) => void
   decreaseItemQuantity: (id: string) => void
@@ -22,6 +24,7 @@ type ShoppingCardContextType = {
   cartQuantity: number
   cartAmount: number
   cartItems: ICartItem[]
+  customers: Customer[]
   isVisibleSideBar: boolean
   setIsVisibleSideBar: Dispatch<SetStateAction<boolean>>
   products: IProduct[]
@@ -42,6 +45,7 @@ export function ShoppingCardProvider({ children }: ShoppingCartProviderProps) {
 
   const [cartItems, setCartItems] = useState<ICartItem[]>([])
   const [products, setProducts] = useState<IProduct[]>([])
+  const [customers, setCustomers] = useState<Customer[]>([])
 
   // localStorage object doesnot exist in server side
   // const [cartItems, setCartItems] = useLocalStorage<CartItem[]>(
@@ -77,6 +81,27 @@ export function ShoppingCardProvider({ children }: ShoppingCartProviderProps) {
           ...item,
           id: item._id,
           imageUrl: '/' + item.imageUrl + '.jpg'
+        }))
+      )
+    } catch (error) {
+      console.log('error is', JSON.stringify(error))
+    }
+  }
+
+  const downloadCustomerList = async () => {
+    try {
+      const response = await fetch(`${BACKEND_URL}customers`, {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json'
+        }
+      })
+      const data = await response.json()
+      console.log('customers is', data)
+      setCustomers(
+        data.map((item: any) => ({
+          ...item,
+          id: item._id
         }))
       )
     } catch (error) {
@@ -148,7 +173,9 @@ export function ShoppingCardProvider({ children }: ShoppingCartProviderProps) {
         isVisibleSideBar,
         setIsVisibleSideBar,
         downloadProductList,
-        products
+        downloadCustomerList,
+        products,
+        customers
       }}>
       {children}
     </ShoppingCardContext.Provider>

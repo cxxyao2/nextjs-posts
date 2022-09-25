@@ -14,8 +14,13 @@ import SvgNozzleComponent from './svg-nozzle'
 import LoginButton from './login-btn'
 
 const NavBar = () => {
-  const { openCart, cartQuantity, setIsVisibleSideBar, downloadProductList } =
-    useShoppingCart()
+  const {
+    openCart,
+    cartQuantity,
+    setIsVisibleSideBar,
+    downloadProductList,
+    downloadCustomerList
+  } = useShoppingCart()
   const router = useRouter()
   const { systemTheme, theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
@@ -24,6 +29,7 @@ const NavBar = () => {
   useEffect(() => {
     setMounted(true)
     downloadProductList()
+    downloadCustomerList()
   }, [])
 
   const handleLocaleChange = () => {

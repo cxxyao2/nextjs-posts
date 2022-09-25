@@ -56,7 +56,10 @@ const StoreItem = (props: IProduct) => {
                 -
               </Button>
               <div>
-                <span className='text-sm'> {quantity} in cart</span>
+                <span className='text-sm dark:text-gray-700'>
+                  {' '}
+                  {quantity} in cart
+                </span>
               </div>
               <Button
                 className='!px-3'
