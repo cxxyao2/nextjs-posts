@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useShoppingCart } from '../context/ShoppingCartContext'
+import { useShoppingCart } from '../context/shoppingcart-context'
 import { ShoppingCartIcon } from '@heroicons/react/24/solid'
 import {
   SunIcon,

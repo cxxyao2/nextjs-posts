@@ -51,7 +51,9 @@ const Paginator = ({
             })
           }}
           className={`${
-            currentPage <= 1 ? 'text-gray-400' : 'text-gray-700'
+            currentPage <= 1
+              ? 'text-gray-400 dark:text-gray-700 '
+              : 'text-gray-700 dark:text-gray-400 '
           } w-6 h-6 mr-2`}
         />
 
@@ -66,7 +68,9 @@ const Paginator = ({
             })
           }}
           className={`${
-            currentPage >= totalPage ? 'text-gray-400' : 'text-gray-700'
+            currentPage >= totalPage
+              ? 'text-gray-400 dark:text-gray-700 '
+              : 'text-gray-700 dark:text-gray-400'
           } w-6 h-6`}
         />
       </div>

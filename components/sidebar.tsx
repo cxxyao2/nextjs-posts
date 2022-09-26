@@ -10,7 +10,7 @@ import {
   ChevronDownIcon
 } from '@heroicons/react/24/outline'
 import { useSession, signOut } from 'next-auth/react'
-import { useShoppingCart } from '../context/ShoppingCartContext'
+import { useShoppingCart } from '../context/shoppingcart-context'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 

@@ -1,11 +1,15 @@
 import Chart from '../components/chart'
-import DashBoardDatePicker from '../components/dashboard-datepicker'
 import LatestNews from '../components/latest-news'
-import DashBoardColumnGraph from '../components/bar-graph'
+import Meta from '../components/meta'
 
 const DashBoard = () => {
   return (
     <>
+      <Meta
+        title='Dashboard'
+        keywords='Metrics'
+        description='Conversion, sales, profit, market share...'
+      />
       <LatestNews />
       <Chart />
     </>
