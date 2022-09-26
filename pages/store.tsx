@@ -3,11 +3,13 @@ import StoreItem from '../components/store-item'
 import { useShoppingCart } from '../context/shoppingcart-context'
 import { useState } from 'react'
 import Paginator from '../components/paginator'
+import Meta from '../components/meta'
 
 const Store: NextPage = () => {
   const { products } = useShoppingCart()
   const [current, setCurrent] = useState(1)
   const [itemNumber, setItemNumber] = useState(5)
+
   const handlePageChanged = (
     currentPage: number,
     itemNumberPerPage: number
@@ -20,6 +22,10 @@ const Store: NextPage = () => {
 
   return (
     <>
+      <Meta
+        title='Product Store'
+        keywords=''
+        description='buy products here...'></Meta>
       <Paginator
         className='mb-4'
         itemCount={products?.length}

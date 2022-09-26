@@ -18,6 +18,7 @@ import { formatCurrency } from '../utils/formatCurrency'
 import SelectModal from '../components/select-modal'
 import Meta from '../components/meta'
 import { useNotificationContext } from '../context/notification-context'
+import Notification from '../components/notification'
 
 const Cart: NextPage = () => {
   const { cartItems: items, cartAmount, customers } = useShoppingCart()
@@ -25,7 +26,7 @@ const Cart: NextPage = () => {
     null
   )
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const { showNotification } = useNotificationContext()
+  const { showNotification, notification } = useNotificationContext()
 
   const handleCheckout = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -33,7 +34,7 @@ const Cart: NextPage = () => {
       showNotification({
         id: 'Cart',
         message: 'Please select a customer',
-        status: false
+        status: true
       })
       return
     }
@@ -42,7 +43,7 @@ const Cart: NextPage = () => {
       showNotification({
         id: 'Cart',
         message: 'Please select a customer',
-        status: false
+        status: true
       })
       return
     }
@@ -56,12 +57,13 @@ const Cart: NextPage = () => {
   }
 
   return (
-    <>
+    <div className='relative'>
       <Meta
         title='Checkou Cart'
         keywords='Items'
         description='Gasoline, lucricate, diesel fuel'
       />
+      {notification && <Notification {...notification} />}
       <form>
         <div className='mb-2 flex justify-start items-center space-x-2 md:space-x-6 pb-1 border-b border-indigo-200'>
           <span>Customer Name:</span>
@@ -111,7 +113,24 @@ const Cart: NextPage = () => {
           </button>
         </div>
       </form>
-    </>
+      <SelectModal
+        isOpen={isModalOpen}
+        initialItems={customers}
+        currentId={selectedCustomer?.id}
+        setSelectedId={(id) => {
+          setIsModalOpen(false)
+          if (!id) return
+          if (id === selectedCustomer?.id) {
+            return null
+          }
+          setSelectedCustomer(() => {
+            const index = customers.findIndex((c) => c.id === id)
+            if (index >= 0) return customers[index]
+            return null
+          })
+        }}
+      />
+    </div>
   )
 }
 

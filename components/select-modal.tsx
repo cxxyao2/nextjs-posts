@@ -36,9 +36,9 @@ type SelectModalProp = {
 }
 
 const SelectModal = ({
-  initialItems,
-  isOpen,
-  currentId,
+  initialItems = [],
+  isOpen = false,
+  currentId = '',
   setSelectedId
 }: SelectModalProp) => {
   let filterRef = useRef<HTMLInputElement>(null)
@@ -50,7 +50,7 @@ const SelectModal = ({
   function closeModal(id?: string) {
     setSelectedId(id)
   }
-  const [validItems, setValidCustoemrs] = useState<IModelItem[]>([])
+  const [validItems, setValidCustoemrs] = useState<IModelItem[] | null>(null)
 
   useEffect(() => {
     setValidCustoemrs(initialItems)
@@ -91,45 +91,47 @@ const SelectModal = ({
             onChange={filterItem}
           />
         </div>
-        <ul className='overflow-y-auto h-52 divide-y-2 divide-gray-200'>
-          {validItems.map(({ id, name, description, icon: NewIcon }) => (
-            <li
-              key={id}
-              className=' flex justify-between p-2 gap-6 '>
-              <Image
-                src='/avatar/duck.jpg'
-                width={50}
-                height={50}
-                alt='duck avatar'
-                className='rounded-full flex-grow-0'
-              />
-              <div className='flex-1 flex flex-col'>
-                <span className='font-semibold text-sm'>{name}</span>
-                <span className='text-sm'>
-                  {NewIcon ?? null}
-                  {description}
-                </span>
-              </div>
-              <button
-                className='outline-hidden focus:outline focus:outline-slate-400'
-                onClick={() => {
-                  closeModal(id)
-                }}>
-                {id === currentId && (
-                  <TrashIcon
-                    className={` w-8 h-8  mx-2 bg-blue-300 rounded-full text-white
+        {validItems && (
+          <ul className='overflow-y-auto h-52 divide-y-2 divide-gray-200'>
+            {validItems?.map(({ id, name, description, icon: NewIcon }) => (
+              <li
+                key={id}
+                className=' flex justify-between p-2 gap-6 '>
+                <Image
+                  src='/avatar/duck.jpg'
+                  width={50}
+                  height={50}
+                  alt='duck avatar'
+                  className='rounded-full flex-grow-0'
+                />
+                <div className='flex-1 flex flex-col'>
+                  <span className='font-semibold text-sm'>{name}</span>
+                  <span className='text-sm'>
+                    {NewIcon ?? null}
+                    {description}
+                  </span>
+                </div>
+                <button
+                  className='outline-hidden focus:outline focus:outline-slate-400'
+                  onClick={() => {
+                    closeModal(id)
+                  }}>
+                  {id === currentId && (
+                    <TrashIcon
+                      className={` w-8 h-8  mx-2 bg-blue-300 rounded-full text-white
                      `}
-                  />
-                )}
-                {id !== currentId && (
-                  <CheckIcon
-                    className={` w-8 h-8 text-gray-200 mx-2 bg-blue-300 rounded-full  `}
-                  />
-                )}
-              </button>
-            </li>
-          ))}
-        </ul>
+                    />
+                  )}
+                  {id !== currentId && (
+                    <CheckIcon
+                      className={` w-8 h-8 text-gray-200 mx-2 bg-blue-300 rounded-full  `}
+                    />
+                  )}
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </Modal>
   )
