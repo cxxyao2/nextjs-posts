@@ -5,9 +5,6 @@ import {
 } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import { useState } from 'react'
-import Modal from 'react-modal'
-
-Modal.setAppElement('#__next')
 const customStyles = {
   content: {
     top: '50%',
@@ -69,30 +66,6 @@ const SearchItem = () => {
           </div>
         </figcaption>
       </figure>
-      <Modal
-        style={customStyles}
-        isOpen={modalIsOpen}
-        onAfterOpen={afterOpen}
-        onRequestClose={closeModal}
-        contentLabel='Example Modal'>
-        <div className='flex justify-between p-1 items-center'>
-          <div ref={(_subname) => (subname = _subname)}>
-            Product Description
-          </div>
-          <button
-            onClick={closeModal}
-            className='focus: outline-indigo-400'>
-            <XMarkIcon className='w-6 h-6 text-gray-600' />
-          </button>
-        </div>
-        <hr className='border-b-1 my-1 border-gray-400' />
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sunt
-          accusamus rerum ex vero deserunt obcaecati eligendi vel nemo in, iure
-          repudiandae vitae expedita earum facilis saepe soluta voluptatum
-          dolore reprehenderit!
-        </p>
-      </Modal>
     </div>
   )
 }

@@ -33,7 +33,9 @@ const SearchPage = () => {
                   onClick={() => setTab(1)}
                   href='#'
                   tabIndex={3}
-                  className='outline-none pb-1 focus:border-b-2  focus:border-gray-200   transition-colors duration-300 cursor-pointer'>
+                  className={`outline-none pb-1 focus:border-b-2  focus:border-gray-200 ${
+                    tab === 1 ? 'border-b-2  border-gray-200' : ''
+                  }  transition-colors duration-300 cursor-pointer`}>
                   Product{' '}
                 </a>
               </ol>

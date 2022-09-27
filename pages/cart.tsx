@@ -73,12 +73,16 @@ const Cart: NextPage = () => {
             }`}>
             {selectedCustomer ? selectedCustomer.name : 'Select a customer'}
           </span>
-          <Button
-            aria-role='search'
-            className=''
-            onClick={() => setIsModalOpen(true)}>
+          <button
+            className='p-1 bg-indigo-300 rounded-md px-2'
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+
+              setIsModalOpen(true)
+            }}>
             <PlusIcon className='w-6 h-6 text-white' />
-          </Button>
+          </button>
         </div>
         <div className='divide-y divide-slate-400 dark:divide-indigo-400 bg-white dark:bg-slate-200'>
           {items.map((item) => (
@@ -91,7 +95,7 @@ const Cart: NextPage = () => {
           <div>
             Total:{' '}
             <span className='ml-2 font-semibold'>
-              {formatCurrency(cartAmount)}
+              0{/* TODO  {formatCurrency(cartAmount)} */}
             </span>
           </div>
           <button
@@ -113,21 +117,24 @@ const Cart: NextPage = () => {
           </button>
         </div>
       </form>
+
       <SelectModal
+        title='Select a customer'
         isOpen={isModalOpen}
+        onAfterOpen={() => {}}
         initialItems={customers}
-        currentId={selectedCustomer?.id}
-        setSelectedId={(id) => {
-          setIsModalOpen(false)
-          if (!id) return
-          if (id === selectedCustomer?.id) {
-            return null
+        currentId={selectedCustomer?.id || null}
+        onClose={(id) => {
+          if (id === null) {
+            setSelectedCustomer(null)
           }
-          setSelectedCustomer(() => {
-            const index = customers.findIndex((c) => c.id === id)
-            if (index >= 0) return customers[index]
-            return null
-          })
+          id &&
+            setSelectedCustomer(() => {
+              const index = customers.findIndex((c) => c.id === id)
+              if (index >= 0) return customers[index]
+              return null
+            })
+          setIsModalOpen(false)
         }}
       />
     </div>
