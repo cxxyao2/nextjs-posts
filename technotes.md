@@ -20,3 +20,7 @@ export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
 
 ```
+
+### 2022.09.26
+
+- event.stopPropagation, event.preventdefault, stop page rerendering...
