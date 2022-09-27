@@ -27,12 +27,17 @@ const SignInForm = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (!validateForm()) return
+    let callbackUrl = '/'
+    if (router.query && router.query.from) {
+      callbackUrl = router.query.from as unknown as string
+      console.log('call back is', callbackUrl)
+    }
     console.log('fromdata is', formData)
     try {
       await signIn('credentials', {
         email: formData.email,
         password: formData.password,
-        callbackUrl: '/'
+        callbackUrl: '/cart'
       })
     } catch (error) {
       console.log('error is ', JSON.stringify(error))

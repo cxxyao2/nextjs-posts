@@ -1,14 +1,6 @@
-// todo
-import {
-  AtSymbolIcon,
-  CheckIcon,
-  ChevronDoubleRightIcon,
-  MinusSmallIcon,
-  PlusIcon,
-  XMarkIcon
-} from '@heroicons/react/24/outline'
 import { NextPage } from 'next'
 import { useState, useEffect } from 'react'
+import { useSession } from 'next-auth/react'
 
 import Button from '../components/button'
 import CartItem from '../components/cart-item'
@@ -19,6 +11,8 @@ import SelectModal from '../components/select-modal'
 import Meta from '../components/meta'
 import { useNotificationContext } from '../context/notification-context'
 import Notification from '../components/notification'
+import { Router, useRouter } from 'next/router'
+import { ChevronDoubleRightIcon, PlusIcon } from '@heroicons/react/24/outline'
 
 const Cart: NextPage = () => {
   const { cartItems: items, cartAmount, customers } = useShoppingCart()
@@ -27,6 +21,19 @@ const Cart: NextPage = () => {
   )
   const [isModalOpen, setIsModalOpen] = useState(false)
   const { showNotification, notification } = useNotificationContext()
+  const { data: session } = useSession()
+  const router = useRouter()
+  const currentPath = router.pathname
+
+  useEffect(() => {
+    console.log('sesson user is ', JSON.stringify(session))
+    // if (!session?.user?.name) {
+    //   router.push({
+    //     pathname: '/auth/signin',
+    //     query: { from: currentPath }
+    //   })
+    // }
+  }, [])
 
   const handleCheckout = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -95,7 +102,7 @@ const Cart: NextPage = () => {
           <div>
             Total:{' '}
             <span className='ml-2 font-semibold'>
-              0{/* TODO  {formatCurrency(cartAmount)} */}
+              0 {/* {formatCurrency(cartAmount)} */}
             </span>
           </div>
           <button

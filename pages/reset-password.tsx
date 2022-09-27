@@ -20,6 +20,7 @@ const ResetPassword = () => {
       setSuccessMessage('')
     }
   }, [])
+
   const validateForm = () => {
     return true
   }
