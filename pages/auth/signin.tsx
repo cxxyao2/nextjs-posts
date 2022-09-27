@@ -3,49 +3,68 @@ import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { BACKEND_URL } from '../../data/constants'
 import Link from 'next/link'
+import { useNotificationContext } from '../../context/notification-context'
+import Notification from '../../components/notification'
+import { validateEmail, validateLengthRange } from '../../utils'
 
 const SignInForm = () => {
-  const defaultFormData = {
-    email: '',
-    password: ''
-  }
-  const [formData, setFormData] = useState(defaultFormData)
   const [hidePassword, setHidePassword] = useState(true)
   const router = useRouter()
+  const { showNotification, notification } = useNotificationContext()
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [event.target.id]: event.target.value
-    }))
-  }
+  const validateForm = (data: FormData) => {
+    const email = data.get('email')?.toString()
+    const password = data.get('password')?.toString()
+    const minlength = 8
+    const maxlength = 200
+    if (!email || !validateEmail(email)) {
+      showNotification({
+        id: 'Email',
+        message: 'You have entered an invalid email address!',
+        status: 'error'
+      })
+      return false
+    }
 
-  const validateForm = () => {
-    // todo
+    if (!password || !validateLengthRange(password, minlength, maxlength)) {
+      showNotification({
+        id: 'Email',
+        message:
+          'Please input between ' +
+          minlength +
+          ' and ' +
+          maxlength +
+          ' characters',
+        status: 'error'
+      })
+
+      return false
+    }
     return true
   }
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (!validateForm()) return
+    const formData: FormData = new FormData(event.currentTarget)
+    if (!validateForm(formData)) {
+      return
+    }
     let callbackUrl = '/'
     if (router.query && router.query.from) {
       callbackUrl = router.query.from as unknown as string
       console.log('call back is', callbackUrl)
     }
-    console.log('fromdata is', formData)
-    try {
-      await signIn('credentials', {
-        email: formData.email,
-        password: formData.password,
-        callbackUrl: '/cart'
-      })
-    } catch (error) {
-      console.log('error is ', JSON.stringify(error))
-    }
+
+    await signIn('credentials', {
+      email: formData.get('email')?.toString(),
+      password: formData.get('password')?.toString(),
+      callbackUrl
+    })
   }
 
   return (
-    <section className='m-auto  max-w-md rounded-md bg-white  shadow-gray-200 shadow-xl p-4'>
+    <section className='relative m-auto  max-w-md rounded-md bg-white  shadow-gray-200 shadow-xl p-4'>
+      {notification && <Notification {...notification} />}
       <h1 className='text-center text-2xl mb-6'>Sign In</h1>
       <form onSubmit={handleSubmit}>
         <div className='flex flex-col space-y-4 justify-center items-begin'>
@@ -60,7 +79,6 @@ const SignInForm = () => {
             type='email'
             placeholder='abc@email.com'
             className='invalid:border-red-500  hover:outline hover:outline-offset-2 hover:outline-indigo-500 focus:outline focus:outline-offset-2 focus:outline-indigo-500 bg-gray-100 text-gray-800 rounded-md w-full p-1'
-            onChange={handleChange}
             required
           />
 
@@ -77,7 +95,6 @@ const SignInForm = () => {
               maxLength={100}
               required
               className='invalid:border-red-500 p-1 min-w-[200px] bg-gray-100 outline-none rounded-tl-md rounded-bl-md'
-              onChange={handleChange}
             />
             <button
               className='absolute  right-1 top-1 p-1 pb-0 rounded-md text-sm text-right outline-none bg-white'

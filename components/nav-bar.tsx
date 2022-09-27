@@ -14,13 +14,7 @@ import SvgNozzleComponent from './svg-nozzle'
 import LoginButton from './login-btn'
 
 const NavBar = () => {
-  const {
-    openCart,
-    cartQuantity,
-    setIsVisibleSideBar,
-    downloadProductList,
-    downloadCustomerList
-  } = useShoppingCart()
+  const { openCart, cartQuantity, setIsVisibleSideBar } = useShoppingCart()
   const router = useRouter()
   const { systemTheme, theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
@@ -28,8 +22,6 @@ const NavBar = () => {
 
   useEffect(() => {
     setMounted(true)
-    downloadProductList()
-    downloadCustomerList()
   }, [])
 
   const handleLocaleChange = () => {
@@ -126,7 +118,7 @@ const NavBar = () => {
               {handleLocaleChange()}
               {handleThemeChange()}
             </div>
-            <LoginButton className='p-2 rounded-md hover:bg-indigo-400 hover:text-white' />
+            <LoginButton className='' />
           </div>
         </nav>
       </div>

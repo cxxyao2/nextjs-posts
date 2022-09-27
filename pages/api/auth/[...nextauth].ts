@@ -31,7 +31,9 @@ export const authOptions: NextAuthOptions = {
           const result = await res.json()
           return { ...result.data }
         } catch (error) {
-          throw new Error(JSON.stringify(error))
+          console.log('error is', error)
+
+          throw error
         }
       }
     })

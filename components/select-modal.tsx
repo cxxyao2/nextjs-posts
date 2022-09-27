@@ -29,21 +29,23 @@ const SelectModal = ({
 }: ModalProps) => {
   const filterRef = useRef<HTMLInputElement>(null)
   const modalWrapperRef = useRef<HTMLDivElement>(null)
-  const [validItems, setValidItems] = useState<IModelItem[] | null>(null)
+  const [validItems, setValidItems] = useState<IModelItem[]>([])
 
   useEffect(() => {
     if (window) {
-      setValidItems(initialItems)
+      Array.isArray(initialItems) && setValidItems([...initialItems])
       onAfterOpen()
     }
   }, [])
 
   const filterItem = (e: React.FormEvent<HTMLInputElement>): void => {
-    const filtered = initialItems.filter((item) =>
-      item.name
-        ?.toLowerCase()
-        .includes(e.currentTarget?.value.toLowerCase() ?? '')
-    )
+    const filtered = initialItems
+      .slice()
+      .filter((item) =>
+        item.name
+          ?.toLowerCase()
+          .includes(e.currentTarget?.value.toLowerCase() ?? '')
+      )
     setValidItems(filtered)
   }
 
@@ -82,11 +84,13 @@ const SelectModal = ({
                 type='text'
                 placeholder='Enter keyword...'
                 onChange={filterItem}
+                autoFocus={true}
               />
             </div>
-            {validItems && (
-              <ul className='overflow-y-auto h-52 divide-y-2 divide-gray-200'>
-                {validItems?.map(({ id, name, description, icon: NewIcon }) => (
+
+            <ul className='overflow-y-auto h-52 divide-y-2 divide-gray-200'>
+              {Array.isArray(validItems) &&
+                validItems.map(({ id, name, description, icon: NewIcon }) => (
                   <li
                     key={id}
                     className=' flex justify-between p-2 gap-6 '>
@@ -126,8 +130,7 @@ const SelectModal = ({
                     </button>
                   </li>
                 ))}
-              </ul>
-            )}
+            </ul>
           </div>
         </div>
       </div>

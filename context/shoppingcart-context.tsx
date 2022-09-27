@@ -6,7 +6,6 @@ import {
   useEffect,
   useState
 } from 'react'
-import useSWR from 'swr'
 import { BACKEND_URL } from '../data/constants'
 import ICartItem from '../models/cart-item'
 import { Customer } from '../models/customer'
@@ -15,8 +14,6 @@ import IProduct from '../models/product'
 type ShoppingCardContextType = {
   openCart: () => void
   closeCart: () => void
-  downloadProductList: () => void
-  downloadCustomerList: () => void
   getItemQuantity: (id: string) => number
   increaseItemQuantity: (item: IProduct | ICartItem) => void
   decreaseItemQuantity: (id: string) => void
@@ -25,9 +22,11 @@ type ShoppingCardContextType = {
   cartAmount: number
   cartItems: ICartItem[]
   customers: Customer[]
+  setCustomers: Dispatch<SetStateAction<Customer[]>>
   isVisibleSideBar: boolean
   setIsVisibleSideBar: Dispatch<SetStateAction<boolean>>
   products: IProduct[]
+  setProducts: Dispatch<SetStateAction<IProduct[]>>
 }
 const ShoppingCardContext = createContext({} as ShoppingCardContextType)
 
@@ -65,49 +64,6 @@ export function ShoppingCardProvider({ children }: ShoppingCartProviderProps) {
 
   const openCart = () => setIsOpen(true)
   const closeCart = () => setIsOpen(true)
-
-  const downloadProductList = async () => {
-    try {
-      const response = await fetch(`${BACKEND_URL}products`, {
-        method: 'GET',
-        headers: {
-          'Content-type': 'application/json'
-        }
-      })
-      const data = await response.json()
-      console.log('products is', data)
-      setProducts(
-        data.map((item: any) => ({
-          ...item,
-          id: item._id,
-          imageUrl: '/' + item.imageUrl + '.jpg'
-        }))
-      )
-    } catch (error) {
-      console.log('error is', JSON.stringify(error))
-    }
-  }
-
-  const downloadCustomerList = async () => {
-    try {
-      const response = await fetch(`${BACKEND_URL}customers`, {
-        method: 'GET',
-        headers: {
-          'Content-type': 'application/json'
-        }
-      })
-      const data = await response.json()
-      console.log('customers is', data)
-      setCustomers(
-        data.map((item: any) => ({
-          ...item,
-          id: item._id
-        }))
-      )
-    } catch (error) {
-      console.log('error is', JSON.stringify(error))
-    }
-  }
 
   function getItemQuantity(id: string) {
     return cartItems.find((item) => item.id === id)?.quantity || 0
@@ -172,8 +128,8 @@ export function ShoppingCardProvider({ children }: ShoppingCartProviderProps) {
         openCart,
         isVisibleSideBar,
         setIsVisibleSideBar,
-        downloadProductList,
-        downloadCustomerList,
+        setProducts,
+        setCustomers,
         products,
         customers
       }}>

@@ -15,3 +15,4 @@
 - incremental generation
 - api routes
 - ssr + ssg
+- custom error boundary

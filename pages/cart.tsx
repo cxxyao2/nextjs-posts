@@ -1,38 +1,40 @@
-import { NextPage } from 'next'
+import { GetServerSideProps, NextPage, Redirect } from 'next'
 import { useState, useEffect } from 'react'
-import { useSession } from 'next-auth/react'
+import { getSession } from 'next-auth/react'
 
-import Button from '../components/button'
 import CartItem from '../components/cart-item'
 import { useShoppingCart } from '../context/shoppingcart-context'
 import { Customer } from '../models/customer'
-import { formatCurrency } from '../utils/formatCurrency'
 import SelectModal from '../components/select-modal'
 import Meta from '../components/meta'
 import { useNotificationContext } from '../context/notification-context'
 import Notification from '../components/notification'
-import { Router, useRouter } from 'next/router'
 import { ChevronDoubleRightIcon, PlusIcon } from '@heroicons/react/24/outline'
+import { downloadCustomerList } from '../utils/master-data'
+import { redirect } from 'next/dist/server/api-utils'
 
-const Cart: NextPage = () => {
-  const { cartItems: items, cartAmount, customers } = useShoppingCart()
+interface Props {
+  customers: Customer[]
+  errorFromServer: string
+}
+
+const Cart: NextPage<Props> = ({ customers, errorFromServer }) => {
+  const { cartItems: items, cartAmount, setCustomers } = useShoppingCart()
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(
     null
   )
   const [isModalOpen, setIsModalOpen] = useState(false)
   const { showNotification, notification } = useNotificationContext()
-  const { data: session } = useSession()
-  const router = useRouter()
-  const currentPath = router.pathname
 
   useEffect(() => {
-    console.log('sesson user is ', JSON.stringify(session))
-    // if (!session?.user?.name) {
-    //   router.push({
-    //     pathname: '/auth/signin',
-    //     query: { from: currentPath }
-    //   })
-    // }
+    setCustomers(customers)
+    if (errorFromServer) {
+      showNotification({
+        id: 'Cart',
+        message: errorFromServer,
+        status: 'error'
+      })
+    }
   }, [])
 
   const handleCheckout = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -41,7 +43,7 @@ const Cart: NextPage = () => {
       showNotification({
         id: 'Cart',
         message: 'Please select a customer',
-        status: true
+        status: 'error'
       })
       return
     }
@@ -49,8 +51,8 @@ const Cart: NextPage = () => {
     if (cartAmount === 0) {
       showNotification({
         id: 'Cart',
-        message: 'Please select a customer',
-        status: true
+        message: 'Please select a product',
+        status: 'error'
       })
       return
     }
@@ -64,14 +66,15 @@ const Cart: NextPage = () => {
   }
 
   return (
-    <div className='relative'>
+    <div>
       <Meta
         title='Checkou Cart'
         keywords='Items'
         description='Gasoline, lucricate, diesel fuel'
       />
-      {notification && <Notification {...notification} />}
-      <form>
+      <form className='relative'>
+        {notification && <Notification {...notification} />}
+
         <div className='mb-2 flex justify-start items-center space-x-2 md:space-x-6 pb-1 border-b border-indigo-200'>
           <span>Customer Name:</span>
           <span
@@ -85,7 +88,6 @@ const Cart: NextPage = () => {
             onClick={(e) => {
               e.preventDefault()
               e.stopPropagation()
-
               setIsModalOpen(true)
             }}>
             <PlusIcon className='w-6 h-6 text-white' />
@@ -146,6 +148,27 @@ const Cart: NextPage = () => {
       />
     </div>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context)
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/auth/signin?from=/cart',
+        permanent: false
+      }
+    }
+  }
+
+  const data = await downloadCustomerList()
+
+  return {
+    props: {
+      customers: data.customers,
+      errorFromserver: data.errorMessage
+    }
+  }
 }
 
 export default Cart

@@ -16,7 +16,7 @@ type NotificationProviderProps = {
 export type NotificationType = {
   id?: string
   message?: string
-  status?: boolean
+  status: 'error' | 'success' | 'info'
 }
 
 type NotificationContextType = {
@@ -39,7 +39,7 @@ export function NotificationContextProvider({
   )
 
   useEffect(() => {
-    if (notification && notification.status === true) {
+    if (notification) {
       const timer = setTimeout(() => {
         setNotification(null)
       }, 3000)
