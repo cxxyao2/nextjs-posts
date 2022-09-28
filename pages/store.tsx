@@ -3,11 +3,12 @@ import { useState, useEffect } from 'react'
 import Paginator from '../components/paginator'
 import Meta from '../components/meta'
 import IProduct from '../models/product'
-import { BACKEND_URL } from '../data/constants'
 import { downloadProductList } from '../utils/master-data'
 import { useShoppingCart } from '../context/shoppingcart-context'
 import { useNotificationContext } from '../context/notification-context'
 import Notification from '../components/notification'
+import { GetServerSideProps } from 'next'
+import { getSession } from 'next-auth/react'
 
 type StorePageProp = {
   products: IProduct[]
@@ -75,7 +76,16 @@ const Store = ({ products, errorFromServer }: StorePageProp) => {
 
 export default Store
 
-export const getStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context)
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/auth/signin?from=/cart',
+        permanent: false
+      }
+    }
+  }
   const data = await downloadProductList()
 
   return {

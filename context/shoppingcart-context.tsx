@@ -7,6 +7,7 @@ import {
   useState
 } from 'react'
 import { BACKEND_URL } from '../data/constants'
+import { useLocalStorage } from '../hooks/useLocalStorage'
 import ICartItem from '../models/cart-item'
 import { Customer } from '../models/customer'
 import IProduct from '../models/product'
@@ -42,16 +43,14 @@ export function ShoppingCardProvider({ children }: ShoppingCartProviderProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [isVisibleSideBar, setIsVisibleSideBar] = useState(false)
 
-  const [cartItems, setCartItems] = useState<ICartItem[]>([])
   const [products, setProducts] = useState<IProduct[]>([])
 
   const [customers, setCustomers] = useState<Customer[]>([])
 
-  // localStorage object doesnot exist in server side
-  // const [cartItems, setCartItems] = useLocalStorage<CartItem[]>(
-  //   'shopping-cart',
-  //   []
-  // )
+  const [cartItems, setCartItems] = useLocalStorage<ICartItem[]>(
+    'shopping-cart',
+    []
+  )
 
   useEffect(() => {
     console.log('cartItems', cartItems)

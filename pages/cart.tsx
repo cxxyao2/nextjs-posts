@@ -12,6 +12,7 @@ import Notification from '../components/notification'
 import { ChevronDoubleRightIcon, PlusIcon } from '@heroicons/react/24/outline'
 import { downloadCustomerList } from '../utils/master-data'
 import { redirect } from 'next/dist/server/api-utils'
+import { BACKEND_URL } from '../data/constants'
 
 interface Props {
   customers: Customer[]
@@ -37,7 +38,7 @@ const Cart: NextPage<Props> = ({ customers, errorFromServer }) => {
     }
   }, [])
 
-  const handleCheckout = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleCheckout = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     if (!selectedCustomer) {
       showNotification({
@@ -59,6 +60,21 @@ const Cart: NextPage<Props> = ({ customers, errorFromServer }) => {
 
     // save order header
     try {
+      const authUrl = BACKEND_URL.concat('orderheaders')
+
+      const res = await fetch(authUrl, {
+        method: 'POST',
+        body: JSON.stringify({
+          customerId: selectedCustomer.id,
+          orderDate: '20220927'
+        }),
+        headers: {
+          'Content-type': 'application/json'
+        }
+      })
+
+      const result = await res.json()
+      console.log('result order', result)
     } catch (error) {}
     // save order detail
     try {
@@ -94,11 +110,12 @@ const Cart: NextPage<Props> = ({ customers, errorFromServer }) => {
           </button>
         </div>
         <div className='divide-y divide-slate-400 dark:divide-indigo-400 bg-white dark:bg-slate-200'>
-          {items.map((item) => (
-            <CartItem
-              item={item}
-              key={item.name}></CartItem>
-          ))}
+          {items &&
+            items.map((item) => (
+              <CartItem
+                item={item}
+                key={item.name}></CartItem>
+            ))}
         </div>
         <div className='flex justify-between items-baseline mt-3'>
           <div>

@@ -79,3 +79,5 @@ small screen: only search incon
 - debounce. search bar.
 
   https://dmitripavlutin.com/react-throttle-debounce/
+
+- middleware
