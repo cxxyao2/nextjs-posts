@@ -44,6 +44,7 @@ export function ShoppingCardProvider({ children }: ShoppingCartProviderProps) {
 
   const [cartItems, setCartItems] = useState<ICartItem[]>([])
   const [products, setProducts] = useState<IProduct[]>([])
+
   const [customers, setCustomers] = useState<Customer[]>([])
 
   // localStorage object doesnot exist in server side
@@ -51,6 +52,10 @@ export function ShoppingCardProvider({ children }: ShoppingCartProviderProps) {
   //   'shopping-cart',
   //   []
   // )
+
+  useEffect(() => {
+    console.log('cartItems', cartItems)
+  }, [cartItems])
 
   const cartQuantity = cartItems.reduce(
     (quantity, item) => item.quantity + quantity,

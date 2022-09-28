@@ -46,3 +46,14 @@ ok: boolean // `true` if the signin was successful
 url: string | null // `null` if there was an error, otherwise URL to redirected to
 }
 full refreah: window.location.replace('/dashboard')
+
+## not found
+
+```
+export function getStaticProps() {
+return {
+// returns the default 404 page with a status code of 404
+notFound: true,
+};
+}
+```

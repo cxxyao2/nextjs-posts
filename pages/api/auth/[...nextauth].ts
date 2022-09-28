@@ -19,22 +19,16 @@ export const authOptions: NextAuthOptions = {
 
         const authUrl = BACKEND_URL.concat('auth')
 
-        try {
-          const res = await fetch(authUrl, {
-            method: 'POST',
-            body: JSON.stringify({ email, password }),
-            headers: {
-              'Content-type': 'application/json'
-            }
-          })
+        const res = await fetch(authUrl, {
+          method: 'POST',
+          body: JSON.stringify({ email, password }),
+          headers: {
+            'Content-type': 'application/json'
+          }
+        })
 
-          const result = await res.json()
-          return { ...result.data }
-        } catch (error) {
-          console.log('error is', error)
-
-          throw error
-        }
+        const result = await res.json()
+        return { ...result.data }
       }
     })
   ],

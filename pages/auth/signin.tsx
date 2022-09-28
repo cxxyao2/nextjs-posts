@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { signIn } from 'next-auth/react'
+import { signIn, SignInResponse } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { BACKEND_URL } from '../../data/constants'
 import Link from 'next/link'
@@ -55,10 +55,21 @@ const SignInForm = () => {
       console.log('call back is', callbackUrl)
     }
 
-    await signIn('credentials', {
+    signIn('credentials', {
       email: formData.get('email')?.toString(),
       password: formData.get('password')?.toString(),
-      callbackUrl
+      redirect: false
+    }).then((result) => {
+      if (result?.ok) {
+        router.push(callbackUrl) //
+      } else {
+        console.log(result?.error)
+        showNotification({
+          id: '',
+          message: `${result?.status.toString()} Error:  ${result?.error}`,
+          status: 'error'
+        })
+      }
     })
   }
 

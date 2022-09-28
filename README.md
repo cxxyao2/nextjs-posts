@@ -12,7 +12,7 @@
 - NextImage
 - download data in .csv format
 - Markdown file parse + show
-- incremental generation
+- incremental static generation
 - api routes
 - ssr + ssg
 - custom error boundary
