@@ -16,7 +16,7 @@ export default function CartItem({ item }: CartItemProps) {
         <div>Quantity: {item.quantity} </div>
         <div className='mt-1'>
           <Button
-            className='rounded-md'
+            className='rounded-md outline-none focus:outline-indigo-500'
             onClick={() => {
               removeFromCart(item.id)
             }}>

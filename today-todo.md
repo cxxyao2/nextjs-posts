@@ -72,12 +72,22 @@ small screen: only search incon
 
 - nextjs amd and other.
 
-## 2022.09.25
+## 2022.09.25 --09.28
 
-- modal selection
+- modal selection ok.
 
 - debounce. search bar.
 
   https://dmitripavlutin.com/react-throttle-debounce/
 
 - middleware
+- react-form
+  https://jasonwatmore.com/post/2021/08/30/next-js-redirect-to-login-page-if-unauthenticated
+
+- graph linked to order. table + 3 graph, pie,line, column
+
+- protected client routes
+  https://azeezatraheem.medium.com/implementing-authentication-redirects-in-next-js-c15907ec82b7
+
+- profile : file upload
+- data: download .csv format

@@ -3,6 +3,8 @@ import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { BACKEND_URL } from '../../data/constants'
 import Link from 'next/link'
+import { useNotificationContext } from '../../context/notification-context'
+import Notification from '../../components/notification'
 
 const SignUpForm = () => {
   const defaultFormData = {
@@ -12,6 +14,7 @@ const SignUpForm = () => {
   const [formData, setFormData] = useState(defaultFormData)
   const [hidePassword, setHidePassword] = useState(true)
   const router = useRouter()
+  const { showNotification, notification } = useNotificationContext()
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({
@@ -34,23 +37,39 @@ const SignUpForm = () => {
         }
       })
       const data = await res.json()
-      console.log('data is', JSON.stringify(data))
       if (!res.ok) {
         throw new Error(data.message || 'Something went wrong')
       }
 
-      await signIn('credentials', {
+      signIn('credentials', {
         email: formData.email,
         password: formData.password,
-        callbackUrl: '/'
+        redirect: false
+      }).then((result) => {
+        if (result?.ok) {
+          router.push('/') //
+        } else {
+          showNotification({
+            id: '',
+            message: `${result?.status.toString()}`,
+            status: 'error'
+          })
+        }
       })
     } catch (error) {
-      console.log('error is ', JSON.stringify(error))
+      const newError = error as unknown as Error
+
+      showNotification({
+        id: '',
+        message: newError.message,
+        status: 'error'
+      })
     }
   }
 
   return (
     <section className='m-auto my-12 max-w-md rounded-md bg-white  shadow-gray-200 shadow-xl p-4'>
+      {notification && <Notification {...notification} />}
       <h1 className='text-center text-2xl mb-6'>Sign Up</h1>
       <form onSubmit={handleSubmit}>
         <div className='flex flex-col space-y-4 justify-center items-begin'>

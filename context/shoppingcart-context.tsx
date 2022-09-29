@@ -6,7 +6,6 @@ import {
   useEffect,
   useState
 } from 'react'
-import { BACKEND_URL } from '../data/constants'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import ICartItem from '../models/cart-item'
 import { Customer } from '../models/customer'
@@ -22,6 +21,7 @@ type ShoppingCardContextType = {
   cartQuantity: number
   cartAmount: number
   cartItems: ICartItem[]
+  setCartItems: Dispatch<SetStateAction<ICartItem[]>>
   customers: Customer[]
   setCustomers: Dispatch<SetStateAction<Customer[]>>
   isVisibleSideBar: boolean
@@ -134,6 +134,7 @@ export function ShoppingCardProvider({ children }: ShoppingCartProviderProps) {
         setIsVisibleSideBar,
         setProducts,
         setCustomers,
+        setCartItems,
         products,
         customers
       }}>

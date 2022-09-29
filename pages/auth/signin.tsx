@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { signIn, SignInResponse } from 'next-auth/react'
+import React, { useEffect, useState } from 'react'
+import { signIn, SignInResponse, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { BACKEND_URL } from '../../data/constants'
 import Link from 'next/link'
@@ -7,10 +7,26 @@ import { useNotificationContext } from '../../context/notification-context'
 import Notification from '../../components/notification'
 import { validateEmail, validateLengthRange } from '../../utils'
 
+interface ExtendedUser {
+  name?: string | null | undefined
+  email?: string | null | undefined
+  image?: string | null | undefined
+  tokenFromServer: string
+}
+
 const SignInForm = () => {
   const [hidePassword, setHidePassword] = useState(true)
   const router = useRouter()
   const { showNotification, notification } = useNotificationContext()
+  const { data: session } = useSession()
+
+  useEffect(() => {
+    if (session && session.user) {
+      const customToken = (session.user as unknown as ExtendedUser)
+        .tokenFromServer
+      if (customToken) localStorage.setItem('tokenFromServer', customToken)
+    }
+  }, [session])
 
   const validateForm = (data: FormData) => {
     const email = data.get('email')?.toString()

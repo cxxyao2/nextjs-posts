@@ -2,13 +2,16 @@ import { useState } from 'react'
 import ReactDatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
-import { PlusIcon, ArrowSmallDownIcon } from '@heroicons/react/24/solid'
+import { PlusIcon } from '@heroicons/react/24/solid'
 import SvgDescendComponent from './svg-descending'
 
-const DashBoardDatePicker = () => {
+type DatePickerProp = {
+  onRefresh: (startDate: Date, endDate: Date, isAscending: boolean) => void
+}
+const DashBoardDatePicker = ({ onRefresh }: DatePickerProp) => {
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
-  const [isDescending, setIsDescending] = useState(true)
+  const [isAscending, setIsAscending] = useState(true)
   return (
     <div className='sm:flex sm:justify-between sm:items-center mb-8'>
       <ul className='flex flex-wrap justify-center sm:justify-start mb-8 -space-x-2 -ml-px'>
@@ -46,37 +49,45 @@ const DashBoardDatePicker = () => {
           </a>
         </li>
         <li>
-          <PlusIcon className='flex justify-center item-center w-9 h-9 rounded-full bg-white text-indigo-500 shadown-sm transition duration-150 ml-2'>
-            <span className='sr-only'>add new user</span>
-          </PlusIcon>
+          <button className='outline-none focus:outline-indigo-400 flex items-center ml-2'>
+            <PlusIcon className='flex justify-center item-center w-9 h-9 rounded-full bg-white text-indigo-500 shadown-sm transition duration-150'>
+              <span className='sr-only'>add new user</span>
+            </PlusIcon>
+          </button>
         </li>
       </ul>
 
-      <div className='flex flex-row items-center space-x-4 '>
-        <div
-          onClick={() => setIsDescending((prev) => !prev)}
-          className='bg-white p-2 rounded-sm shadow-md shadow-gray-500'>
-          <SvgDescendComponent
-            fill='currentColor'
-            className={`w-5 h-5 text-gray-500${
-              isDescending ? '' : 'rotate-180'
-            } transition-transform `}
-          />
-        </div>
-        <div>
+      <div className='flex flex-col md:flex-row items-center gap-2 '>
+        <div className='flex flex-row gap-2'>
+          <div
+            onClick={() => setIsAscending((prev) => !prev)}
+            className='bg-white p-2 rounded-sm shadow-md shadow-gray-500'>
+            <SvgDescendComponent
+              fill='currentColor'
+              className={`w-5 h-5 text-gray-500 ${
+                isAscending ? '' : 'rotate-180'
+              } transition-transform `}
+            />
+          </div>
+
           <ReactDatePicker
             className='p-1 rounded-sm text-center'
             selected={startDate}
             onChange={(date: Date) => setStartDate(date)}></ReactDatePicker>
+          <span className='mx-1'>-</span>
         </div>
-        <span className='mx-1'>-</span>
-        <ReactDatePicker
-          className='p-1 rounded-sm text-center'
-          selected={endDate}
-          onChange={(date: Date) => setEndDate(date)}></ReactDatePicker>
-        <button className='text-white text-center bg-indigo-500 px-2 rounded-sm'>
-          Refresh
-        </button>
+
+        <div className='flex flex-row gap-2'>
+          <ReactDatePicker
+            className='p-1 rounded-sm text-center'
+            selected={endDate}
+            onChange={(date: Date) => setEndDate(date)}></ReactDatePicker>
+          <button
+            className='text-white text-center bg-indigo-500 px-2 rounded-sm'
+            onClick={() => onRefresh(startDate, endDate, isAscending)}>
+            Refresh
+          </button>
+        </div>
       </div>
     </div>
   )

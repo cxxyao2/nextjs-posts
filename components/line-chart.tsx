@@ -12,9 +12,16 @@ import {
   XAxis
 } from 'recharts'
 
-const Audience = () => {
+import { useDashBoardContext } from '../context/dashboard-context'
+
+type SalesLineChartProp = {
+  rank: number
+}
+
+const SalesLineChart = ({ rank }: SalesLineChartProp) => {
   const [aa, setAa] = useState(true)
   const [isMenuVisible, setIsMenuVisible] = useState(false)
+  const { orderDetails } = useDashBoardContext()
   const data = [
     { name: 'Page A', uv: 1000, pv: 2400, amt: 2400, uvError: [75, 20] },
     { name: 'Page B', uv: 300, pv: 4567, amt: 2400, uvError: [90, 40] },
@@ -30,9 +37,8 @@ const Audience = () => {
 
   useEffect(() => {
     setAa(false)
+    console.log('order is')
   }, [])
-
-  if (aa) return null
 
   return (
     <div className='bg-white flex flex-col col-span-full md:col-span-6 xl:col-span-4 shadow-lg rounded-sm border border-slate-200'>
@@ -116,4 +122,4 @@ const Audience = () => {
   )
 }
 
-export default Audience
+export default SalesLineChart

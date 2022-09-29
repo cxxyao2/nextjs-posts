@@ -12,7 +12,7 @@ import {
   XAxis
 } from 'recharts'
 
-const AudienceDynamic = () => {
+const SalesLineChartDynamic = () => {
   const [aa, setAa] = useState(true)
   const [isMenuVisible, setIsMenuVisible] = useState(false)
 
@@ -135,4 +135,4 @@ const AudienceDynamic = () => {
     </div>
   )
 }
-export default AudienceDynamic
+export default SalesLineChartDynamic

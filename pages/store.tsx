@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import Paginator from '../components/paginator'
 import Meta from '../components/meta'
 import IProduct from '../models/product'
-import { downloadProductList } from '../utils/master-data'
+import { downloadProductList } from '../serivces/master-service'
 import { useShoppingCart } from '../context/shoppingcart-context'
 import { useNotificationContext } from '../context/notification-context'
 import Notification from '../components/notification'
@@ -16,7 +16,6 @@ type StorePageProp = {
 }
 
 const Store = ({ products, errorFromServer }: StorePageProp) => {
-  // const { setSh } = useShoppingCart()
   const [current, setCurrent] = useState(1)
   const [itemNumber, setItemNumber] = useState(5)
   const { setProducts } = useShoppingCart()
@@ -81,7 +80,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (!session) {
     return {
       redirect: {
-        destination: '/auth/signin?from=/cart',
+        destination: '/auth/signin?from=/store',
         permanent: false
       }
     }

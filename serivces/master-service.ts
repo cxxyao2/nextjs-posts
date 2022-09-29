@@ -46,7 +46,7 @@ export const downloadCustomerList = async () => {
       id: item._id
     }))
   } catch (error) {
-    errorMessage = 'error details: ' + JSON.stringify(error)
+    console.log('error message is' + JSON.stringify(error))
   }
 
   return {

@@ -68,7 +68,7 @@ export default function DashBoardColumnGraph() {
           <li className='mr-4'>
             <button className='inline-flex items-center'>
               <span className='block w-3 h-3 rounded-full mr-2 border-2 border-blue-200  pointer-events-none'></span>
-              <span className='text-xl font-bold mr-2 pointer-events-none'>
+              <span className='text-xl font-bold mr-2 pointer-events-none dark:text-gray-700'>
                 $8.25k
               </span>
               <span className='text-slate-400 text-sm '>Direct</span>
@@ -77,7 +77,7 @@ export default function DashBoardColumnGraph() {
           <li className='mr-4'>
             <button className='inline-flex items-center'>
               <span className='block w-3 h-3 rounded-full mr-2 border-2 border-blue-200  pointer-events-none'></span>
-              <span className='text-xl font-bold mr-2 pointer-events-none'>
+              <span className='text-xl font-bold mr-2 pointer-events-none dark:text-gray-700'>
                 $27.25k
               </span>
               <span className='text-slate-400 text-sm '>Indirect</span>

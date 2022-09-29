@@ -10,9 +10,12 @@ import Meta from '../components/meta'
 import { useNotificationContext } from '../context/notification-context'
 import Notification from '../components/notification'
 import { ChevronDoubleRightIcon, PlusIcon } from '@heroicons/react/24/outline'
-import { downloadCustomerList } from '../utils/master-data'
-import { redirect } from 'next/dist/server/api-utils'
-import { BACKEND_URL } from '../data/constants'
+import { downloadCustomerList } from '../serivces/master-service'
+import { BACKEND_URL, TOKEN_HEADER_NAME } from '../data/constants'
+import Link from 'next/link'
+import { convertDateToYYYYmmDD } from '../utils'
+import { formatCurrency } from '../utils/formatCurrency'
+import { saveOrder } from '../serivces/order-service'
 
 interface Props {
   customers: Customer[]
@@ -20,15 +23,23 @@ interface Props {
 }
 
 const Cart: NextPage<Props> = ({ customers, errorFromServer }) => {
-  const { cartItems: items, cartAmount, setCustomers } = useShoppingCart()
+  const {
+    cartItems: items,
+    setCartItems,
+    cartAmount,
+    customers: oldCustomers,
+    setCustomers
+  } = useShoppingCart()
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(
     null
   )
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [showForm, setShowForm] = useState(true)
   const { showNotification, notification } = useNotificationContext()
+  const [totalAmount, setTotalAmount] = useState('0')
 
   useEffect(() => {
-    setCustomers(customers)
+    if (!oldCustomers || oldCustomers.length === 0) setCustomers(customers)
     if (errorFromServer) {
       showNotification({
         id: 'Cart',
@@ -38,7 +49,11 @@ const Cart: NextPage<Props> = ({ customers, errorFromServer }) => {
     }
   }, [])
 
-  const handleCheckout = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  useEffect(() => {
+    setTotalAmount(formatCurrency(cartAmount))
+  }, [cartAmount])
+
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     if (!selectedCustomer) {
       showNotification({
@@ -58,27 +73,23 @@ const Cart: NextPage<Props> = ({ customers, errorFromServer }) => {
       return
     }
 
-    // save order header
-    try {
-      const authUrl = BACKEND_URL.concat('orderheaders')
-
-      const res = await fetch(authUrl, {
-        method: 'POST',
-        body: JSON.stringify({
-          customerId: selectedCustomer.id,
-          orderDate: '20220927'
-        }),
-        headers: {
-          'Content-type': 'application/json'
-        }
+    saveOrder([...items], selectedCustomer.id)
+      .then((_) => {
+        setCartItems([])
+        showNotification({
+          id: '',
+          message: 'Order has saved successfully.',
+          status: 'success'
+        })
+        setShowForm(false)
       })
-
-      const result = await res.json()
-      console.log('result order', result)
-    } catch (error) {}
-    // save order detail
-    try {
-    } catch (error) {}
+      .catch((error) => {
+        showNotification({
+          id: '',
+          message: JSON.stringify(error),
+          status: 'error'
+        })
+      })
   }
 
   return (
@@ -88,61 +99,68 @@ const Cart: NextPage<Props> = ({ customers, errorFromServer }) => {
         keywords='Items'
         description='Gasoline, lucricate, diesel fuel'
       />
-      <form className='relative'>
-        {notification && <Notification {...notification} />}
-
-        <div className='mb-2 flex justify-start items-center space-x-2 md:space-x-6 pb-1 border-b border-indigo-200'>
-          <span>Customer Name:</span>
-          <span
-            className={`bg-white px-4 py-2 text-sm font-semibold rounded-sm  ${
-              selectedCustomer ? 'text-gray-600' : 'text-red-600'
-            }`}>
-            {selectedCustomer ? selectedCustomer.name : 'Select a customer'}
-          </span>
-          <button
-            className='p-1 bg-indigo-300 rounded-md px-2'
-            onClick={(e) => {
-              e.preventDefault()
-              e.stopPropagation()
-              setIsModalOpen(true)
-            }}>
-            <PlusIcon className='w-6 h-6 text-white' />
-          </button>
+      {notification && <Notification {...notification} />}
+      {!showForm && (
+        <div>
+          Back to{' '}
+          <Link href='/'>
+            <a className='text-lg font-semibold text-indigo-400'>Homepage</a>
+          </Link>
         </div>
-        <div className='divide-y divide-slate-400 dark:divide-indigo-400 bg-white dark:bg-slate-200'>
-          {items &&
-            items.map((item) => (
-              <CartItem
-                item={item}
-                key={item.name}></CartItem>
-            ))}
-        </div>
-        <div className='flex justify-between items-baseline mt-3'>
-          <div>
-            Total:{' '}
-            <span className='ml-2 font-semibold'>
-              0 {/* {formatCurrency(cartAmount)} */}
+      )}
+      {showForm && (
+        <form className='relative'>
+          <div className='mb-2 flex justify-start items-center space-x-2 md:space-x-6 pb-1 border-b border-indigo-200'>
+            <span>Customer Name:</span>
+            <span
+              className={`bg-white px-4 py-2 text-sm font-semibold rounded-sm  ${
+                selectedCustomer ? 'text-gray-600' : 'text-red-600'
+              }`}>
+              {selectedCustomer ? selectedCustomer.name : 'Select a customer'}
             </span>
+            <button
+              className='outline-none p-1 bg-indigo-400 rounded-md px-2 focus:outline-indigo-500'
+              autoFocus={true}
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                setIsModalOpen(true)
+              }}>
+              <PlusIcon className='w-6 h-6 text-white' />
+            </button>
           </div>
-          <button
-            type='submit'
-            className={`px-1 ring-2 ring-orange-100  rounded-sm ${
-              cartAmount === 0
-                ? 'bg-gray-300 text-gray-600'
-                : 'bg-orange-500 text-white'
-            }`}
-            onClick={(e) => handleCheckout(e)}>
-            Check Out{' '}
-            <ChevronDoubleRightIcon
-              className={`inline ml-2 w-6 h-6  ${
+          <div className='divide-y divide-slate-400 dark:divide-indigo-400 bg-white dark:bg-slate-200'>
+            {items &&
+              items.map((item) => (
+                <CartItem
+                  item={item}
+                  key={item.name}></CartItem>
+              ))}
+          </div>
+          <div className='flex justify-between items-baseline mt-3'>
+            <div>
+              Total: <span className='ml-2 font-semibold'>{totalAmount}</span>
+            </div>
+            <button
+              type='submit'
+              className={`px-1 outline-none focus:outline-orange-700  rounded-sm ${
                 cartAmount === 0
                   ? 'bg-gray-300 text-gray-600'
                   : 'bg-orange-500 text-white'
               }`}
-            />
-          </button>
-        </div>
-      </form>
+              onClick={(e) => handleSubmit(e)}>
+              Check Out{' '}
+              <ChevronDoubleRightIcon
+                className={`inline ml-2 w-6 h-6  ${
+                  cartAmount === 0
+                    ? 'bg-gray-300 text-gray-600'
+                    : 'bg-orange-500 text-white'
+                }`}
+              />
+            </button>
+          </div>
+        </form>
+      )}
 
       <SelectModal
         title='Select a customer'
