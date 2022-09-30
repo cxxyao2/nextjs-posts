@@ -8,8 +8,6 @@ import { ParsedUrlQuery } from 'querystring'
 import matter from 'gray-matter'
 import { marked } from 'marked'
 import { PostPageProps } from '../../interfaces/post-page-props'
-import { useEffect } from 'react'
-import { BACKEND_URL } from '../../data/constants'
 
 interface IParams extends ParsedUrlQuery {
   slug: string
@@ -20,26 +18,6 @@ const PostPage = ({
   slug,
   content
 }: PostPageProps) => {
-  useEffect(() => {
-    const data = getProductList()
-    console.log('get product list', data)
-  }, [])
-
-  const getProductList = async () => {
-    try {
-      const response = await fetch(`${BACKEND_URL}products`, {
-        method: 'GET',
-        headers: {
-          'Content-type': 'application/json'
-        }
-      })
-      const data = await response.json()
-      return data
-    } catch (error) {
-      console.log('error is', JSON.stringify(error))
-    }
-  }
-
   return (
     <div className='pt-4'>
       <Link href='/'>
@@ -48,7 +26,7 @@ const PostPage = ({
         </a>
       </Link>
       <div className='py-4 px-8 rounded-xl shadow shadow-indigo-200/50 '>
-        <h1 className='my-2 mx-0'>{name}</h1>
+        <h1 className='my-2 mx-0 font-semibold'>{name}</h1>
         <div className='bg-gray-100 mb-5 px-2.5 py-0.5'>Posted on {date}</div>
         <div className='relative w-full'>
           <Image
@@ -102,7 +80,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false
+    fallback: 'blocking'
   }
 }
 

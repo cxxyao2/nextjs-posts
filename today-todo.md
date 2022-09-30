@@ -91,3 +91,9 @@ small screen: only search incon
 
 - profile : file upload
 - data: download .csv format
+- search : add 3 tab content.
+  serversideprops.
+
+SSR vs SSG in Next.js – a practical overview for CTOs and devs
+
+-- ssr: store page. often timeout error.

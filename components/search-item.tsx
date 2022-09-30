@@ -5,28 +5,8 @@ import {
 } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import { useState } from 'react'
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '0%',
-    transform: 'translate(-50%,-50%)'
-  }
-}
 
 const SearchItem = () => {
-  const [modalIsOpen, setModalIsOpen] = useState(false)
-  let subname: any
-
-  const afterOpen = () => {
-    subname.style.color = '#f00'
-  }
-  const closeModal = () => {
-    setModalIsOpen(false)
-  }
-
   return (
     <div className='col-span-full md:col-span-6 lg:col-span-4 xl:col-span-3 bg-white shadow-lg rounded-sm border border-slate-200'>
       <figure className='flex flex-row justify-between items-center space-x-2 md:flex-col md:space-y-2'>

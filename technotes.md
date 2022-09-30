@@ -57,3 +57,9 @@ notFound: true,
 };
 }
 ```
+
+## getStaticProps
+
+fallback: true, if not, will return dummy page + newly generate HTML,
+fallback: false, if not exist, will return 404
+fallback: no dummy page, let client browser hang + newly generate HTML

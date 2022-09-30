@@ -4,7 +4,8 @@ import DashBoardDataTable from './table-sample'
 const SearchClient = () => {
   return (
     <>
-      <DashBoardDataTable />
+      <div>client A</div>
+      <div>client B</div>
     </>
   )
 }

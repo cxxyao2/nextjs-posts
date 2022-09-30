@@ -1,3 +1,7 @@
+import Link from 'next/link'
+import { GetStaticProps } from 'next'
+import { ParsedUrlQuery } from 'querystring'
+import matter from 'gary-matter'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import SearchItem from '../components/search-item'
 import { useState } from 'react'
@@ -54,7 +58,7 @@ const SearchPage = () => {
                   onClick={() => setTab(3)}
                   tabIndex={5}
                   className='outline-none pb-1 focus:border-b-2  focus:border-gray-200 transform transition-colors duration-300 cursor-pointer'>
-                  Service{' '}
+                  Event{' '}
                 </a>
               </ol>
             </ul>

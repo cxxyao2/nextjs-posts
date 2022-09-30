@@ -19,7 +19,6 @@ const Profile = () => {
       setPerson(pername)
       return
     }
-    setPerson('good person')
   }, [])
 
   if (!person) return null
