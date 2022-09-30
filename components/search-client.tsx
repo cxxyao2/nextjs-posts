@@ -1,11 +1,13 @@
+import { Customer } from '../models/customer'
 import DashBoardDataTable from './table-sample'
 
-// table  TODO
-const SearchClient = () => {
+type SearchClientProps = {
+  client: Customer
+}
+const SearchClient = ({ client }: SearchClientProps) => {
   return (
     <>
-      <div>client A</div>
-      <div>client B</div>
+      <div>client {client.name}</div>
     </>
   )
 }
