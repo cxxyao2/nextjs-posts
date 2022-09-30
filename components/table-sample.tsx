@@ -12,7 +12,7 @@ type TableDataType = {
 }
 
 const DashBoardDataTable = () => {
-  const FLAG_COLOR = ['red', 'yellow', 'blue', 'purple', 'green']
+  const FLAG_COLOR = ['red', 'yellow', 'green', 'purple', 'gray']
   const [tableData, setTableData] = useState<TableDataType[]>([
     {
       product: 'Product A',
@@ -34,24 +34,16 @@ const DashBoardDataTable = () => {
       orderQty: 100,
       sales: 1000,
       conversion: 4
-    },
-    {
-      product: 'Product D',
-      visitor: 400,
-      orderQty: 100,
-      sales: 1000,
-      conversion: 6
-    },
-    {
-      product: 'Product E',
-      visitor: 400,
-      orderQty: 100,
-      sales: 1000,
-      conversion: 5
     }
   ])
   const { orderDetails, isDescend } = useDashBoardContext()
   const { products } = useShoppingCart()
+  const getColoredFlag = (index: number) => {
+    const flagColor = 'text-' + FLAG_COLOR[index] + '-400'
+    const flagCssClass = 'w-6 h-6  mr-1  ' + flagColor
+    return <FlagIcon className={flagCssClass} />
+  }
+
   useEffect(() => {
     const chartData: TableDataType[] = []
     orderDetails.length >= 1 &&
@@ -64,7 +56,7 @@ const DashBoardDataTable = () => {
         const total = filterResult.reduce((previousValue, current) => {
           return previousValue + current.amount
         }, 0)
-        // todo
+
         let conversion = Math.round(Math.random() * 100)
         if (conversion === 0) {
           conversion = 1
@@ -82,7 +74,14 @@ const DashBoardDataTable = () => {
     if (isDescend) chartData.sort((a, b) => b.sales - a.sales)
     if (!isDescend) chartData.sort((a, b) => a.sales - b.sales)
     setTableData(chartData.filter((item) => item.sales > 0).slice(0, 5))
-  }, [orderDetails])
+  }, [orderDetails, isDescend])
+
+  if (orderDetails.length === 0)
+    return (
+      <div className='col-span-full truncate text-ellipsis rounded-md font-semibold text-indigo-800'>
+        No data.Please click refresh button to load data...{' '}
+      </div>
+    )
 
   return (
     <div className='col-span-full xl:self-center xl:col-span-8 bg-white shadow-lg rounded-sm border border-slate-200'>
@@ -114,12 +113,10 @@ const DashBoardDataTable = () => {
             </thead>
             <tbody className='text-sm font-medium divide-y'>
               {tableData.map((detail, index) => (
-                <tr>
+                <tr key={index}>
                   <td className='p-2'>
                     <div className='flex items-center'>
-                      <FlagIcon
-                        className={`w-6 h-6 text-${FLAG_COLOR[index]}-400 mr-1`}
-                      />
+                      {getColoredFlag(index)}
                       <div className='text-slate-600'>{detail.product}</div>
                     </div>
                   </td>

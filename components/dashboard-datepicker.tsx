@@ -9,7 +9,11 @@ type DatePickerProp = {
   onRefresh: (startDate: Date, endDate: Date, isAscending: boolean) => void
 }
 const DashBoardDatePicker = ({ onRefresh }: DatePickerProp) => {
-  const [startDate, setStartDate] = useState(new Date())
+  const [startDate, setStartDate] = useState(() => {
+    const yyyy = new Date().getFullYear()
+    const firstDayOfYear = new Date(yyyy, 0, 1)
+    return firstDayOfYear
+  })
   const [endDate, setEndDate] = useState(new Date())
   const [isAscending, setIsAscending] = useState(true)
   return (
@@ -18,7 +22,7 @@ const DashBoardDatePicker = ({ onRefresh }: DatePickerProp) => {
         <li>
           <a
             className='block'
-            href='javascript:void(0)'>
+            href='#'>
             <img
               src='/avatar/duck.jpg'
               className='w-9 h-9 rounded-full shadow-md shadow-gray-500'
@@ -29,7 +33,7 @@ const DashBoardDatePicker = ({ onRefresh }: DatePickerProp) => {
         <li>
           <a
             className='block'
-            href='javascript:void(0)'>
+            href='#'>
             <img
               src='/avatar/petunia.webp'
               className='w-9 h-9 rounded-full shadow-md shadow-gray-500'
@@ -40,7 +44,7 @@ const DashBoardDatePicker = ({ onRefresh }: DatePickerProp) => {
         <li>
           <a
             className='block'
-            href='javascript:void(0)'>
+            href='#'>
             <img
               src='/avatar/winnie.jpeg'
               className='w-9 h-9 rounded-full shadow-md shadow-gray-500'

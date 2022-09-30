@@ -17,8 +17,9 @@ export default function DashBoardPieChart() {
     { name: 'Group F', value: 189 }
   ])
 
-  const { orderDetails } = useDashBoardContext()
+  const { orderDetails, isDescend } = useDashBoardContext()
   const { products } = useShoppingCart()
+
   useEffect(() => {
     const chartData: PieDataType[] = []
     orderDetails.length >= 1 &&
@@ -27,17 +28,25 @@ export default function DashBoardPieChart() {
         const filterResult = orderDetails.filter(
           (order) => order.productId === product.id
         )
-        console.log('filter', filterResult)
 
         const total = filterResult.reduce((previousValue, current) => {
           return previousValue + current.amount
         }, 0)
-        console.log('total is', total)
+
         chartData.push({ name: product.name, value: total })
       })
-    chartData.sort((a, b) => b.value - a.value)
-    setPieData(chartData.slice(0, 3))
-  }, [orderDetails])
+    if (isDescend) chartData.sort((a, b) => b.value - a.value)
+    if (!isDescend) chartData.sort((a, b) => a.value - b.value)
+
+    setPieData(chartData.filter((item) => item.value > 0).slice(0, 3))
+  }, [orderDetails, isDescend])
+
+  if (orderDetails.length === 0)
+    return (
+      <div className='col-span-full truncate text-ellipsis rounded-md font-semibold text-indigo-800'>
+        No data.Please click refresh button to load data...{' '}
+      </div>
+    )
 
   return (
     <div className='flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-md border border-slate-200'>

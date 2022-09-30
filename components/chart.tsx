@@ -7,13 +7,13 @@ import DashBoardDataTable from './table-sample'
 const Chart = () => {
   return (
     <div className='grid grid-cols-12  gap-6'>
-      {/* <SalesLineChart rank={1}></SalesLineChart>
+      <SalesLineChart rank={1}></SalesLineChart>
       <SalesLineChart rank={2}></SalesLineChart>
-      <SalesLineChart rank={3}></SalesLineChart>*/}
-      <SalesLineChartDynamic></SalesLineChartDynamic>
-      <DashBoardColumnGraph />
+      <SalesLineChart rank={3}></SalesLineChart>
       <DashBoardPieChart />
       <DashBoardDataTable />
+      <SalesLineChartDynamic></SalesLineChartDynamic>
+      <DashBoardColumnGraph />
     </div>
   )
 }

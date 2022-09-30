@@ -197,6 +197,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   const data = await downloadCustomerList()
+  console.log('data is cart', data)
 
   return {
     props: {

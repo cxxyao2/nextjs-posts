@@ -5,8 +5,6 @@ import LatestNews from '../components/latest-news'
 import Meta from '../components/meta'
 import { IOrderDetail } from '../models/order-detail'
 import { useDashBoardContext } from '../context/dashboard-context'
-import { BACKEND_URL } from '../data/constants'
-import { convertDateToYYYYmmDD } from '../utils'
 import { useNotificationContext } from '../context/notification-context'
 import Notification from '../components/notification'
 import { getOrderOfRange } from '../serivces/report-service'
@@ -19,26 +17,20 @@ import {
 const DashBoard = () => {
   const { customers, products, setCustomers, setProducts } = useShoppingCart()
   const { showNotification, notification } = useNotificationContext()
-  const [isAscending, setIsAscending] = useState(true)
+
   const { setOrderDetails, setIsDescend } = useDashBoardContext()
 
-  const handleRefresh = async (
-    startDate: Date,
-    endDate: Date,
-    ascending: boolean
-  ) => {
-    let result: IOrderDetail[] = []
-    let backendUrl = BACKEND_URL.concat('orders')
-    const startDateString = convertDateToYYYYmmDD(startDate)
-    const endDateString = convertDateToYYYYmmDD(endDate)
-    setIsAscending(ascending)
-    backendUrl = backendUrl.concat(
-      `?startdate=${startDateString}&&enddate=${endDateString}`
-    )
+  useEffect(() => {
+    const startDate = new Date(new Date().getFullYear(), 0, 1)
+    const endDate = new Date()
+    getSalesDataByRange(startDate, endDate).then()
+  }, [])
+
+  const getSalesDataByRange = async (startDate: Date, endDate: Date) => {
     try {
       let data = await getOrderOfRange(startDate, endDate)
-
       setOrderDetails(data as Array<IOrderDetail>)
+
       if (customers.length === 0) {
         data = await downloadCustomerList()
         setCustomers(data.customers)
@@ -56,6 +48,15 @@ const DashBoard = () => {
       })
       return
     }
+  }
+
+  const handleRefresh = async (
+    startDate: Date,
+    endDate: Date,
+    ascending: boolean
+  ) => {
+    setIsDescend(ascending)
+    getSalesDataByRange(startDate, endDate)
   }
 
   return (

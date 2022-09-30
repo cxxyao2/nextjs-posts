@@ -11,6 +11,6 @@ export interface IOrderDetail {
   _id: string
   customerName: string
   salespersonId: string
-  salesPersonName: string
+  salespersonName: string
   createDate: Date
 }
