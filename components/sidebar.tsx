@@ -7,19 +7,39 @@ import {
   RadioIcon,
   ArrowDownIcon,
   ArrowRightIcon,
-  ChevronDownIcon
+  ChevronDownIcon,
+  ChartBarIcon,
+  ShoppingCartIcon,
+  GlobeAltIcon,
+  SunIcon
 } from '@heroicons/react/24/outline'
 import { useSession, signOut } from 'next-auth/react'
 import { useShoppingCart } from '../context/shoppingcart-context'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useTheme } from 'next-themes'
 
 const SideBar = () => {
   const { data: session } = useSession()
   const { isVisibleSideBar, setIsVisibleSideBar } = useShoppingCart()
   const [isExpanded, setIsExpanded] = useState(false)
   const router = useRouter()
-  // if (!isVisibleSideBar) return null
+  const [userName, setUserName] = useState<string | null | undefined>(null)
+  const { systemTheme, theme, setTheme } = useTheme()
+
+  useEffect(() => {
+    if (session?.user?.name) {
+      let currentName = session?.user?.name
+      if (currentName) {
+        let index = currentName.indexOf('@')
+        if (index >= 0) currentName = currentName.slice(0, index)
+        currentName =
+          currentName.slice(0, 1).toUpperCase() +
+          currentName.slice(1).toLowerCase()
+        setUserName(currentName)
+      }
+    }
+  }, [session])
 
   return (
     <div>
@@ -30,7 +50,7 @@ const SideBar = () => {
       )}
       <div
         className={`absolute z-40 top-0  left-0 bg-white text-gray-900 p-5 text-sm
-      border-r border-gray-400 w-64 shrink-0 h-screen overflow-y-auto transition-all
+      border-r border-gray-400 w-60 shrink-0 h-screen overflow-y-auto transition-all
       lg:static lg:left-auto lg:top-auto  lg:!translate-x-0
        ${
          isVisibleSideBar ? '!translate-x-0' : ''
@@ -42,21 +62,34 @@ const SideBar = () => {
           x
         </button>
         <div className='space-y-4'>
-          <div className='text-center'>{session?.user?.name}</div>
+          <div className='text-center'>{userName}</div>
+          {userName && (
+            <button
+              onClick={() => {
+                localStorage.removeItem('tokenFromServer')
+                signOut()
+              }}
+              className='text-center   w-full rounded-sm p-1 hover:shadow-md hover:shadow-indigo-200  hover:bg-indigo-600 hover:text-white focus:bg-indigo-600 focus:text-white '>
+              Sign Out
+            </button>
+          )}
           <button
-            onClick={() => signOut()}
-            className='text-center  w-full rounded-sm hover:ring-2 hover:text-gray-400 hover:ring-indigo-200  hover:ring-offset-2 hover:ring-offset-indigo-200 '>
-            Sign Out
-          </button>
-          <button className='flex items-center space-x-2 hover:text-gray-400'>
+            className='flex items-center space-x-2 p-1 w-full hover:shadow-md hover:shadow-indigo-200  hover:bg-indigo-600 hover:text-white focus:bg-indigo-600 focus:text-white '
+            onClick={() => router.push('/')}>
             <HomeIcon className='h-5 w-5 ' />
             <p>Home </p>
           </button>
-          <div>
+          <button
+            className='flex items-center space-x-2 p-1 w-full hover:shadow-md hover:shadow-indigo-200  hover:bg-indigo-600 hover:text-white focus:bg-indigo-600 focus:text-white '
+            onClick={() => router.push('/store')}>
+            <ShoppingCartIcon className='h-5 w-5 ' />
+            <p>Shopping </p>
+          </button>
+          <div className=''>
             <div className='flex justify-between items-center'>
               <button
-                className='flex  hover:text-gray-400'
-                onClick={() => router.push('/store')}>
+                className='flex'
+                onClick={() => router.push('/search')}>
                 <MagnifyingGlassIcon className='h-5 w-5 shrink-0 mr-3' />
                 <div>Search </div>
               </button>
@@ -72,59 +105,57 @@ const SideBar = () => {
               <div>
                 <ul className='pl-8 mt-1 '>
                   <li className='mb-1 last:mb-0'>
-                    <a
-                      aria-current='page'
-                      href='/'
-                      className='block text-slate-300 hover:text-slate-500 transition duration-150'>
-                      <span>Main</span>
-                    </a>
+                    <button
+                      onClick={() => router.push('/search')}
+                      className='block text-left -ml-1 p-1 w-full hover:shadow-md hover:shadow-indigo-200  hover:bg-indigo-600 hover:text-white focus:bg-indigo-600 focus:text-white transition duration-150'>
+                      <span>Product</span>
+                    </button>
                   </li>
                   <li>
-                    <a
-                      aria-current='page'
-                      href='/'
-                      className='block text-slate-300 hover:text-slate-500 transition duration-150'>
-                      <span>Main</span>
-                    </a>
+                    <button
+                      onClick={() => router.push('/search')}
+                      className='block text-left -ml-1 p-1 w-full hover:shadow-md hover:shadow-indigo-200  hover:bg-indigo-600 hover:text-white focus:bg-indigo-600 focus:text-white transition duration-150'>
+                      <span>Client</span>
+                    </button>
                   </li>
                   <li>
-                    <a
-                      aria-current='page'
-                      href='/'
-                      className='block text-slate-300 hover:text-slate-500 transition duration-150'>
-                      <span>Main</span>
-                    </a>
+                    <button
+                      onClick={() => router.push('/search')}
+                      className='block text-left -ml-1 p-1 w-full hover:shadow-md hover:shadow-indigo-200  hover:bg-indigo-600 hover:text-white focus:bg-indigo-600 focus:text-white transition duration-150'>
+                      <span>Event</span>
+                    </button>
                   </li>
                 </ul>
               </div>
             )}
           </div>
-          <button className='flex items-center space-x-2 hover:text-gray-400'>
+          <button
+            className='flex items-center space-x-2 p-1 w-full hover:shadow-md hover:shadow-indigo-200  hover:bg-indigo-600 hover:text-white focus:bg-indigo-600 focus:text-white'
+            onClick={() => router.push(`/profile?person=${userName}`)}>
             <BookOpenIcon className='h-5 w-5 ' />
-            <p>Your Library</p>
+            <p>Your Profile</p>
           </button>
-          <button className='flex items-center space-x-2 hover:text-gray-400'>
-            <PlusIcon className='h-5 w-5 ' />
-            <p>More... </p>
+          <button
+            className='flex items-center space-x-2 p-1 w-full hover:shadow-md hover:shadow-indigo-200  hover:bg-indigo-600 hover:text-white focus:bg-indigo-600 focus:text-white'
+            onClick={() => router.push('/dashboard')}>
+            <ChartBarIcon className='h-5 w-5 ' />
+            <p>Dashboard</p>
           </button>
-          <hr className='border-t-[0.1px] border-gray-400' />
-          <button className='flex items-center space-x-2 hover:text-gray-400'>
+          <button
+            className='flex items-center space-x-2  p-1 w-full hover:shadow-md hover:shadow-indigo-200  hover:bg-indigo-600 hover:text-white focus:bg-indigo-600 focus:text-white'
+            onClick={() => router.push('/')}>
             <RadioIcon className='h-5 w-5 ' />
-            <p>Latest Activities </p>
+            <p>Latest Events </p>
           </button>
-          <button className='flex items-center space-x-2 hover:text-gray-400'>
-            <HomeIcon className='h-5 w-5 ' />
-            <p>Placeholder </p>
-          </button>
-          <button className='flex items-center space-x-2 hover:text-gray-400'>
-            <HomeIcon className='h-5 w-5 ' />
-            <p>Placeholder </p>
+          <button
+            className='flex items-center space-x-2  p-1 w-full hover:shadow-md hover:shadow-indigo-200  hover:bg-indigo-600 hover:text-white focus:bg-indigo-600 focus:text-white'
+            onClick={() =>
+              theme === 'dark' ? setTheme('light') : setTheme('dark')
+            }>
+            <SunIcon className='h-5 w-5 ' />
+            <p>Theme </p>
           </button>
           <hr className='border-t-[0.1px] border-gray-400' />
-          <button className='flex items-center space-x-2 hover:text-gray-400'>
-            <HeartIcon className='h-5 w-5 ' />
-            <p>Your favorites </p>
-          </button>
           <button className='flex items-center space-x-2 hover:text-gray-400'>
             <HomeIcon className='h-5 w-5 ' />
             <p>Placeholder </p>

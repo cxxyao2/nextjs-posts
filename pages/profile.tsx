@@ -19,6 +19,7 @@ const Profile = () => {
       setPerson(pername)
       return
     }
+    router.push('/auth/signin')
   }, [])
 
   if (!person) return null
@@ -45,7 +46,7 @@ const Profile = () => {
         </div>
       </div>
       <div>
-        <blockquote className='text-orange-400'>
+        <blockquote className='text-orange-400 text-center p-1'>
           "When the going gets tough, the tough gets going."
         </blockquote>
       </div>

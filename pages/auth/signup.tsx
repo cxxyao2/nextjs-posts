@@ -5,6 +5,7 @@ import { BACKEND_URL } from '../../data/constants'
 import Link from 'next/link'
 import { useNotificationContext } from '../../context/notification-context'
 import Notification from '../../components/notification'
+import { ExtendedUser } from '../../models/extended-user'
 
 const SignUpForm = () => {
   const defaultFormData = {
@@ -77,7 +78,7 @@ const SignUpForm = () => {
   }
 
   return (
-    <section className='m-auto my-12 max-w-md rounded-md bg-white  shadow-gray-200 shadow-xl p-4'>
+    <section className='m-auto my-12 max-w-md rounded-md bg-white dark:text-gray-700  shadow-gray-200 shadow-xl p-4'>
       {notification && <Notification {...notification} />}
       <h1 className='text-center text-2xl mb-6'>Sign Up</h1>
       <form onSubmit={handleSubmit}>

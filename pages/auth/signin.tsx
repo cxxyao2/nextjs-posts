@@ -6,13 +6,7 @@ import Link from 'next/link'
 import { useNotificationContext } from '../../context/notification-context'
 import Notification from '../../components/notification'
 import { validateEmail, validateLengthRange } from '../../utils'
-
-interface ExtendedUser {
-  name?: string | null | undefined
-  email?: string | null | undefined
-  image?: string | null | undefined
-  tokenFromServer: string
-}
+import { ExtendedUser } from '../../models/extended-user'
 
 const SignInForm = () => {
   const [hidePassword, setHidePassword] = useState(true)
@@ -90,7 +84,7 @@ const SignInForm = () => {
   }
 
   return (
-    <section className='relative m-auto  max-w-md rounded-md bg-white  shadow-gray-200 shadow-xl p-4'>
+    <section className='relative m-auto  max-w-md rounded-md bg-white dark:text-gray-700 shadow-gray-200 shadow-xl p-4'>
       {notification && <Notification {...notification} />}
       <h1 className='text-center text-2xl mb-6'>Sign In</h1>
       <form onSubmit={handleSubmit}>

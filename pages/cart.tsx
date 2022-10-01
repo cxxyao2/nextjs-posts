@@ -166,7 +166,7 @@ const Cart: NextPage<Props> = ({ customers, errorFromServer }) => {
         title='Select a customer'
         isOpen={isModalOpen}
         onAfterOpen={() => {}}
-        initialItems={customers}
+        initialItems={customers.slice()}
         currentId={selectedCustomer?.id || null}
         onClose={(id) => {
           if (id === null) {

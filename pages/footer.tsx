@@ -6,7 +6,7 @@ const Footer = (props: any) => {
   const { t } = useTranslation('common')
   return (
     <footer className='py-6 text-center text-gray-500 text-sm'>
-      <span className='text-gray-900 font-fold text-lg dark:text-gary-100'>
+      <span className='text-gray-900 font-fold text-lg dark:text-white'>
         Jennifer
       </span>
       &copy; {new Date().getFullYear()} All right reserved.

@@ -47,7 +47,7 @@ const ResetPassword = () => {
   }
 
   return (
-    <section className='m-auto  max-w-md rounded-md bg-white  shadow-gray-200 shadow-xl p-4'>
+    <section className='m-auto  max-w-md rounded-md bg-white dark:text-gray-700  shadow-gray-200 shadow-xl p-4'>
       <form onSubmit={handleSubmit}>
         <h2 className='text-lg text-center mb-6'>Reset Password</h2>
         {successMessage ? (

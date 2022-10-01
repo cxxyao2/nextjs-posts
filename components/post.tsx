@@ -7,7 +7,7 @@ type Props = {
 
 const Post = ({ post }: Props) => {
   return (
-    <div className='p-4 rounded-lg shadow-md shadow-indigo-200 '>
+    <div className='p-4 rounded-lg shadow-[0_0_4px_2px_rgba(0,0,0,0.3)]'>
       <Image
         className='rounded-md'
         src={post.frontmatter.cover_image}
@@ -16,10 +16,10 @@ const Post = ({ post }: Props) => {
         layout='responsive'
         priority={true}
       />
-      <div className='bg-gray-100 mb-5 py-1 px-2'>
+      <div className=' mb-5 py-1 px-2 text-gray-400'>
         Posted on {post.frontmatter.date}
       </div>
-      <h3>{post.frontmatter.name}</h3>
+      <h3 className='font-semibold text-orange-600'>{post.frontmatter.name}</h3>
       <p className='mb-2'>{post.frontmatter.excerpt}</p>
       <Link href={`/blog/${post.slug}`}>
         <a className='inline bg-indigo-400 text-white   py-1 px-4 rounded-md cursor-pointer no-underline text-sm hover:shadow'>

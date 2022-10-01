@@ -17,3 +17,4 @@
 - ssr + ssg
 - custom error boundary
 - middleware. request cookies.set
+- tailwindcss official plugin: line-clamp

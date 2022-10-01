@@ -13,6 +13,9 @@ const LoginButton = ({ className }: LoginButtonProps) => {
     if (currentName) {
       let index = currentName.indexOf('@')
       if (index >= 0) currentName = currentName.slice(0, index)
+      currentName =
+        currentName.slice(0, 1).toUpperCase() +
+        currentName.slice(1).toLowerCase()
     }
     return (
       <>

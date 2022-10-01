@@ -25,9 +25,9 @@ const PostPage = ({
           Go Back
         </a>
       </Link>
-      <div className='py-4 px-8 rounded-xl shadow shadow-indigo-200/50 '>
+      <div className='my-2 py-2 px-2 rounded-xl shadow-lg shadow-gray-400/50 dark:shadow-indigo-400/50 '>
         <h1 className='my-2 mx-0 font-semibold'>{name}</h1>
-        <div className='bg-gray-100 mb-5 px-2.5 py-0.5'>Posted on {date}</div>
+        <div className='text-gray-600 mb-5  py-0.5'>Posted on {date}</div>
         <div className='relative w-full'>
           <Image
             src={cover_image}

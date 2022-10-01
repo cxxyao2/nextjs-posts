@@ -2,8 +2,8 @@ import { PostPageProps } from '../interfaces/post-page-props'
 
 export function sortByDate(a: PostPageProps, b: PostPageProps) {
   return new Date(b.frontmatter['date']) > new Date(a.frontmatter['date'])
-    ? -1
-    : 1
+    ? 1
+    : -1
 }
 
 export function validatedate(inputText: string): boolean {

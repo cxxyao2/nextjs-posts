@@ -13,6 +13,8 @@ import {
   downloadCustomerList,
   downloadProductList
 } from '../serivces/master-service'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 const DashBoard = () => {
   const { customers, products, setCustomers, setProducts } = useShoppingCart()
@@ -20,10 +22,12 @@ const DashBoard = () => {
 
   const { setOrderDetails, setIsDescend } = useDashBoardContext()
 
+  const { data: session } = useSession()
+  const router = useRouter()
   useEffect(() => {
     const startDate = new Date(new Date().getFullYear(), 0, 1)
     const endDate = new Date()
-    getSalesDataByRange(startDate, endDate).then()
+    if (session) getSalesDataByRange(startDate, endDate).then()
   }, [])
 
   const getSalesDataByRange = async (startDate: Date, endDate: Date) => {
@@ -58,6 +62,17 @@ const DashBoard = () => {
     setIsDescend(ascending)
     getSalesDataByRange(startDate, endDate)
   }
+
+  if (!session)
+    return (
+      <div>
+        <button
+          className='text-lg text-indigo-600 p-2'
+          onClick={() => router.push('/auth/signin?from=/dashboard')}>
+          Please SignIn.
+        </button>
+      </div>
+    )
 
   return (
     <>

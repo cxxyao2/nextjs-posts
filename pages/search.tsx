@@ -1,14 +1,11 @@
 import fs from 'fs'
 import path from 'path'
-import Link from 'next/link'
 import { GetStaticProps } from 'next'
-import { ParsedUrlQuery } from 'querystring'
 import matter from 'gray-matter'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import SearchItem from '../components/search-item'
 import { useEffect, useState } from 'react'
 import SearchClient from '../components/search-client'
-import SearchService from '../components/search-service'
 import { sortByDate } from '../utils'
 import {
   downloadCustomerList,
@@ -16,22 +13,55 @@ import {
 } from '../serivces/master-service'
 import IProduct from '../models/product'
 import { Customer } from '../models/customer'
+import SearchEvent from '../components/search-event'
+import { PostPageProps } from '../interfaces/post-page-props'
+import { useNotificationContext } from '../context/notification-context'
+import Notification from '../components/notification'
 
 type SearchPageProps = {
-  [key: string]: any
+  posts: PostPageProps[]
+  productData: {
+    products: IProduct[]
+    errorMessage: string
+  }
+  customerData: {
+    customers: Customer[]
+    errorMessage: string
+  }
 }
 
 const SearchPage = ({ posts, productData, customerData }: SearchPageProps) => {
   const [tab, setTab] = useState(1)
+  const { showNotification, notification } = useNotificationContext()
+  const [keyword, setKeyword] = useState('')
+
   useEffect(() => {
-    console.log('data is', posts, productData, customerData)
+    if (productData.errorMessage) {
+      showNotification({
+        id: '',
+        message: 'Please refresh page. ' + productData.errorMessage,
+        status: 'error'
+      })
+      return
+    }
+    if (customerData.errorMessage) {
+      showNotification({
+        id: '',
+        message: 'Please refresh page. ' + customerData.errorMessage,
+        status: 'error'
+      })
+      return
+    }
   }, [posts, productData, customerData])
   return (
     <>
-      <div className='bg-white  p-4 rounded-sm dark:bg-slate-200'>
+      {notification && <Notification {...notification} />}
+
+      <div className='shadow shadow-indigo-100  p-4 rounded-sm'>
         <div className='bg-indigo-400'>
           <div className=' focus:outline-2 focus:outline-indigo-200 flex h-[40px] flex-row justify-center items-center   shadow-md shadow-slate-300'>
             <input
+              onChange={(e) => setKeyword(e.target.value.toLocaleLowerCase())}
               type='text'
               tabIndex={1}
               autoComplete='off'
@@ -85,28 +115,72 @@ const SearchPage = ({ posts, productData, customerData }: SearchPageProps) => {
           <h2 className='font-semibold text-lg text-slate-600'>Results</h2>
           <div className='grid grid-cols-12 gap-6'>
             {tab === 1 &&
-              (productData.products as Array<IProduct>).map((product) => (
-                <SearchItem
-                  key={product.id}
-                  item={product}
-                />
-              ))}
+              productData.products.filter(
+                (product) =>
+                  product.name.toLowerCase().includes(keyword) ||
+                  product.description.toLowerCase().includes(keyword)
+              ).length === 0 && (
+                <div className='text-center p-2 col-span-full rounded-md shadow shadow-gray-400'>
+                  No product found.
+                </div>
+              )}
+            {tab === 1 &&
+              productData.products
+                .filter(
+                  (product) =>
+                    product.name.toLowerCase().includes(keyword) ||
+                    product.description.toLowerCase().includes(keyword)
+                )
+                .map((product) => (
+                  <SearchItem
+                    key={product.id}
+                    item={product}
+                  />
+                ))}
             {tab === 2 &&
-              (customerData.customers as Array<Customer>).map((customer) => (
-                <SearchClient
-                  key={customer.id}
-                  client={customer}
-                />
-              ))}
-            {tab === 3 && (
-              <>
-                <SearchService />
-                <SearchService />
-                <SearchService />
-                <SearchService />
-                <SearchService />
-              </>
-            )}
+              customerData.customers.filter((customer) =>
+                customer.name.toLowerCase().includes(keyword)
+              ).length === 0 && (
+                <div className='text-center p-2 col-span-full rounded-md shadow shadow-gray-400'>
+                  No client found.
+                </div>
+              )}
+            {tab === 2 &&
+              customerData.customers
+                .filter((customer) =>
+                  customer.name.toLowerCase().includes(keyword)
+                )
+                .map((customer) => (
+                  <SearchClient
+                    key={customer.id}
+                    client={customer}
+                  />
+                ))}
+            {tab === 3 &&
+              posts.filter(
+                (post) =>
+                  post.content?.toLowerCase().includes(keyword) ||
+                  post.slug.toLowerCase().includes(keyword) ||
+                  post.frontmatter['name'].toLowerCase().includes(keyword)
+              ).length === 0 && (
+                <div className='text-center p-2 col-span-full rounded-md shadow shadow-gray-400'>
+                  No event found.
+                </div>
+              )}
+            {tab === 3 &&
+              posts
+                .filter(
+                  (post) =>
+                    post.content?.toLowerCase().includes(keyword) ||
+                    post.slug.toLowerCase().includes(keyword) ||
+                    post.frontmatter['name'].toLowerCase().includes(keyword)
+                )
+                .map((post) => (
+                  <SearchEvent
+                    key={post.slug}
+                    {...post}
+                  />
+                ))}
           </div>
         </section>
       </div>
@@ -117,10 +191,7 @@ const SearchPage = ({ posts, productData, customerData }: SearchPageProps) => {
 export default SearchPage
 
 export const getStaticProps: GetStaticProps = async () => {
-  // get products
   const productData = await downloadProductList()
-
-  // get clients
   const customerData = await downloadCustomerList()
 
   const files = fs.readdirSync(path.join('posts'))
@@ -146,7 +217,6 @@ export const getStaticProps: GetStaticProps = async () => {
       posts: posts.sort(sortByDate),
       productData,
       customerData
-    },
-    revalidate: 30
+    }
   }
 }

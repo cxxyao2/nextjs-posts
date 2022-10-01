@@ -116,7 +116,7 @@ const DashBoardDataTable = () => {
                 <tr key={index}>
                   <td className='p-2'>
                     <div className='flex items-center'>
-                      {getColoredFlag(index)}
+                      <FlagIcon className='w-6 h-6  mr-1 text-orange-600' />
                       <div className='text-slate-600'>{detail.product}</div>
                     </div>
                   </td>

@@ -13,12 +13,9 @@ type SearchItemProps = {
 
 const SearchItem = ({ item }: SearchItemProps) => {
   return (
-    <div className='col-span-full md:col-span-6 lg:col-span-4 xl:col-span-3 bg-white shadow-lg rounded-sm border border-slate-200'>
-      <figure className='flex flex-row justify-between items-center space-x-2 md:flex-col md:space-y-2'>
+    <div className='col-span-full md:col-span-6 lg:col-span-4 xl:col-span-3  shadow-sm rounded-sm  shadow-slate-400'>
+      <div className='flex flex-row  justify-start items-center space-x-4  md:flex-col md:space-y-2'>
         <div className='relative block self-center align-middle w-1/5 md:w-4/5  overflow-hidden'>
-          <span className='block z-10 absolute p-1 top-0 left-0 bg-orange-200 text-sm md:hidden'>
-            Best Seller
-          </span>
           <Image
             alt='product'
             width={100}
@@ -27,34 +24,30 @@ const SearchItem = ({ item }: SearchItemProps) => {
             objectFit='cover'
             src={item.imageUrl}></Image>
         </div>
-        <div className='p-2 md:p-4 text-center md:text-left'>
+        <div className='p-1 md:p-2  md:text-center '>
           <blockquote>
-            <p className='font-semibold text-slate-800 text-left text-clip md:text-center'>
-              <span className='hidden md:mx-1 md:text-xs  md:bg-orange-300'>
-                Best Seller
-              </span>
-              <span>Name:{item.name}</span>
+            <p className='font-semibold text-slate-800 text-left  md:text-center text-clip '>
+              <span className='dark:text-gray-200'>Name:{item.name}</span>
             </p>
-            <div className='group '>
-              <div> a short excertpt</div>
-              <button className='wx-2 group'>
-                <EllipsisHorizontalIcon className='w-6 h-6 text-slate-600' />
-              </button>
-              <div className='hidden group-hover:block -mt-10'>
+            <div className='group max-w-[200px] md:max-w-full'>
+              <div className='block line-clamp-1 group-hover:hidden text-left md:text-center'>
+                {item.description}
+              </div>
+              <div className='hidden group-hover:block text-left '>
                 {item.description}
               </div>
             </div>
           </blockquote>
         </div>
-        <figcaption className='font-medium p-2 md:p-4'>
+        <div className='font-medium p-1 md:p-2'>
           <div className='text-sm text-sky-500 dark:text-sky-400'>
-            {item.price}
+            Price: ${item.price}
           </div>
           <div className='font-semifold text-slate-700 dark:text-slate-500 '>
-            stock: 22
+            Stock: {item.stock}
           </div>
-        </figcaption>
-      </figure>
+        </div>
+      </div>
     </div>
   )
 }
