@@ -14,7 +14,7 @@ import {
   downloadProductList
 } from '../serivces/master-service'
 
-const DashBoard = ({}) => {
+const DashBoard = () => {
   const { customers, products, setCustomers, setProducts } = useShoppingCart()
   const { showNotification, notification } = useNotificationContext()
 

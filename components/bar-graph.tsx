@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   BarChart,
   Bar,
@@ -10,7 +11,7 @@ import {
   ResponsiveContainer
 } from 'recharts'
 
-const data = [
+const dataTemplate = [
   {
     name: 'Page A',
     uv: 4000,
@@ -56,9 +57,11 @@ const data = [
 ]
 
 export default function DashBoardColumnGraph() {
+  const [data, setData] = useState(dataTemplate)
+
   return (
     <div
-      className='flex flex-col col-span-full sm:col-span-6 bg-white shadow-lg
+      className='col-span-full sm:col-span-6 bg-white shadow-lg
     rounded-sm border border-slate-200'>
       <header className='px-5 py-4 border-b border-slate-100'>
         <h2 className='font-semibold text-slate-800'>Direct vs Indirect</h2>
@@ -84,14 +87,11 @@ export default function DashBoardColumnGraph() {
             </button>
           </li>
         </ul>
-      </div>
-      <ResponsiveContainer
-        width='100%'
-        height='100%'>
+
         <BarChart
-          width={500}
-          height={300}
           data={data}
+          height={300}
+          width={300}
           margin={{
             top: 5,
             right: 30,
@@ -112,7 +112,7 @@ export default function DashBoardColumnGraph() {
             fill='#82ca9d'
           />
         </BarChart>
-      </ResponsiveContainer>
+      </div>
     </div>
   )
 }

@@ -1,7 +1,6 @@
 import { FlagIcon } from '@heroicons/react/24/solid'
 import { useState, useEffect } from 'react'
 import { useDashBoardContext } from '../context/dashboard-context'
-import { useShoppingCart } from '../context/shoppingcart-context'
 
 type TableDataType = {
   product: string
@@ -12,7 +11,6 @@ type TableDataType = {
 }
 
 const DashBoardDataTable = () => {
-  const FLAG_COLOR = ['red', 'yellow', 'green', 'purple', 'gray']
   const [tableData, setTableData] = useState<TableDataType[]>([
     {
       product: 'Product A',
@@ -20,20 +18,20 @@ const DashBoardDataTable = () => {
       orderQty: 100,
       sales: 1000,
       conversion: 4
-    },
-    {
-      product: 'Product B',
-      visitor: 400,
-      orderQty: 100,
-      sales: 1000,
-      conversion: 4
     }
   ])
   const { orderDetails, isDescend } = useDashBoardContext()
-  const { products } = useShoppingCart()
 
   useEffect(() => {
-    console.log('table effect')
+    const products: { id: string; name: string }[] = []
+    orderDetails.forEach((order) => {
+      const index = products.findIndex(
+        (p) => p.id === order.productId && p.name === order.productName
+      )
+      if (index < 0) {
+        products.push({ id: order.productId, name: order.productName })
+      }
+    })
     const chartData: TableDataType[] = []
     orderDetails.length >= 1 &&
       products.length >= 1 &&

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts'
 import { useDashBoardContext } from '../context/dashboard-context'
-import { useShoppingCart } from '../context/shoppingcart-context'
 
 type PieDataType = {
   name: string
@@ -11,16 +10,22 @@ export default function DashBoardPieChart() {
   const [pieData, setPieData] = useState<PieDataType[]>([
     { name: 'Group A', value: 400 },
     { name: 'Group B', value: 300 },
-    { name: 'Group C', value: 300 },
-    { name: 'Group D', value: 200 },
-    { name: 'Group E', value: 278 },
-    { name: 'Group F', value: 189 }
+    { name: 'Group C', value: 300 }
   ])
 
   const { orderDetails, isDescend } = useDashBoardContext()
-  const { products } = useShoppingCart()
 
   useEffect(() => {
+    const products: { id: string; name: string }[] = []
+    orderDetails.forEach((order) => {
+      const index = products.findIndex(
+        (p) => p.id === order.productId && p.name === order.productName
+      )
+      if (index < 0) {
+        products.push({ id: order.productId, name: order.productName })
+      }
+    })
+
     const chartData: PieDataType[] = []
     orderDetails.length >= 1 &&
       products.length >= 1 &&

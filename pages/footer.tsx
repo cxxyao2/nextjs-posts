@@ -10,7 +10,7 @@ const Footer = (props: any) => {
         Jennifer
       </span>
       &copy; {new Date().getFullYear()} All right reserved.
-      {t('greeting')}
+      {t('Greeting')}
     </footer>
   )
 }
