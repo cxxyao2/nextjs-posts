@@ -58,19 +58,19 @@ export default function DashBoardPieChart() {
       <div className='p-2 flex flex-col items-start justify-start md:flex-row md:items-center md:justify-center gap-6 text-gray-800 '>
         {pieData.length >= 1 && (
           <div>
-            <span className='text-sm font-gray-600'> {pieData[0].name}</span> :
+            <span className='text-sm font-gray-600'> {pieData[0].name}</span>{' '}
             <span className='font-semibold'>${pieData[0].value} </span>
           </div>
         )}
         {pieData.length >= 2 && (
           <div>
-            <span className='text-sm font-gray-600'> {pieData[1].name}</span> :
+            <span className='text-sm font-gray-600'> {pieData[1].name}</span>{' '}
             <span className='font-semibold'>${pieData[1].value} </span>
           </div>
         )}
         {pieData.length >= 3 && (
           <div>
-            <span className='text-sm font-gray-600'> {pieData[2].name}</span> :
+            <span className='text-sm font-gray-600'> {pieData[2].name}</span>{' '}
             <span className='font-semibold'>${pieData[2].value} </span>
           </div>
         )}

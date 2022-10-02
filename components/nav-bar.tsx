@@ -80,8 +80,8 @@ const NavBar = () => {
                   }}></Bars3Icon>
                 <SvgNozzleComponent
                   fill='rgb(129 140 248)'
-                  className='w-10 h-10 rounded-md  hover:shadow-md hover:shadow-gray-300'></SvgNozzleComponent>
-                <span className='inline'>Excel Gas</span>
+                  className='w-10 h-10 rounded-md'></SvgNozzleComponent>
+                <span className='inline'>Gas</span>
               </a>
             </Link>
           </div>

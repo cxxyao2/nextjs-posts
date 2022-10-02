@@ -48,6 +48,7 @@ const SalesLineChart = ({ rank }: SalesLineChartProp) => {
   }
 
   useEffect(() => {
+    console.log('line-chart')
     const sales = [...salespersons]
     if (!sales || sales.length === 0 || sales.length < rank) return
     sales.sort((a, b) => b.amount - a.amount)

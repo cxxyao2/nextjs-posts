@@ -27,24 +27,13 @@ const DashBoardDataTable = () => {
       orderQty: 100,
       sales: 1000,
       conversion: 4
-    },
-    {
-      product: 'Product C',
-      visitor: 400,
-      orderQty: 100,
-      sales: 1000,
-      conversion: 4
     }
   ])
   const { orderDetails, isDescend } = useDashBoardContext()
   const { products } = useShoppingCart()
-  const getColoredFlag = (index: number) => {
-    const flagColor = 'text-' + FLAG_COLOR[index] + '-400'
-    const flagCssClass = 'w-6 h-6  mr-1  ' + flagColor
-    return <FlagIcon className={flagCssClass} />
-  }
 
   useEffect(() => {
+    console.log('table effect')
     const chartData: TableDataType[] = []
     orderDetails.length >= 1 &&
       products.length >= 1 &&
@@ -116,8 +105,24 @@ const DashBoardDataTable = () => {
                 <tr key={index}>
                   <td className='p-2'>
                     <div className='flex items-center'>
-                      <FlagIcon className='w-6 h-6  mr-1 text-orange-600' />
-                      <div className='text-slate-600'>{detail.product}</div>
+                      {index === 0 && (
+                        <FlagIcon className='shrink-0 w-6 h-6  mr-1 text-red-400' />
+                      )}
+                      {index === 1 && (
+                        <FlagIcon className='shrink-0  w-6 h-6  mr-1 text-purple-400' />
+                      )}
+                      {index === 2 && (
+                        <FlagIcon className='shrink-0  w-6 h-6  mr-1 text-green-400' />
+                      )}
+                      {index === 3 && (
+                        <FlagIcon className=' shrink-0  w-6 h-6  mr-1 text-orange-400' />
+                      )}
+                      {index === 4 && (
+                        <FlagIcon className='shrink-0  w-6 h-6  mr-1 text-gray-400' />
+                      )}
+                      <div className='text-slate-600 line-clamp-1'>
+                        {detail.product}
+                      </div>
                     </div>
                   </td>
                   <td className='p-2'>

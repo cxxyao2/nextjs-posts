@@ -13,22 +13,21 @@ import {
   downloadCustomerList,
   downloadProductList
 } from '../serivces/master-service'
-import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/router'
 
-const DashBoard = () => {
+const DashBoard = ({}) => {
   const { customers, products, setCustomers, setProducts } = useShoppingCart()
   const { showNotification, notification } = useNotificationContext()
 
   const { setOrderDetails, setIsDescend } = useDashBoardContext()
 
-  const { data: session } = useSession()
-  const router = useRouter()
+  const [datePeriod, setDatePeriod] = useState({
+    start: new Date(new Date().getFullYear(), 0, 1),
+    end: new Date()
+  })
+
   useEffect(() => {
-    const startDate = new Date(new Date().getFullYear(), 0, 1)
-    const endDate = new Date()
-    if (session) getSalesDataByRange(startDate, endDate).then()
-  }, [])
+    getSalesDataByRange(datePeriod.start, datePeriod.end).then()
+  }, [datePeriod])
 
   const getSalesDataByRange = async (startDate: Date, endDate: Date) => {
     try {
@@ -60,19 +59,8 @@ const DashBoard = () => {
     ascending: boolean
   ) => {
     setIsDescend(ascending)
-    getSalesDataByRange(startDate, endDate)
+    setDatePeriod({ start: startDate, end: endDate })
   }
-
-  if (!session)
-    return (
-      <div>
-        <button
-          className='text-lg text-indigo-600 p-2'
-          onClick={() => router.push('/auth/signin?from=/dashboard')}>
-          Please SignIn.
-        </button>
-      </div>
-    )
 
   return (
     <>

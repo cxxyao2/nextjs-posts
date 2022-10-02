@@ -7,20 +7,24 @@ import { GetServerSideProps } from 'next'
 import { getSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+type ProfileProps = {
+  userName: string | null | undefined
+}
 
-const Profile = () => {
+const Profile = ({ userName }: ProfileProps) => {
   const router = useRouter()
-  const [person, setPerson] = useState<string | null>(null)
+  const [person, setPerson] = useState<string | null | undefined>(null)
   useEffect(() => {
-    let position = router.asPath.search('person')
-    if (position >= 0) {
-      let pername = router.asPath.substring(position)
-      pername = pername.substring(7)
-      setPerson(pername)
-      return
-    }
-    router.push('/auth/signin')
-  }, [])
+    setPerson(userName)
+    // let position = router.asPath.search('person')
+    // if (position >= 0) {
+    //   let pername = router.asPath.substring(position)
+    //   pername = pername.substring(7)
+    //   setPerson(pername)
+    //   return
+    // }
+    // router.push('/auth/signin')
+  }, [userName])
 
   if (!person) return null
   return (
@@ -69,3 +73,31 @@ const Profile = () => {
 }
 
 export default Profile
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const userName = context.query.person
+
+  if (userName && userName != 'null') {
+    return {
+      props: {
+        userName
+      }
+    }
+  }
+
+  const session = await getSession(context)
+  if (session && session.user?.name) {
+    return {
+      props: {
+        userName: session.user?.name
+      }
+    }
+  }
+
+  return {
+    redirect: {
+      destination: '/auth/signin?from=/profile',
+      permanent: false
+    }
+  }
+}
