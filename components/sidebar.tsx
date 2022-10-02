@@ -11,7 +11,8 @@ import {
   ChartBarIcon,
   ShoppingCartIcon,
   GlobeAltIcon,
-  SunIcon
+  SunIcon,
+  UserGroupIcon
 } from '@heroicons/react/24/outline'
 import { useSession, signOut } from 'next-auth/react'
 import { useShoppingCart } from '../context/shoppingcart-context'
@@ -149,6 +150,12 @@ const SideBar = () => {
           </button>
           <button
             className='flex items-center space-x-2  p-1 w-full hover:shadow-md hover:shadow-indigo-200  hover:bg-indigo-600 hover:text-white focus:bg-indigo-600 focus:text-white'
+            onClick={() => router.push('/about')}>
+            <UserGroupIcon className='h-5 w-5 ' />
+            <p>About </p>
+          </button>
+          <button
+            className='flex items-center space-x-2  p-1 w-full hover:shadow-md hover:shadow-indigo-200  hover:bg-indigo-600 hover:text-white focus:bg-indigo-600 focus:text-white'
             onClick={() =>
               theme === 'dark' ? setTheme('light') : setTheme('dark')
             }>
@@ -184,18 +191,6 @@ const SideBar = () => {
             <HomeIcon className='h-5 w-5 ' />
             <p>Placeholder </p>
           </button>
-          <button className='flex items-center space-x-2 hover:text-gray-400'>
-            <HomeIcon className='h-5 w-5 ' />
-            <p>Placeholder </p>
-          </button>{' '}
-          <button className='flex items-center space-x-2 hover:text-gray-400'>
-            <HomeIcon className='h-5 w-5 ' />
-            <p>Placeholder </p>
-          </button>{' '}
-          <button className='flex items-center space-x-2 hover:text-gray-400'>
-            <HomeIcon className='h-5 w-5 ' />
-            <p>Placeholder </p>
-          </button>{' '}
           <button className='flex items-center space-x-2 hover:text-gray-400'>
             <HomeIcon className='h-5 w-5 ' />
             <p>Placeholder </p>

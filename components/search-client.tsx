@@ -7,7 +7,7 @@ type SearchClientProps = {
 }
 const SearchClient = ({ client }: SearchClientProps) => {
   return (
-    <div className='col-span-full md:col-span-6  xl:col-span-3  shadow-sm rounded-sm  shadow-slate-400'>
+    <div className='col-span-full md:col-span-6    shadow-sm rounded-sm  shadow-slate-400'>
       <div className=' p-2 flex flex-row justify-between space-x-4 items-center shadow-md shadow-gray-400'>
         <div className='relative w-10 h-10 rounded-full overflow-hidden outline-2 outline-white'>
           <Image

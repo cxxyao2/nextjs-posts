@@ -13,7 +13,7 @@ type SearchItemProps = {
 
 const SearchItem = ({ item }: SearchItemProps) => {
   return (
-    <div className='col-span-full md:col-span-6 lg:col-span-4 xl:col-span-3  shadow-sm rounded-sm  shadow-slate-400'>
+    <div className='col-span-full md:col-span-6 lg:col-span-4   shadow-sm rounded-sm  shadow-slate-400'>
       <div className='flex flex-row  justify-start items-center space-x-4  md:flex-col md:space-y-2'>
         <div className='relative block self-center align-middle w-1/5 md:w-4/5  overflow-hidden'>
           <Image
