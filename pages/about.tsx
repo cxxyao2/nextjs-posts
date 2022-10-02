@@ -3,8 +3,24 @@ import Image from 'next/image'
 import GitIconComponent from '../components/svg-git'
 import LinkedinIconComponent from '../components/svg-linkedin'
 import TwitterIconComponent from '../components/svg-twitter'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 const About: NextPage = () => {
+  const { data: session } = useSession()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!session?.user?.name) {
+      router && router.push('/auth/signin?from=/about')
+    }
+  }, [session])
+
+  if (!session?.user?.name) {
+    return null
+  }
+
   return (
     <div className='flex flex-col items-center md:flex-row md:w-4/5 mx-auto rounded-md bg-white overflow-hidden'>
       <div className='text-white bg-gradient-to-r from-indigo-800 to-indigo-400 p-4 w-full md:max-w-sm flex flex-col items-center  gap-4'>
