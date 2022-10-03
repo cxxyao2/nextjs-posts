@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { createRef, useEffect, useState } from 'react'
-import { BACKEND_URL } from '../data/constants'
 import { ArrowRightIcon } from '@heroicons/react/24/outline'
 
 const ResetPassword = () => {
@@ -27,7 +26,10 @@ const ResetPassword = () => {
     if (!validateForm()) return
     const newPassword = passwordRef.current?.value || ''
     try {
-      const backendUrl = BACKEND_URL.concat('auth/reset-password?', token)
+      const backendUrl = (process.env.NEXT_PUBLIC_BACKEND_URL || '').concat(
+        'auth/reset-password?',
+        token
+      )
       const res = await fetch(backendUrl, {
         method: 'POST',
         body: JSON.stringify({ newPassword }),

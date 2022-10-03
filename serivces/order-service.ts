@@ -1,10 +1,12 @@
-import { BACKEND_URL, TOKEN_HEADER_NAME } from '../data/constants'
+import { TOKEN_HEADER_NAME } from '../data/constants'
 import ICartItem from '../models/cart-item'
 import { convertDateToYYYYmmDD } from '../utils'
 
 export async function saveOrder(items: ICartItem[], customerId: string) {
   // save order header
-  const authUrl = BACKEND_URL.concat('orderheaders')
+  const authUrl = (process.env.NEXT_PUBLIC_BACKEND_URL || '').concat(
+    'orderheaders'
+  )
   const token = localStorage.getItem('tokenFromServer') || ''
 
   const headers = {
@@ -38,7 +40,7 @@ export async function saveOrder(items: ICartItem[], customerId: string) {
         price: item.price,
         amount: item.quantity * item.price
       }
-      const orderUrl = BACKEND_URL + 'orders'
+      const orderUrl = (process.env.NEXT_PUBLIC_BACKEND_URL || '') + 'orders'
 
       await fetch(orderUrl, {
         method: 'POST',

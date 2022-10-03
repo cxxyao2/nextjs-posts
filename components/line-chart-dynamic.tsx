@@ -48,7 +48,7 @@ const SalesLineChartDynamic = () => {
   })
 
   return (
-    <div className='bg-white flex flex-col col-span-full sm:col-span-6 xl:col-span-4 shadow-lg rounded-sm border border-slate-200'>
+    <div className='bg-white flex flex-col col-span-full sm:col-span-6 xl:col-span-4 shadow-md rounded-sm border border-slate-200'>
       <div className='px-5 pt-5'>
         <header className='flex justify-between items-start mb-2'>
           <PaperAirplaneIcon className='w-8 h-8 text-indigo-400 stroke-1 fill-indigo-300' />
@@ -61,7 +61,7 @@ const SalesLineChartDynamic = () => {
             </button>
             {isMenuVisible && (
               <div
-                className='absolute origin-top-right z-10 top-full right-0 min-w-36 bg-white border border-slate-200 py-1.5 rounded shadow-lg overflow-hidden mt-1'
+                className='absolute origin-top-right z-10 top-full right-0 min-w-36 bg-white border border-slate-200 py-1.5 rounded shadow-md overflow-hidden mt-1'
                 onClick={() => setIsMenuVisible((prev) => !prev)}>
                 <ul>
                   <li>

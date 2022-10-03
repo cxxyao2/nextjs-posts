@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { BACKEND_URL } from '../../data/constants'
 import { validateEmail } from '../../utils'
 
 interface ReturnData {
@@ -29,7 +28,9 @@ const ForgetPassword = () => {
 
     if (!validateForm()) return
     try {
-      const backendUrl = BACKEND_URL.concat('auth/send-reset-email')
+      const backendUrl = (process.env.NEXT_PUBLIC_BACKEND_URL || '').concat(
+        'auth/send-reset-email'
+      )
       const res = await fetch(backendUrl, {
         method: 'POST',
         body: JSON.stringify({ email: formData.email }),

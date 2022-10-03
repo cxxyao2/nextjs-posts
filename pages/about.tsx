@@ -11,6 +11,8 @@ const About: NextPage = () => {
   const { data: session } = useSession()
   const router = useRouter()
 
+  console.log('print env', process.env.NEXT_PUBLIC_BACKEND)
+
   useEffect(() => {
     if (!session?.user?.name) {
       router && router.push('/auth/signin?from=/about')
@@ -36,9 +38,10 @@ const About: NextPage = () => {
           <div className=' text-lg font-semibold'>Jennifer Cheng</div>
           <div className=''>Full Stack Developer</div>
           <div className='text-gray-200 w-4/5'>
-            A frontend developer with over 4 years of experience and a backend
-            developer with more than 10 years of experience. A huge fan of
-            typescript and Node.js. Passionate about Angular, React and NEXT.js.
+            A frontend developer with over 4 years of experience in creating and
+            maintaing web applications and a backend developer with more than 10
+            years of experience. A huge fan of typescript and Node.js.
+            Passionate about Angular, React and NEXT.js.
           </div>
         </div>
       </div>

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { signIn, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
-import { BACKEND_URL } from '../../data/constants'
 import Link from 'next/link'
 import { useNotificationContext } from '../../context/notification-context'
 import Notification from '../../components/notification'
@@ -38,7 +37,9 @@ const SignUpForm = () => {
     const password = formData.password
 
     try {
-      const backendUrl = BACKEND_URL.concat('users')
+      const backendUrl = (process.env.NEXT_PUBLIC_BACKEND_URL || '').concat(
+        'users'
+      )
       const res = await fetch(backendUrl, {
         method: 'POST',
         body: JSON.stringify({ name: email, email, password }),
@@ -80,7 +81,7 @@ const SignUpForm = () => {
   }
 
   return (
-    <section className='m-auto my-12 max-w-md rounded-md bg-white dark:text-gray-700  shadow-gray-200 shadow-xl p-4'>
+    <section className='m-auto my-12 max-w-md rounded-md bg-white dark:text-gray-700  shadow-gray-200 shadow-md p-4'>
       {notification && <Notification {...notification} />}
       <h1 className='text-center text-2xl mb-6'>Sign Up</h1>
       <form onSubmit={handleSubmit}>

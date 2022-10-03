@@ -23,7 +23,7 @@ const StoreItem = (props: IProduct) => {
 
   return (
     <div
-      className='col-span-12 sm:col-span-6 md:col-span-4  bg-white shadow-lg rounded-sm border border-slate-200
+      className='col-span-12 sm:col-span-6 md:col-span-4  bg-white shadow-md rounded-sm border border-slate-200
      drop-shadow-[0_2px_2px_rgba(0,0,0,0.25)]'>
       <div className='relative block  mx-auto w-4/5 sm:w-full overflow-hidden rounded-sm'>
         <Image

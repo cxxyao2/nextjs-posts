@@ -1,4 +1,3 @@
-import { BACKEND_URL } from '../data/constants'
 import { Customer } from '../models/customer'
 import IProduct from '../models/product'
 
@@ -7,14 +6,17 @@ export const downloadProductList = async () => {
   let errorMessage = ''
 
   try {
-    const response = await fetch(`${BACKEND_URL}products`, {
-      method: 'GET',
-      headers: {
-        'Content-type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL || ''}products`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+        }
       }
-    })
+    )
     const data = await response.json()
     products = data.map((item: any) => ({
       ...item,
@@ -36,14 +38,17 @@ export const downloadCustomerList = async () => {
   let errorMessage = ''
 
   try {
-    const response = await fetch(`${BACKEND_URL}customers`, {
-      method: 'GET',
-      headers: {
-        'Content-type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL || ''}customers`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+        }
       }
-    })
+    )
     const data = await response.json()
     customers = data.map((item: any) => ({
       ...item,

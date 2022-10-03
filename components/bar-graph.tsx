@@ -61,7 +61,7 @@ export default function DashBoardColumnGraph() {
 
   return (
     <div
-      className='col-span-full sm:col-span-6 bg-white shadow-lg
+      className='col-span-full sm:col-span-6 bg-white shadow-md
     rounded-sm border border-slate-200'>
       <header className='px-5 py-4 border-b border-slate-100'>
         <h2 className='font-semibold text-slate-800'>Direct vs Indirect</h2>

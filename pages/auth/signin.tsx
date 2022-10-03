@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { signIn, SignInResponse, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
-import { BACKEND_URL } from '../../data/constants'
 import Link from 'next/link'
 import { useNotificationContext } from '../../context/notification-context'
 import Notification from '../../components/notification'
@@ -84,7 +83,7 @@ const SignInForm = () => {
   }
 
   return (
-    <section className='relative m-auto  max-w-md rounded-md bg-white dark:text-gray-700 shadow-gray-200 shadow-xl p-4'>
+    <section className='relative m-auto  max-w-md rounded-md bg-white dark:text-gray-700 shadow-gray-200 shadow-md p-4'>
       {notification && <Notification {...notification} />}
       <h1 className='text-center text-2xl mb-6'>Sign In</h1>
       <form onSubmit={handleSubmit}>

@@ -1,9 +1,8 @@
-import { BACKEND_URL, TOKEN_HEADER_NAME } from '../data/constants'
-import ICartItem from '../models/cart-item'
+import { TOKEN_HEADER_NAME } from '../data/constants'
 import { convertDateToYYYYmmDD } from '../utils'
 
 export async function getMonthlySalesperson(year: number, month: number) {
-  const authUrl = BACKEND_URL.concat(
+  const authUrl = (process.env.NEXT_PUBLIC_BACKEND_URL || '').concat(
     `reports/monthly-salesperson?year=${year}&&month=${month}`
   )
   const token = localStorage.getItem('tokenFromServer') || ''
@@ -24,7 +23,7 @@ export async function getMonthlySalesperson(year: number, month: number) {
 }
 
 export async function getMonthlyCustomer(year: number, month: number) {
-  const authUrl = BACKEND_URL.concat(
+  const authUrl = (process.env.NEXT_PUBLIC_BACKEND_URL || '').concat(
     `reports/monthly-customer?year=${year}&&month=${month}`
   )
   const token = localStorage.getItem('tokenFromServer') || ''
@@ -44,7 +43,7 @@ export async function getMonthlyCustomer(year: number, month: number) {
 
 export async function getMonthlyProduct(year: number, month: number) {
   // save order header
-  const authUrl = BACKEND_URL.concat(
+  const authUrl = (process.env.NEXT_PUBLIC_BACKEND_URL || '').concat(
     `reports/monthly-product?year=${year}&&month=${month}`
   )
   const token = localStorage.getItem('tokenFromServer') || ''
@@ -64,7 +63,7 @@ export async function getMonthlyProduct(year: number, month: number) {
 }
 
 export async function getOrderOfRange(startDate: Date, endDate: Date) {
-  let backendUrl = BACKEND_URL.concat('orders')
+  let backendUrl = (process.env.NEXT_PUBLIC_BACKEND_URL || '').concat('orders')
   const startDateString = convertDateToYYYYmmDD(startDate)
   const endDateString = convertDateToYYYYmmDD(endDate)
   backendUrl = backendUrl.concat(
