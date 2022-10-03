@@ -11,6 +11,7 @@ export const authOptions: NextAuthOptions = {
       type: 'credentials',
       credentials: {},
       async authorize(credentials, req) {
+        console.log('credential', credentials)
         // credentails: csrfToken, email, password, callbackUrl
         const { email, password } = credentials as {
           email: string
@@ -36,10 +37,12 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     jwt: async ({ token, user }) => {
+      console.log('callback jwt', user)
       user && (token.user = user)
       return token
     },
     session: async ({ session, token }) => {
+      console.log('callback session', token)
       session.user = token.user as any
       return session
     }
