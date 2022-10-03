@@ -23,7 +23,9 @@ export const authOptions: NextAuthOptions = {
           method: 'POST',
           body: JSON.stringify({ email, password }),
           headers: {
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
           }
         })
 

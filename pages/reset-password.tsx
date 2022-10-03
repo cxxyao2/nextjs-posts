@@ -32,7 +32,9 @@ const ResetPassword = () => {
         method: 'POST',
         body: JSON.stringify({ newPassword }),
         headers: {
-          'Content-type': 'application/json'
+          'Content-type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
         }
       })
       const data = await res.json()

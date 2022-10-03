@@ -34,7 +34,9 @@ const ForgetPassword = () => {
         method: 'POST',
         body: JSON.stringify({ email: formData.email }),
         headers: {
-          'Content-type': 'application/json'
+          'Content-type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
         }
       })
       const result = await res.json()

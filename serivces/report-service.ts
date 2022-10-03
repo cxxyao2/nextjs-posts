@@ -9,7 +9,9 @@ export async function getMonthlySalesperson(year: number, month: number) {
   const token = localStorage.getItem('tokenFromServer') || ''
   const headers = {
     'Content-type': 'application/json',
-    [TOKEN_HEADER_NAME]: token
+    [TOKEN_HEADER_NAME]: token,
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
   }
 
   const res = await fetch(authUrl, {
@@ -71,7 +73,9 @@ export async function getOrderOfRange(startDate: Date, endDate: Date) {
   const token = localStorage.getItem('tokenFromServer') || ''
   const headers = {
     'Content-type': 'application/json',
-    [TOKEN_HEADER_NAME]: token
+    [TOKEN_HEADER_NAME]: token,
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
   }
   const res = await fetch(backendUrl, {
     method: 'get',

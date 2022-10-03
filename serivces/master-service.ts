@@ -10,7 +10,9 @@ export const downloadProductList = async () => {
     const response = await fetch(`${BACKEND_URL}products`, {
       method: 'GET',
       headers: {
-        'Content-type': 'application/json'
+        'Content-type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
       }
     })
     const data = await response.json()
@@ -37,7 +39,9 @@ export const downloadCustomerList = async () => {
     const response = await fetch(`${BACKEND_URL}customers`, {
       method: 'GET',
       headers: {
-        'Content-type': 'application/json'
+        'Content-type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
       }
     })
     const data = await response.json()

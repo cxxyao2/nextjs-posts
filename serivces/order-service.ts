@@ -9,7 +9,9 @@ export async function saveOrder(items: ICartItem[], customerId: string) {
 
   const headers = {
     'Content-type': 'application/json',
-    [TOKEN_HEADER_NAME]: token
+    [TOKEN_HEADER_NAME]: token,
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
   }
   const headerDate = convertDateToYYYYmmDD(new Date())
 
