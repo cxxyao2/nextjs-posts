@@ -4,7 +4,6 @@ import path from 'path'
 import matter from 'gray-matter'
 import Post from '../components/post'
 import { sortByDate } from '../utils'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Paginator from '../components/paginator'
 import { useEffect, useState } from 'react'
 import Meta from '../components/meta'
@@ -30,7 +29,7 @@ const Home = ({ posts }: PostListProps) => {
     setDisplayedPosts(
       posts.slice((current - 1) * itemNumber, current * itemNumber)
     )
-  }, [current, itemNumber])
+  }, [current, itemNumber, posts])
 
   return (
     <>
@@ -77,8 +76,7 @@ export const getStaticProps = async ({ locale = 'en' }) => {
 
   return {
     props: {
-      posts: posts.sort(sortByDate),
-      ...(await serverSideTranslations(locale, ['common', 'footer']))
+      posts: posts.sort(sortByDate)
     }
   }
 }

@@ -22,7 +22,6 @@ type ModalProps = {
 const SelectModal = ({
   title,
   isOpen,
-  onAfterOpen,
   onClose,
   initialItems,
   currentId
@@ -30,9 +29,6 @@ const SelectModal = ({
   const filterRef = useRef<HTMLInputElement>(null)
   const modalWrapperRef = useRef<HTMLDivElement>(null)
   const [keyword, setKeyword] = useState('')
-  useEffect(() => {
-    onAfterOpen()
-  }, [])
 
   const content = (
     <div

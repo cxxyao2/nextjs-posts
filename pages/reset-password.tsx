@@ -15,11 +15,7 @@ const ResetPassword = () => {
     if (position >= 0) {
       setToken(router.asPath.substring(position))
     }
-
-    return () => {
-      setSuccessMessage('')
-    }
-  }, [])
+  }, [router])
 
   const validateForm = () => {
     return true

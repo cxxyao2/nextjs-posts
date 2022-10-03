@@ -15,7 +15,7 @@ const About: NextPage = () => {
     if (!session?.user?.name) {
       router && router.push('/auth/signin?from=/about')
     }
-  }, [session])
+  }, [session, router])
 
   if (!session?.user?.name) {
     return null

@@ -115,7 +115,7 @@ const NavBar = () => {
             )}
 
             <div className='hidden md:inline-flex md:flex-row'>
-              {handleLocaleChange()}
+              {false && handleLocaleChange()}
               {handleThemeChange()}
             </div>
             <LoginButton className='' />

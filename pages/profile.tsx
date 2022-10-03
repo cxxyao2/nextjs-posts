@@ -51,7 +51,7 @@ const Profile = ({ userName }: ProfileProps) => {
       </div>
       <div>
         <blockquote className='text-orange-400 text-center p-1'>
-          "When the going gets tough, the tough gets going."
+          &quot; When the going gets tough, the tough gets going.&quot;
         </blockquote>
       </div>
       <div className='flex flex-col mt-4 md:mt-8 md:flex-row justify-center items-start gap-2 md:gap-6'>

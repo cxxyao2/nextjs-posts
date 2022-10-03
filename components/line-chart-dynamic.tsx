@@ -13,7 +13,6 @@ import {
 } from 'recharts'
 
 const SalesLineChartDynamic = () => {
-  const [aa, setAa] = useState(true)
   const [isMenuVisible, setIsMenuVisible] = useState(false)
 
   const [data, setData] = useState([
@@ -28,10 +27,6 @@ const SalesLineChartDynamic = () => {
     { name: 'Page I', uv: 189, pv: 4800, amt: 2400, uvError: 28 },
     { name: 'Page J', uv: 189, pv: 4800, amt: 2400, uvError: [15, 60] }
   ])
-
-  useEffect(() => {
-    setAa(false)
-  }, [])
 
   useEffect(() => {
     const interval1 = setInterval(() => {
@@ -50,9 +45,7 @@ const SalesLineChartDynamic = () => {
     return () => {
       clearInterval(interval1)
     }
-  }, [])
-
-  if (aa) return null
+  })
 
   return (
     <div className='bg-white flex flex-col col-span-full sm:col-span-6 xl:col-span-4 shadow-lg rounded-sm border border-slate-200'>

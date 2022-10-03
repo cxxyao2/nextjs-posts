@@ -19,11 +19,6 @@ const OkCancelModal = ({
   title
 }: ModalProps) => {
   const modalWrapperRef = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    if (window) {
-      onAfterOpen()
-    }
-  }, [])
 
   const content = (
     <div

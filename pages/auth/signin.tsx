@@ -130,7 +130,7 @@ const SignInForm = () => {
             Sign In
           </button>
           <p className='text-sm'>
-            Dont't have an account?
+            Don&#39;t have an account?
             <Link href='/auth/signup'>
               <a className='ml-2  text-indigo-400'>SIGN UP</a>
             </Link>

@@ -30,7 +30,7 @@ const Store = ({ products, errorFromServer }: StorePageProp) => {
         status: 'error'
       })
     }
-  }, [products])
+  }, [])
 
   const handlePageChanged = (
     currentPage: number,

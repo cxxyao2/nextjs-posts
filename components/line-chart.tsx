@@ -131,7 +131,7 @@ const SalesLineChart = ({ rank }: SalesLineChartProp) => {
       })
       setData(temporyData)
     }
-  }, [orderDetails, isDescend])
+  }, [orderDetails, isDescend, rank, salespersons])
 
   if (!salesName || salesName.length === 0 || salesName.length < rank)
     return null

@@ -20,27 +20,38 @@ const DashBoard = () => {
 
   const { setOrderDetails, setIsDescend } = useDashBoardContext()
 
-  const [datePeriod, setDatePeriod] = useState({
-    start: new Date(new Date().getFullYear(), 0, 1),
-    end: new Date()
-  })
+  const [startDate, setStartDate] = useState(
+    new Date(new Date().getFullYear(), 0, 1)
+  )
+  const [endDate, setEndDate] = useState(new Date())
 
-  useEffect(() => {
-    getSalesDataByRange(datePeriod.start, datePeriod.end).then()
-  }, [datePeriod])
-
-  const getSalesDataByRange = async (startDate: Date, endDate: Date) => {
+  const getDashData = (startDate: Date, endDate: Date) => {
     try {
-      let data = await getOrderOfRange(startDate, endDate)
-      setOrderDetails(data as Array<IOrderDetail>)
+      getOrderOfRange(startDate, endDate)
+        .then((data) => {
+          setOrderDetails(data as Array<IOrderDetail>)
+        })
+        .catch((error) => {
+          throw error
+        })
 
       if (customers.length === 0) {
-        data = await downloadCustomerList()
-        setCustomers(data.customers)
+        downloadCustomerList()
+          .then((data) => {
+            setCustomers(data.customers)
+          })
+          .catch((error) => {
+            throw error
+          })
       }
       if (products.length === 0) {
-        data = await downloadProductList()
-        setProducts(data.products)
+        downloadProductList()
+          .then((data) => {
+            setProducts(data.products)
+          })
+          .catch((error) => {
+            throw error
+          })
       }
     } catch (error) {
       const castError = error as unknown as Error
@@ -49,9 +60,16 @@ const DashBoard = () => {
         message: castError.message,
         status: 'error'
       })
-      return
     }
   }
+
+  useEffect(() => {
+    getDashData(startDate, endDate)
+  }, [])
+
+  useEffect(() => {
+    getDashData(startDate, endDate)
+  }, [startDate, endDate])
 
   const handleRefresh = async (
     startDate: Date,
@@ -59,7 +77,8 @@ const DashBoard = () => {
     ascending: boolean
   ) => {
     setIsDescend(ascending)
-    setDatePeriod({ start: startDate, end: endDate })
+    setStartDate(startDate)
+    setEndDate(endDate)
   }
 
   return (

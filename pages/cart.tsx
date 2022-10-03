@@ -47,7 +47,7 @@ const Cart: NextPage<Props> = ({ customers, errorFromServer }) => {
         status: 'error'
       })
     }
-  }, [])
+  })
 
   useEffect(() => {
     setTotalAmount(formatCurrency(cartAmount))
@@ -197,7 +197,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   const data = await downloadCustomerList()
-  console.log('data is cart', data)
 
   return {
     props: {

@@ -15,6 +15,7 @@ const Post = ({ post }: Props) => {
         height={100}
         layout='responsive'
         priority={true}
+        alt='post image'
       />
       <div className=' mb-5 py-1 px-2 text-gray-400'>
         Posted on {post.frontmatter.date}

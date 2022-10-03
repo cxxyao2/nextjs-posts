@@ -11,7 +11,7 @@ const SearchEvent = ({
   useEffect(() => {
     const result = content && content?.replace(/<br><\/br>##/, '')
     if (result) setNewContent(result)
-  }, [])
+  }, [content])
   return (
     <div className='col-span-full p-2 flex flex-col justify-start gap-2   md:col-span-6  border rounded-sm  border-slate-400 bg-white dark:bg-inherit'>
       <h2 className='font-semibold text-indigo-600 dark:text-indigo-400'>
