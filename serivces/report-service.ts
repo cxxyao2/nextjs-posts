@@ -1,5 +1,6 @@
 import { TOKEN_HEADER_NAME } from '../data/constants'
 import { convertDateToYYYYmmDD } from '../utils'
+import { convertError } from '../utils/convert-error'
 
 export async function getMonthlySalesperson(year: number, month: number) {
   const authUrl = (process.env.NEXT_PUBLIC_BACKEND_URL || '').concat(
@@ -49,7 +50,9 @@ export async function getMonthlyProduct(year: number, month: number) {
   const token = localStorage.getItem('tokenFromServer') || ''
   const headers = {
     'Content-type': 'application/json',
-    [TOKEN_HEADER_NAME]: token
+    [TOKEN_HEADER_NAME]: token,
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
   }
 
   const res = await fetch(authUrl, {
@@ -76,10 +79,23 @@ export async function getOrderOfRange(startDate: Date, endDate: Date) {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
   }
-  const res = await fetch(backendUrl, {
-    method: 'get',
-    headers
-  })
-  const data = await res.json()
-  return data
+
+  try {
+    const res = await fetch(backendUrl, {
+      method: 'get',
+      headers
+    })
+    const data = await res.json()
+    return {
+      data,
+      message: 'ok'
+    }
+  } catch (error) {
+    console.error(error)
+    return {
+      data: [],
+      message:
+        'Error when fetching data. Please try later or contact support team.'
+    }
+  }
 }

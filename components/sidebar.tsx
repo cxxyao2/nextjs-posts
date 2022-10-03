@@ -87,16 +87,18 @@ const SideBar = () => {
             <p>Shopping </p>
           </button>
           <div className=''>
-            <div className='flex justify-between items-center'>
+            <div
+              className='flex justify-between items-center group'
+              onClick={() => setIsExpanded((prev) => !prev)}>
               <button
-                className='flex'
+                className='flex group-hover:text-indigo-400 group-hover:translation-all group-hover:duration-150'
                 onClick={() => router.push('/search')}>
-                <MagnifyingGlassIcon className='h-5 w-5 shrink-0 mr-3' />
+                <MagnifyingGlassIcon className='h-5 w-5 shrink-0 mr-3 ' />
                 <div>Search </div>
               </button>
-              <a onClick={() => setIsExpanded((prev) => !prev)}>
+              <a>
                 <ChevronDownIcon
-                  className={`w-4 h-4 shrink-0 text-gray-800 translation duration-150 ${
+                  className={`w-4 h-4 shrink-0 text-gray-800 group-hover:text-indigo-400   translation duration-150 ${
                     isExpanded ? 'rotate-180' : ''
                   }`}
                 />

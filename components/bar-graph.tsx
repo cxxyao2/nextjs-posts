@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   BarChart,
   Bar,
@@ -11,7 +11,7 @@ import {
   ResponsiveContainer
 } from 'recharts'
 
-const dataTemplate = [
+const data = [
   {
     name: 'Page A',
     uv: 4000,
@@ -57,7 +57,15 @@ const dataTemplate = [
 ]
 
 export default function DashBoardColumnGraph() {
-  const [data, setData] = useState(dataTemplate)
+  const [graphData, setGraphData] = useState<Array<Record<string, any>> | null>(
+    null
+  )
+
+  useEffect(() => {
+    setGraphData(data)
+  }, [])
+
+  if (!graphData) return null
 
   return (
     <div
@@ -89,7 +97,7 @@ export default function DashBoardColumnGraph() {
         </ul>
 
         <BarChart
-          data={data}
+          data={graphData}
           height={300}
           width={300}
           margin={{

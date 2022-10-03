@@ -17,7 +17,6 @@ import {
 const DashBoard = () => {
   const { customers, products, setCustomers, setProducts } = useShoppingCart()
   const { showNotification, notification } = useNotificationContext()
-
   const { setOrderDetails, setIsDescend } = useDashBoardContext()
 
   const [startDate, setStartDate] = useState(
@@ -27,13 +26,16 @@ const DashBoard = () => {
 
   const getDashData = (startDate: Date, endDate: Date) => {
     try {
-      getOrderOfRange(startDate, endDate)
-        .then((data) => {
-          setOrderDetails(data as Array<IOrderDetail>)
-        })
-        .catch((error) => {
-          throw error
-        })
+      getOrderOfRange(startDate, endDate).then(({ data, message }) => {
+        setOrderDetails(data as Array<IOrderDetail>)
+        if (message && message !== 'ok') {
+          showNotification({
+            id: '',
+            message,
+            status: 'error'
+          })
+        }
+      })
 
       if (customers.length === 0) {
         downloadCustomerList()
