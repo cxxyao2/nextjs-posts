@@ -22,7 +22,7 @@ const LoginButton = ({ className }: LoginButtonProps) => {
         <div className=' relative group p-2 rounded-md hover:text-indigo-600 hover:bg-white  flex flex-col justify-center'>
           <span>{currentName}</span>
           <div className=' hidden absolute rounded-md divide-y-2 divide-gray-200 shadow-sm shadow-gray-400 left-0 p-1 top-full whitespace-nowrap  text-xs group-hover:block bg-white text-gray-800 transition-all duration-300 ease-in-out'>
-            <div className=' p-1 hover:bg-gray-200'>
+            <div className=' py-1 px-2  hover:bg-gray-200'>
               <a
                 className='hover:text-indigo-600 active:text-indigo-600 '
                 onClick={() => {
@@ -32,7 +32,7 @@ const LoginButton = ({ className }: LoginButtonProps) => {
                 Sign Out
               </a>
             </div>
-            <div className=' p-1 hover:bg-gray-200'>
+            <div className=' px-2 py-1 hover:bg-gray-200'>
               <a
                 className='hover:text-indigo-600 active:text-indigo-600 '
                 onClick={() => {

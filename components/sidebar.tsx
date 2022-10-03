@@ -50,7 +50,7 @@ const SideBar = () => {
           aria-hidden='true'></div>
       )}
       <div
-        className={`absolute z-40 top-0  left-0 bg-white text-gray-900 p-5 text-sm
+        className={`absolute z-40 top-0  left-0 bg-white  dark:bg-black dark:text-white text-gray-900 p-5 text-sm
       border-r border-gray-400 w-60 shrink-0 h-screen overflow-y-auto transition-all
       lg:static lg:left-auto lg:top-auto  lg:!translate-x-0
        ${
