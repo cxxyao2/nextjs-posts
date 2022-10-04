@@ -31,16 +31,19 @@ export const authOptions: NextAuthOptions = {
         })
 
         const result = await res.json()
+        console.log('result is', result)
         return { ...result.data }
       }
     })
   ],
   callbacks: {
     jwt: async ({ token, user }) => {
+      console.log('result is', token, user)
       user && (token.user = user)
       return token
     },
     session: async ({ session, token }) => {
+      console.log('result is', session, token)
       session.user = token.user as any
       return session
     }
