@@ -13,7 +13,7 @@
 - download data in .csv format
 - Markdown file parse + show
 - incremental static generation
-- api routes
+- routes: api routes, protected routes ( client-side, server)
 - ssr + ssg
 - custom error boundary
 - middleware. request cookies.set
