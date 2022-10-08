@@ -98,12 +98,12 @@ const SignInForm = () => {
             name='email'
             type='email'
             placeholder='abc@email.com'
-            className='invalid:border-red-500  hover:outline hover:outline-offset-2 hover:outline-indigo-500 focus:outline focus:outline-offset-2 focus:outline-indigo-500 bg-gray-100 text-gray-800 rounded-md w-full p-1'
+            className='invalid:border-red-500  hover:outline hover:outline-offset-2 hover:outline-indigo-500 focus:outline focus:outline-offset-2 focus:outline-indigo-500  text-gray-800 bg-gray-100 border border-gray-200 rounded-md w-full p-1'
             required
           />
 
           <label className='font-semibold'>Password</label>
-          <div className='relative bg-gray-100 hover:outline hover:outline-offset-2 hover:outline-indigo-500 focus:outline focus:outline-offset-2 focus:outline-indigo-500 rounded-md w-full'>
+          <div className='flex justify-between space-x-2 bg-gray-100 hover:outline hover:outline-offset-2 hover:outline-indigo-500 focus:outline focus:outline-offset-2 focus:outline-indigo-500 border border-gray-200 rounded-md'>
             <input
               id='password'
               name='password'
@@ -114,10 +114,10 @@ const SignInForm = () => {
               minLength={8}
               maxLength={100}
               required
-              className='invalid:border-red-500 p-1 min-w-[200px] bg-gray-100 outline-none rounded-tl-md rounded-bl-md'
+              className='invalid:border-red-500 p-1 flex-1 bg-gray-100 outline-none rounded-l-md'
             />
             <button
-              className='absolute  right-1 top-1 p-1 pb-0 rounded-md text-sm text-right outline-none bg-white'
+              className=' flex-0 rounded-r-md px-2 text-sm text-right outline-none bg-white'
               onClick={() => setHidePassword((prevState) => !prevState)}>
               {hidePassword ? 'Show' : 'Hide'}{' '}
             </button>
