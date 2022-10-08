@@ -2,6 +2,7 @@
 
 - frontend is based on nextjs + typescript + tailwindcss
 - backend is based on Node.js + express + express-fileupload + NodeMailer + MongoDB + jsonwebtoken + bcrypt
+- deployed on [vercel]  (https://nextjs-minierm-jennifer.vercel.app/)
 
 ## features
 
