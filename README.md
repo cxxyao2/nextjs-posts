@@ -2,7 +2,7 @@
 
 - frontend is based on nextjs + typescript + tailwindcss
 - backend is based on Node.js + express + express-fileupload + NodeMailer + MongoDB + jsonwebtoken + bcrypt
-- deployed on [vercel]  (https://nextjs-minierm-jennifer.vercel.app/)
+- deployed on [vercel] (https://nextjs-minierm-jennifer.vercel.app/)
 
 ## features
 
@@ -12,7 +12,7 @@
 - react context
 - NextImage
 - download data in .csv format
-- Markdown file parse + show
+- Markdown file parse(3rd library: gray-matter) + show ( 3rd library: marked)
 - incremental static generation
 - routes: api routes, protected routes ( client-side, server-side)
 - ssr + ssg
