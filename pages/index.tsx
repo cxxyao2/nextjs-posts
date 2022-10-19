@@ -35,7 +35,7 @@ const Home = ({ posts }: PostListProps) => {
     <>
       <Meta
         title='Activities'
-        keywords=''
+        keywords='activite marketing strategy'
         description='gas service center'></Meta>
       <Paginator
         itemCount={posts?.length}

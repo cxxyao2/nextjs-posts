@@ -21,3 +21,7 @@
 - tailwindcss official plugin: line-clamp
 - client-side && server-side redirect
 - security: authenticaiton , environment variables, bcypte
+
+## set environment variables
+
+- windows powershell: $env:NEXT_PUBLIC_BACKEND_URL='...'

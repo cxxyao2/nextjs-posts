@@ -26,9 +26,14 @@ const SelectModal = ({
   initialItems,
   currentId
 }: ModalProps) => {
+  
   const filterRef = useRef<HTMLInputElement>(null)
   const modalWrapperRef = useRef<HTMLDivElement>(null)
   const [keyword, setKeyword] = useState('')
+
+  useEffect(() => {
+    setKeyword('')
+  }, [initialItems])
 
   const content = (
     <div
