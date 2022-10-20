@@ -57,7 +57,7 @@ const SideBar = () => {
          isVisibleSideBar ? '!translate-x-0' : ''
        } ease-in-out duration-200 -translate-x-64 `}
         onClick={() => setIsVisibleSideBar(false)}>
-        <button
+        <button  aria-label='Hide Sidebar'
           className='absolute text-2xl text-black  top-4 left-52 lg:hidden '
           onClick={() => setIsVisibleSideBar(false)}>
           x
@@ -89,7 +89,11 @@ const SideBar = () => {
           <div className=''>
             <div
               className='flex justify-between items-center group'
-              onClick={() => setIsExpanded((prev) => !prev)}>
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                setIsExpanded((prev) => !prev)
+              }}>
               <button
                 className='flex group-hover:text-indigo-400 group-hover:translation-all group-hover:duration-150'
                 onClick={() => router.push('/search')}>
