@@ -108,9 +108,6 @@ const SignInForm = () => {
               id='password'
               name='password'
               type={hidePassword ? 'password' : 'text'}
-              autoCapitalize='off'
-              autoComplete='off'
-              autoCorrect='off'
               minLength={8}
               maxLength={100}
               required

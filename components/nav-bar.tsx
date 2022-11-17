@@ -68,8 +68,8 @@ const NavBar = () => {
 
   return (
     <header className='sticky top-0 z-20  dark:bg-black bg-white border-b border-slate-200 '>
-      <div className='px-4 md:px-6 lg:px-8'>
-        <nav className='h-14 md:h-16  -mb-px  text-sm  flex  flex-row justify-between items-center '>
+      <div className='px-4 md:px-6 lg:px-8 shadow-sm shadow-indigo-400'>
+        <nav className='h-14 md:h-16  -mb-px  text-sm  flex  flex-row justify-between items-center  '>
           <div>
             <Link href='/'>
               <a className='flex flex-row items-center'>

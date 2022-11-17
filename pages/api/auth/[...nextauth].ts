@@ -31,8 +31,11 @@ export const authOptions: NextAuthOptions = {
         })
 
         const result = await res.json()
-        console.log('result is', result)
-        return { ...result.data }
+        if (result.hasOwnProperty('message')) {
+          throw new Error(result.message)
+        } else {
+          return { ...result.data }
+        }
       }
     })
   ],
