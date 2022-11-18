@@ -15,7 +15,7 @@ const SearchItem = ({ item }: SearchItemProps) => {
   return (
     <div className='col-span-full md:col-span-6 lg:col-span-4   shadow-sm rounded-sm  shadow-slate-400 bg-white'>
       <div className='flex flex-row  justify-start items-center space-x-4  md:flex-col md:space-y-2'>
-        <div className='relative block self-center align-middle w-1/5 md:w-4/5  overflow-hidden'>
+        <div className='relative block self-center align-middle  overflow-hidden'>
           <Image
             alt='product'
             width={100}
@@ -30,10 +30,10 @@ const SearchItem = ({ item }: SearchItemProps) => {
               <span className='dark:text-gray-200'>Name:{item.name}</span>
             </p>
             <div className='group max-w-[200px] md:max-w-full'>
-              <div className='block line-clamp-1 group-hover:hidden text-left md:text-center'>
+              <div className='block line-clamp-1 group-hover:hidden text-left text-gray-800 md:text-center'>
                 {item.description}
               </div>
-              <div className='hidden group-hover:block text-left '>
+              <div className='hidden group-hover:block text-left text-gray-800 '>
                 {item.description}
               </div>
             </div>

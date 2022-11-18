@@ -113,7 +113,7 @@ const SignInForm = () => {
             />
             <button
               type='button'
-              className=' flex-0 rounded-r-md px-2 text-sm text-right outline-none bg-white'
+              className=' flex-0 rounded-r-md px-2 text-sm text-right  bg-white'
               onClick={() => setHidePassword((prevState) => !prevState)}>
               {hidePassword ? 'Show' : 'Hide'}{' '}
             </button>

@@ -20,10 +20,17 @@ const NavBar = () => {
   const { systemTheme, theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const currentRoute = router.pathname
+  const [currentUser, setCurrentUser] = useState<string | null | undefined>(
+    null
+  )
 
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  useEffect(() => {
+    if (session?.user?.name) setCurrentUser(session?.user?.name)
+  }, [session])
 
   const handleLocaleChange = () => {
     const value = router.locale === 'en' ? 'fr' : 'en'
@@ -60,8 +67,9 @@ const NavBar = () => {
     )
   }
 
-  const ancoreStyle = (link: string): string => {
-    return 'invisible md:visible md:p-2 md:rounded-md md:hover:bg-indigo-400 md:hover:text-white'.concat(
+  const ancoreStyle = (link: string, isLogin: boolean = false): string => {
+    return 'md:p-2 md:rounded-md md:hover:bg-indigo-400 md:hover:text-white'.concat(
+      isLogin ? ' visible ' : ' invisible md:visible  ',
       currentRoute === link ? ' text-white bg-indigo-500' : ''
     )
   }
@@ -72,7 +80,9 @@ const NavBar = () => {
         <nav className='h-14 md:h-16  -mb-px  text-sm  flex  flex-row justify-between items-center  '>
           <div>
             <Link href='/'>
-              <a className='flex flex-row items-center' aria-label='Toggle sidebar'>
+              <a
+                className='flex flex-row items-center'
+                aria-label='Toggle sidebar'>
                 <Bars3Icon
                   className='w-6 h-6 text-gray-500 lg:hidden'
                   onClick={() => {
@@ -94,7 +104,7 @@ const NavBar = () => {
             <Link href='/store'>
               <a className={ancoreStyle('/store')}>Store</a>
             </Link>
-            {session?.user?.name && (
+            {currentUser && (
               <a
                 href='# '
                 className='p-2 rounded-md hover:bg-indigo-400 hover:text-white active:text-white active:bg-indigo-500'
@@ -105,9 +115,9 @@ const NavBar = () => {
                 SignOut
               </a>
             )}
-            {!session?.user?.name && (
+            {!currentUser && (
               <Link href='/auth/signin'>
-                <a className={ancoreStyle('/auth/signin')} >Signin</a>
+                <a className={ancoreStyle('/auth/signin', true)}>Signin</a>
               </Link>
             )}
 
