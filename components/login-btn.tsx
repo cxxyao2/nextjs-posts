@@ -32,15 +32,7 @@ const LoginButton = ({ className }: LoginButtonProps) => {
                 Sign Out
               </a>
             </div>
-            <div className=' px-2 py-1 hover:bg-gray-200'>
-              <a
-                className='hover:text-indigo-600 active:text-indigo-600 '
-                onClick={() => {
-                  router.push(`/profile?person=${currentName}`)
-                }}>
-                Profile
-              </a>
-            </div>
+          
           </div>
         </div>
       </>

@@ -43,7 +43,7 @@ const Home = ({ posts }: PostListProps) => {
           handlePageChanged(currentPage, itemNumberPerPage)
         }
         className='mt-2'></Paginator>
-      <div className='grid grid-cols-1 gap-8  md:grid-cols-2 p-2'>
+      <div className='grid grid-cols-1 gap-8  md:grid-cols-2 p-2 '>
         {displayedPosts.map((post: { [key: string]: any }) => (
           <Post
             post={post}

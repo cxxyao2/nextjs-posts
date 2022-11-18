@@ -29,7 +29,6 @@ export async function saveOrder(items: ICartItem[], customerId: string) {
   const orderHeader = await res.json()
 
   if (orderHeader) {
-    console.log('orderheader is', orderHeader)
     items.map(async (item) => {
       const orderBody = {
         orderHeader: orderHeader._id,

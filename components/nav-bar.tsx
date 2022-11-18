@@ -11,9 +11,10 @@ import {
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import SvgNozzleComponent from './svg-nozzle'
-import LoginButton from './login-btn'
+import { signOut, useSession } from 'next-auth/react'
 
 const NavBar = () => {
+  const { data: session } = useSession()
   const { openCart, cartQuantity, setIsVisibleSideBar } = useShoppingCart()
   const router = useRouter()
   const { systemTheme, theme, setTheme } = useTheme()
@@ -52,10 +53,9 @@ const NavBar = () => {
     return (
       <button
         onClick={() => {
-          console.log('click light')
           setTheme('dark')
         }}>
-        <MoonIcon className='w-6 h-6 self-center rounded-full text-gray-600 hover:shadow hover:shadow-indigo-400'></MoonIcon>
+        <MoonIcon className='w-6 h-6 self-center rounded-full text-indigo-500 hover:shadow'></MoonIcon>
       </button>
     )
   }
@@ -72,7 +72,7 @@ const NavBar = () => {
         <nav className='h-14 md:h-16  -mb-px  text-sm  flex  flex-row justify-between items-center  '>
           <div>
             <Link href='/'>
-              <a className='flex flex-row items-center'>
+              <a className='flex flex-row items-center' aria-label='Toggle sidebar'>
                 <Bars3Icon
                   className='w-6 h-6 text-gray-500 lg:hidden'
                   onClick={() => {
@@ -94,10 +94,26 @@ const NavBar = () => {
             <Link href='/store'>
               <a className={ancoreStyle('/store')}>Store</a>
             </Link>
+            {session?.user?.name && (
+              <a
+                href='# '
+                className='p-2 rounded-md hover:bg-indigo-400 hover:text-white active:text-white active:bg-indigo-500'
+                onClick={() => {
+                  localStorage.removeItem('tokenFromServer')
+                  signOut()
+                }}>
+                SignOut
+              </a>
+            )}
+            {!session?.user?.name && (
+              <Link href='/auth/signin'>
+                <a className={ancoreStyle('/auth/signin')} >Signin</a>
+              </Link>
+            )}
 
             <Link href='/search'>
-              <a>
-                <MagnifyingGlassIcon className='inline-flex w-8 h-8 text-indigo-500  hover:text-indigo-400' />
+              <a aria-label='Search Products'>
+                <MagnifyingGlassIcon className='inline-flex w-8 h-8 text-indigo-400 rounded-md' />
               </a>
             </Link>
 
@@ -118,7 +134,6 @@ const NavBar = () => {
               {false && handleLocaleChange()}
               {handleThemeChange()}
             </div>
-            <LoginButton className='' />
           </div>
         </nav>
       </div>

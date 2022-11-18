@@ -61,7 +61,6 @@ export async function getMonthlyProduct(year: number, month: number) {
   })
 
   const data = await res.json()
-  console.log('product data', data)
   return data
 }
 

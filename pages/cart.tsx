@@ -11,9 +11,8 @@ import { useNotificationContext } from '../context/notification-context'
 import Notification from '../components/notification'
 import { ChevronDoubleRightIcon, PlusIcon } from '@heroicons/react/24/outline'
 import { downloadCustomerList } from '../serivces/master-service'
-import {  TOKEN_HEADER_NAME } from '../data/constants'
 import Link from 'next/link'
-import { convertDateToYYYYmmDD } from '../utils'
+
 import { formatCurrency } from '../utils/formatCurrency'
 import { saveOrder } from '../serivces/order-service'
 
@@ -47,7 +46,7 @@ const Cart: NextPage<Props> = ({ customers, errorFromServer }) => {
         status: 'error'
       })
     }
-  })
+  }, [])
 
   useEffect(() => {
     setTotalAmount(formatCurrency(cartAmount))

@@ -18,7 +18,7 @@ const Meta = ({ title, keywords, description }: Props) => {
         content={keywords}
       />
       <meta
-        name='descritption'
+        name='description'
         content={description}
       />
       <meta charSet='utf-8' />

@@ -61,7 +61,7 @@ const SideBar = () => {
           aria-label='Hide Sidebar'
           className='absolute text-2xl text-black  top-4 left-52 lg:hidden '
           onClick={() => setIsVisibleSideBar(false)}>
-          x
+          X
         </button>
         <div className='space-y-4'>
           <div className='text-center'>{userName}</div>
@@ -104,13 +104,13 @@ const SideBar = () => {
                 <MagnifyingGlassIcon className='h-5 w-5 shrink-0 mr-3 ' />
                 <div>Search </div>
               </button>
-              <a>
+            
                 <ChevronDownIcon
                   className={`w-4 h-4 shrink-0 text-gray-800 group-hover:text-indigo-400   translation duration-150 ${
                     isExpanded ? 'rotate-180' : ''
                   }`}
                 />
-              </a>
+
             </div>
             {isExpanded && (
               <div>

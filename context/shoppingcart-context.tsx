@@ -52,9 +52,7 @@ export function ShoppingCardProvider({ children }: ShoppingCartProviderProps) {
     []
   )
 
-  useEffect(() => {
-    console.log('cartItems', cartItems)
-  }, [cartItems])
+ 
 
   const cartQuantity = cartItems.reduce(
     (quantity, item) => item.quantity + quantity,

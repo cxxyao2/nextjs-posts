@@ -61,7 +61,6 @@ const SignInForm = () => {
     let callbackUrl = '/'
     if (router.query && router.query.from) {
       callbackUrl = router.query.from as unknown as string
-      console.log('call back is', callbackUrl)
     }
 
     signIn('credentials', {
@@ -72,7 +71,6 @@ const SignInForm = () => {
       if (result?.ok) {
         router.push(callbackUrl) //
       } else {
-        console.log(result?.error)
         showNotification({
           id: '',
           message: `${result?.status.toString()} Error:  ${result?.error}`,
@@ -114,6 +112,7 @@ const SignInForm = () => {
               className='invalid:border-red-500 p-1 flex-1 bg-gray-100 outline-none rounded-l-md'
             />
             <button
+              type='button'
               className=' flex-0 rounded-r-md px-2 text-sm text-right outline-none bg-white'
               onClick={() => setHidePassword((prevState) => !prevState)}>
               {hidePassword ? 'Show' : 'Hide'}{' '}
@@ -128,13 +127,13 @@ const SignInForm = () => {
           <p className='text-sm'>
             Don&#39;t have an account?
             <Link href='/auth/signup'>
-              <a className='ml-2  text-indigo-400'>SIGN UP</a>
+              <a className='ml-2  text-indigo-600'>SIGN UP</a>
             </Link>
           </p>
           <p className='text-sm'>
             Forget your password?
             <Link href='/auth/forget-password'>
-              <a className='ml-2  text-indigo-400'>RESET PASSWORD</a>
+              <a className='ml-2  text-indigo-600'>RESET PASSWORD</a>
             </Link>
           </p>
         </div>

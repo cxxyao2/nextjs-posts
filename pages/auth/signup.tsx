@@ -131,13 +131,13 @@ const SignUpForm = () => {
           <p className='text-sm'>
             Already have an account?
             <Link href='/auth/signin'>
-              <a className='ml-2  text-indigo-400'>SIGN IN</a>
+              <a className='ml-2  text-indigo-600'>SIGN IN</a>
             </Link>
           </p>
           <p className='text-sm'>
             Forget your password?
             <Link href='/auth/forget-password'>
-              <a className='ml-2  text-indigo-400'>RESET PASSWORD</a>
+              <a className='ml-2  text-indigo-600'>RESET PASSWORD</a>
             </Link>
           </p>
         </div>

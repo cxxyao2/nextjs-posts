@@ -60,7 +60,6 @@ const Paginator = ({
         <ChevronRightIcon
           onClick={() => {
             if (currentPage >= totalPage) return
-            console.log('clicked', currentPage)
             setCurrentPage((current) => {
               let newCurrent = current >= totalPage ? current : current + 1
               pageChanged(newCurrent, itemNumberPerPage)

@@ -7,8 +7,8 @@ import { downloadProductList } from '../serivces/master-service'
 import { useShoppingCart } from '../context/shoppingcart-context'
 import { useNotificationContext } from '../context/notification-context'
 import Notification from '../components/notification'
-import { GetServerSideProps } from 'next'
-import { getSession } from 'next-auth/react'
+import { GetStaticProps } from 'next'
+
 
 type StorePageProp = {
   products: IProduct[]
@@ -53,7 +53,7 @@ const Store = ({ products, errorFromServer }: StorePageProp) => {
       <Meta
         title='Product Store'
         keywords=''
-        description='buy products here...'></Meta>
+        description='buy products here'></Meta>
       {notification && <Notification {...notification} />}
       <Paginator
         className='mb-4'
@@ -75,22 +75,21 @@ const Store = ({ products, errorFromServer }: StorePageProp) => {
 
 export default Store
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context)
-  if (!session) {
+export const getStaticProps: GetStaticProps = async (context) => {
+  const data = await downloadProductList()
+
+  if (!data || data.products.length === 0) {
     return {
-      redirect: {
-        destination: '/auth/signin?from=/store',
-        permanent: false
-      }
+      notFound: true
     }
   }
-  const data = await downloadProductList()
 
   return {
     props: {
       products: data.products,
       errorFromServer: data.errorMessage
-    }
+    },
+    revalidate: 10
   }
 }
+

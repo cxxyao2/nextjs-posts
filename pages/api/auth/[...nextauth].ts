@@ -31,7 +31,11 @@ export const authOptions: NextAuthOptions = {
         })
 
         const result = await res.json()
-        if (result.hasOwnProperty('message')) {
+        if (!(result.data && result.data.hasOwnProperty('email'))) {
+          let errorMessage = 'Login failed.'
+          if (result.hasOwnProperty('message')) {
+            errorMessage = result.message
+          }
           throw new Error(result.message)
         } else {
           return { ...result.data }

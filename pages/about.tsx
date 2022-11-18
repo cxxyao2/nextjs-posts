@@ -11,8 +11,6 @@ const About: NextPage = () => {
   const { data: session } = useSession()
   const router = useRouter()
 
-  console.log('print env', process.env.NEXT_PUBLIC_BACKEND)
-
   useEffect(() => {
     if (!session?.user?.name) {
       router && router.push('/auth/signin?from=/about')
