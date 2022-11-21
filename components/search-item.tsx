@@ -15,12 +15,10 @@ const SearchItem = ({ item }: SearchItemProps) => {
   return (
     <div className='col-span-full md:col-span-6 lg:col-span-4   shadow-sm rounded-sm  shadow-slate-400 bg-white'>
       <div className='flex flex-row  justify-start items-center space-x-4  md:flex-col md:space-y-2'>
-        <div className='relative block self-center align-middle  overflow-hidden'>
+        <div className='relative block self-center align-middle  overflow-hidden w-40 md:w-full h-40 '>
           <Image
             alt='product'
-            width={100}
-            height={100}
-            layout='responsive'
+            layout='fill'
             objectFit='cover'
             src={item.imageUrl}></Image>
         </div>
@@ -39,7 +37,7 @@ const SearchItem = ({ item }: SearchItemProps) => {
             </div>
           </blockquote>
         </div>
-        <div className='font-medium p-1 md:p-2'>
+        <div className='font-medium p-1 min-w-[100px] md:p-2'>
           <div className='text-sm text-sky-700 dark:text-sky-400'>
             Price: ${item.price}
           </div>
