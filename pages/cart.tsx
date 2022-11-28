@@ -46,7 +46,7 @@ const Cart: NextPage<Props> = ({ customers, errorFromServer }) => {
         status: 'error'
       })
     }
-  }, [])
+  })
 
   useEffect(() => {
     setTotalAmount(formatCurrency(cartAmount))

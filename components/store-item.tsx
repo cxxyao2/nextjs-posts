@@ -19,7 +19,7 @@ const StoreItem = (props: IProduct) => {
 
   useEffect(() => {
     setUsPrice(formatCurrency(price))
-  }, [])
+  }, [price])
 
   return (
     <div

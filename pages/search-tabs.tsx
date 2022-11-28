@@ -15,7 +15,7 @@ const SearchTabs = ({
     <div className='bg-indigo-500 px-6 py-3'>
       <ul className='flex flex-row text-white font-semifold justify-center items-center space-x-8 mx-auto'>
         {tabsArray.map((tab) => (
-          <ol>
+          <ol key={tab.index}>
             <button
               onFocus={() => setCurrentTab(tab.index)}
               onClick={() => setCurrentTab(tab.index)}
