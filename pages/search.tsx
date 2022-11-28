@@ -33,6 +33,12 @@ type SearchPageProps = {
   }
 }
 
+const tabsArray = [
+  { index: 1, description: 'Product' },
+  { index: 2, description: 'Customer' },
+  { index: 3, description: 'Blog' }
+]
+
 const SearchPage = ({ posts, productData, customerData }: SearchPageProps) => {
   const [tab, setTab] = useState(1)
   const { showNotification, notification } = useNotificationContext()
@@ -40,12 +46,6 @@ const SearchPage = ({ posts, productData, customerData }: SearchPageProps) => {
   const onKeywordChange = (keyword: string) => {
     setKeyword(keyword.toLocaleLowerCase())
   }
-
-  const tabsArray = [
-    { index: 1, description: 'Product' },
-    { index: 2, description: 'Customer' },
-    { index: 3, description: 'Blog' }
-  ]
 
   useEffect(() => {
     if (productData.errorMessage) {
@@ -65,7 +65,9 @@ const SearchPage = ({ posts, productData, customerData }: SearchPageProps) => {
       return
     }
   }, [posts, productData, customerData])
-  
+
+  if((!tabsArray || tabsArray.length ===0) ) return null
+
   return (
     <>
       {notification && <Notification {...notification} />}
