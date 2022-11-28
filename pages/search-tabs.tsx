@@ -1,16 +1,18 @@
+import { tabsArray } from '../data/constants'
+
 type Props = React.PropsWithChildren<{
   tabsContainerTabIndex: number
   currentTab: number
   setCurrentTab: (tab: number) => void
-  tabsArray: { index: number; description: string }[]
 }>
 
 const SearchTabs = ({
   tabsContainerTabIndex,
   currentTab,
-  setCurrentTab,
-  tabsArray
+  setCurrentTab
 }: Props) => {
+  if (!tabsArray) return null
+
   return (
     <div className='bg-indigo-500 px-6 py-3'>
       <ul className='flex flex-row text-white font-semifold justify-center items-center space-x-8 mx-auto'>

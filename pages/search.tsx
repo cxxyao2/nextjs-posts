@@ -33,12 +33,6 @@ type SearchPageProps = {
   }
 }
 
-const tabsArray = [
-  { index: 1, description: 'Product' },
-  { index: 2, description: 'Customer' },
-  { index: 3, description: 'Blog' }
-]
-
 const SearchPage = ({ posts, productData, customerData }: SearchPageProps) => {
   const [tab, setTab] = useState(1)
   const { showNotification, notification } = useNotificationContext()
@@ -66,8 +60,6 @@ const SearchPage = ({ posts, productData, customerData }: SearchPageProps) => {
     }
   }, [posts, productData, customerData])
 
-  if((!tabsArray || tabsArray.length ===0) ) return null
-
   return (
     <>
       {notification && <Notification {...notification} />}
@@ -76,7 +68,6 @@ const SearchPage = ({ posts, productData, customerData }: SearchPageProps) => {
         <div className='bg-indigo-400'>
           <SearchInput onChange={onKeywordChange} />
           <SearchTabs
-            tabsArray={tabsArray}
             tabsContainerTabIndex={2}
             currentTab={tab}
             setCurrentTab={(newTabIndex) => setTab(newTabIndex)}
