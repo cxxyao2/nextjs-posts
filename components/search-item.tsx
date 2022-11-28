@@ -1,10 +1,4 @@
-import {
-  EllipsisHorizontalIcon,
-  LockClosedIcon,
-  XMarkIcon
-} from '@heroicons/react/24/outline'
 import Image from 'next/image'
-import { useState } from 'react'
 import IProduct from '../models/product'
 
 type SearchItemProps = {
@@ -15,7 +9,7 @@ const SearchItem = ({ item }: SearchItemProps) => {
   return (
     <div className='col-span-full md:col-span-6 lg:col-span-4   shadow-sm rounded-sm  shadow-slate-400 bg-white'>
       <div className='flex flex-row  justify-start items-center space-x-4  md:flex-col md:space-y-2'>
-        <div className='relative block self-center align-middle  overflow-hidden w-40 md:w-full h-40 '>
+        <div className='relative flex-shrink-0 block self-center align-middle  overflow-hidden w-20 md:w-full h-20 md:h-40 '>
           <Image
             alt='product'
             layout='fill'
@@ -23,15 +17,15 @@ const SearchItem = ({ item }: SearchItemProps) => {
             src={item.imageUrl}></Image>
         </div>
         <div className='p-1 md:p-2  md:text-center '>
-          <blockquote>
-            <p className='font-semibold text-slate-800 text-left  md:text-center text-clip '>
-              <span className='dark:text-gray-200'>Name:{item.name}</span>
+          <blockquote className="max-w-[100px] md:max-w-[300px]">
+            <p className='font-semibold text-slate-800 text-left  md:text-center text-clip overflow-hidden'>
+              <span className='dark:text-gray-600'>Name:{item.name}</span>
             </p>
-            <div className='group max-w-[200px] md:max-w-full'>
+            <div className='group   md:max-w-full'>
               <div className='block line-clamp-1 group-hover:hidden text-left text-gray-800 md:text-center'>
                 {item.description}
               </div>
-              <div className='hidden group-hover:block text-left text-gray-800 '>
+              <div className='hidden  group-hover:block text-left text-gray-800  '>
                 {item.description}
               </div>
             </div>
