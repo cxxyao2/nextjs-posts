@@ -3,7 +3,7 @@ import path from 'path'
 import { GetStaticProps } from 'next'
 import matter from 'gray-matter'
 
-import { useEffect, useState } from 'react'
+import { useDeferredValue, useEffect, useState } from 'react'
 
 import { sortByDate } from '../utils'
 import {
@@ -40,6 +40,8 @@ const SearchPage = ({ posts, productData, customerData }: SearchPageProps) => {
   const onKeywordChange = (keyword: string) => {
     setKeyword(keyword.toLocaleLowerCase())
   }
+
+  const deferredKeyword = useDeferredValue(keyword)
 
   useEffect(() => {
     if (productData.errorMessage) {
@@ -80,19 +82,19 @@ const SearchPage = ({ posts, productData, customerData }: SearchPageProps) => {
             {tab === 1 && (
               <SearchProducts
                 products={productData.products}
-                keyword={keyword}
+                keyword={deferredKeyword}
               />
             )}
             {tab === 2 && (
               <SearchCustomers
                 customers={customerData.customers}
-                keyword={keyword}
+                keyword={deferredKeyword}
               />
             )}
             {tab === 3 && (
               <SearchBlogs
                 posts={posts}
-                keyword={keyword}
+                keyword={deferredKeyword}
               />
             )}
           </div>

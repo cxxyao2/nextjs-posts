@@ -54,7 +54,6 @@ const Cart: NextPage<Props> = ({ customers, errorFromServer }) => {
   }, [cartAmount])
 
   const handleCheckout = async () => {
-    alert('hi, success url ' +  process.env.NEXT_PUBLIC_STRIPE_SUCCESS)
     const stripe = await getStripe()
     const { error } = await stripe!.redirectToCheckout({
       lineItems: [

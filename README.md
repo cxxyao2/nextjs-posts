@@ -9,7 +9,7 @@
 - function component
 - react portals
 - react hooks
-- react context
+- react context + react reducer
 - NextImage
 - download data in .csv format
 - Markdown file parse(3rd library: gray-matter) + show ( 3rd library: marked)
