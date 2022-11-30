@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { useShoppingCart } from '../context/shoppingcart-context'
+import { useShoppingCart } from '../contexts/shoppingcart-context'
 import IProduct from '../models/product'
 import { formatCurrency } from '../utils/formatCurrency'
 import Button from './button'

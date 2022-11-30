@@ -4,11 +4,11 @@ import { getSession } from 'next-auth/react'
 import Link from 'next/link'
 
 import CartItem from '../components/cart-item'
-import { useShoppingCart } from '../context/shoppingcart-context'
+import { useShoppingCart } from '../contexts/shoppingcart-context'
 import { Customer } from '../models/customer'
 import SelectModal from '../components/select-modal'
 import Meta from '../components/meta'
-import { useNotificationContext } from '../context/notification-context'
+import { useNotificationContext } from '../contexts/notification-context'
 import Notification from '../components/notification'
 import { ChevronDoubleRightIcon, PlusIcon } from '@heroicons/react/24/outline'
 import { downloadCustomerList } from '../serivces/master-service'
@@ -63,8 +63,8 @@ const Cart: NextPage<Props> = ({ customers, errorFromServer }) => {
         }
       ],
       mode: 'subscription',
-      successUrl: `https://localhost:3000/success`,
-      cancelUrl: `http://localhost:3000/cancle`,
+      successUrl: process.env.NEXT_PUBLIC_STRIPE_SUCCESS || ' ',
+      cancelUrl: process.env.NEXT_PUBLIC_STRIPE_CANCLE || ' ',
       customerEmail: 'customer@email.com'
     })
     console.warn(error.message)

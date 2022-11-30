@@ -5,12 +5,12 @@ import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider } from 'next-themes'
 
 import NavBar from '../components/nav-bar'
-import { ShoppingCardProvider } from '../context/shoppingcart-context'
+import { ShoppingCardProvider } from '../contexts/shoppingcart-context'
 import Footer from './footer'
 import SideBar from '../components/sidebar'
-import { NotificationContextProvider } from '../context/notification-context'
+import { NotificationContextProvider } from '../contexts/notification-context'
 import ErrorBoundary from '../components/error-boundary'
-import { DashBoardContextProvider } from '../context/dashboard-context'
+import { DashBoardContextProvider } from '../contexts/dashboard-context'
 import Spinner from '../components/spinner'
 
 function MyApp({ Component, pageProps }: AppProps) {

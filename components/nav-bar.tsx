@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useShoppingCart } from '../context/shoppingcart-context'
+import { useShoppingCart } from '../contexts/shoppingcart-context'
 import { ShoppingCartIcon } from '@heroicons/react/24/solid'
 import {
   SunIcon,
@@ -96,7 +96,7 @@ const NavBar = () => {
             </Link>
           </div>
 
-          <div className='flex justify-between items-center space-x-4'>
+          <div className='flex justify-around items-center space-x-2 md:space-x-4'>
             <Link href='/about'>
               <a className={ancoreStyle('/about')}>About</a>
             </Link>
@@ -122,21 +122,23 @@ const NavBar = () => {
             )}
 
             <Link href='/search'>
-              <a aria-label='Search Products'>
+              <a
+                className={ancoreStyle('/search')}
+                aria-label='Search Products'>
                 <MagnifyingGlassIcon className='inline-flex w-8 h-8 text-indigo-400 rounded-md' />
               </a>
             </Link>
 
             {cartQuantity > 0 && (
               <Link href='/cart'>
-                <button
+                <a
                   className='w-12 h-12 p-2 border rounded-full shadow-sm shadow-gray-400 text-indigo-400  relative'
                   onClick={openCart}>
                   <ShoppingCartIcon className='text-indigo-400 hover:text-indigo-300' />
                   <div className='absolute bottom-0 right-0 rounded-full translate-x-1 translate-y-1 bg-red-600 text-white  flex justify-center items-center w-6 h-6'>
                     {cartQuantity}
                   </div>
-                </button>
+                </a>
               </Link>
             )}
 

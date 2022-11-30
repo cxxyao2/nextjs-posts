@@ -1,4 +1,4 @@
-import { useNotificationContext } from '../context/notification-context'
+import { useNotificationContext } from '../contexts/notification-context'
 
 const Spinner = () => {
   const { isLoading } = useNotificationContext()

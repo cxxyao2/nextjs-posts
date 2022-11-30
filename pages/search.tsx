@@ -13,7 +13,7 @@ import {
 import IProduct from '../models/product'
 import { Customer } from '../models/customer'
 import { PostPageProps } from '../interfaces/post-page-props'
-import { useNotificationContext } from '../context/notification-context'
+import { useNotificationContext } from '../contexts/notification-context'
 import Notification from '../components/notification'
 import SearchInput from './search-input'
 import SearchTabs from './search-tabs'

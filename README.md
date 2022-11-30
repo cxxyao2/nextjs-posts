@@ -21,6 +21,7 @@
 - tailwindcss official plugin: line-clamp
 - client-side && server-side redirect
 - security: authenticaiton , environment variables, bcypte
+- payment: Stripe.com client end
 
 ## set environment variables
 

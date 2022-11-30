@@ -4,11 +4,11 @@ import DashBoardDatePicker from '../components/dashboard-datepicker'
 import LatestNews from '../components/latest-news'
 import Meta from '../components/meta'
 import { IOrderDetail } from '../models/order-detail'
-import { useDashBoardContext } from '../context/dashboard-context'
-import { useNotificationContext } from '../context/notification-context'
+import { useDashBoardContext } from '../contexts/dashboard-context'
+import { useNotificationContext } from '../contexts/notification-context'
 import Notification from '../components/notification'
 import { getOrderOfRange } from '../serivces/report-service'
-import { useShoppingCart } from '../context/shoppingcart-context'
+import { useShoppingCart } from '../contexts/shoppingcart-context'
 import {
   downloadCustomerList,
   downloadProductList

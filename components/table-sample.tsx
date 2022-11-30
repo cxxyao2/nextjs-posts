@@ -1,6 +1,6 @@
 import { FlagIcon } from '@heroicons/react/24/solid'
 import { useState, useEffect } from 'react'
-import { useDashBoardContext } from '../context/dashboard-context'
+import { useDashBoardContext } from '../contexts/dashboard-context'
 
 type TableDataType = {
   product: string

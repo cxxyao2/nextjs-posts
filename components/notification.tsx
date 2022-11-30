@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import NotificationContext, {
   NotificationType
-} from '../context/notification-context'
+} from '../contexts/notification-context'
 
 const Notification = (props: NotificationType) => {
   const notificationCtx = useContext(NotificationContext)

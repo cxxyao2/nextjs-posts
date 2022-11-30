@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { signIn, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { useNotificationContext } from '../../context/notification-context'
+import { useNotificationContext } from '../../contexts/notification-context'
 import Notification from '../../components/notification'
 import { ExtendedUser } from '../../models/extended-user'
 

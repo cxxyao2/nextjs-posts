@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { signIn, SignInResponse, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { useNotificationContext } from '../../context/notification-context'
+import { useNotificationContext } from '../../contexts/notification-context'
 import Notification from '../../components/notification'
 import { validateEmail, validateLengthRange } from '../../utils'
 import { ExtendedUser } from '../../models/extended-user'
@@ -141,7 +141,7 @@ const SignInForm = () => {
               <a className='ml-2  text-indigo-600'>RESET PASSWORD</a>
             </Link>
           </p>
-        
+
         </div>
       </form>
     </section>

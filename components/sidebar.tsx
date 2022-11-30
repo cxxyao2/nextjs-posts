@@ -15,7 +15,7 @@ import {
   UserGroupIcon
 } from '@heroicons/react/24/outline'
 import { useSession, signOut } from 'next-auth/react'
-import { useShoppingCart } from '../context/shoppingcart-context'
+import { useShoppingCart } from '../contexts/shoppingcart-context'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
@@ -104,7 +104,7 @@ const SideBar = () => {
                 <MagnifyingGlassIcon className='h-5 w-5 shrink-0 mr-3 ' />
                 <div>Search </div>
               </button>
-            
+
                 <ChevronDownIcon
                   className={`w-4 h-4 shrink-0 text-gray-800 group-hover:text-indigo-400   translation duration-150 ${
                     isExpanded ? 'rotate-180' : ''

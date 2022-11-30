@@ -1,6 +1,6 @@
 import ICartItem from '../models/cart-item'
 import Button from './button'
-import { useShoppingCart } from '../context/shoppingcart-context'
+import { useShoppingCart } from '../contexts/shoppingcart-context'
 import { formatCurrency } from '../utils/formatCurrency'
 
 type CartItemProps = {

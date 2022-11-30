@@ -45,7 +45,7 @@ const SalesLineChartDynamic = () => {
     return () => {
       clearInterval(interval1)
     }
-  })
+  },[])
 
   return (
     <div className='bg-white flex flex-col col-span-full sm:col-span-6 xl:col-span-4 shadow-md rounded-sm border border-slate-200'>

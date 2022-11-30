@@ -4,11 +4,10 @@ import Paginator from '../components/paginator'
 import Meta from '../components/meta'
 import IProduct from '../models/product'
 import { downloadProductList } from '../serivces/master-service'
-import { useShoppingCart } from '../context/shoppingcart-context'
-import { useNotificationContext } from '../context/notification-context'
+import { useShoppingCart } from '../contexts/shoppingcart-context'
+import { useNotificationContext } from '../contexts/notification-context'
 import Notification from '../components/notification'
 import { GetStaticProps } from 'next'
-
 
 type StorePageProp = {
   products: IProduct[]
@@ -92,4 +91,3 @@ export const getStaticProps: GetStaticProps = async (context) => {
     revalidate: 10
   }
 }
-
