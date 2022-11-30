@@ -11,6 +11,7 @@ import SideBar from '../components/sidebar'
 import { NotificationContextProvider } from '../context/notification-context'
 import ErrorBoundary from '../components/error-boundary'
 import { DashBoardContextProvider } from '../context/dashboard-context'
+import Spinner from '../components/spinner'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -30,6 +31,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                       </div>
                     </main>
                     <Footer />
+                    <Spinner />
                   </div>
                 </div>
               </DashBoardContextProvider>

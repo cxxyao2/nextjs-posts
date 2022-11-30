@@ -6,7 +6,6 @@ import { useNotificationContext } from '../../context/notification-context'
 import Notification from '../../components/notification'
 import { validateEmail, validateLengthRange } from '../../utils'
 import { ExtendedUser } from '../../models/extended-user'
-import Spinner from '../../components/spinner'
 
 const SignInForm = () => {
   const [hidePassword, setHidePassword] = useState(true)
@@ -142,7 +141,7 @@ const SignInForm = () => {
               <a className='ml-2  text-indigo-600'>RESET PASSWORD</a>
             </Link>
           </p>
-          {isLoading && <Spinner />}
+        
         </div>
       </form>
     </section>

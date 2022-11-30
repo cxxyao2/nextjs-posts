@@ -1,6 +1,7 @@
 import { GetServerSideProps, NextPage, Redirect } from 'next'
 import { useState, useEffect } from 'react'
 import { getSession } from 'next-auth/react'
+import Link from 'next/link'
 
 import CartItem from '../components/cart-item'
 import { useShoppingCart } from '../context/shoppingcart-context'
@@ -11,9 +12,9 @@ import { useNotificationContext } from '../context/notification-context'
 import Notification from '../components/notification'
 import { ChevronDoubleRightIcon, PlusIcon } from '@heroicons/react/24/outline'
 import { downloadCustomerList } from '../serivces/master-service'
-import Link from 'next/link'
 
 import { formatCurrency } from '../utils/formatCurrency'
+import getStripe from '../lib/getStripe'
 import { saveOrder } from '../serivces/order-service'
 
 interface Props {
@@ -46,11 +47,28 @@ const Cart: NextPage<Props> = ({ customers, errorFromServer }) => {
         status: 'error'
       })
     }
-  })
+  }, [])
 
   useEffect(() => {
     setTotalAmount(formatCurrency(cartAmount))
   }, [cartAmount])
+
+  const handleCheckout = async () => {
+    const stripe = await getStripe()
+    const { error } = await stripe!.redirectToCheckout({
+      lineItems: [
+        {
+          price: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID,
+          quantity: 1
+        }
+      ],
+      mode: 'subscription',
+      successUrl: `https://localhost:3000/success`,
+      cancelUrl: `http://localhost:3000/cancle`,
+      customerEmail: 'customer@email.com'
+    })
+    console.warn(error.message)
+  }
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -81,6 +99,7 @@ const Cart: NextPage<Props> = ({ customers, errorFromServer }) => {
           status: 'success'
         })
         setShowForm(false)
+        handleCheckout().then()
       })
       .catch((error) => {
         showNotification({
