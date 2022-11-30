@@ -1,6 +1,8 @@
 import {
   createContext,
+  Dispatch,
   ReactNode,
+  SetStateAction,
   useContext,
   useEffect,
   useState
@@ -23,9 +25,11 @@ type NotificationContextType = {
   notification: NotificationType | null
   showNotification: (val: NotificationType) => void
   hideNotification: () => void
+  isLoading:boolean
+  setIsLoading: Dispatch<SetStateAction<boolean>>
 }
 
-const NotificationContext = createContext({} as NotificationContextType)
+export const NotificationContext = createContext({} as NotificationContextType)
 
 export function useNotificationContext() {
   return useContext(NotificationContext)
@@ -37,6 +41,8 @@ export function NotificationContextProvider({
   const [notification, setNotification] = useState<NotificationType | null>(
     null
   )
+
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     if (notification) {
@@ -60,7 +66,7 @@ export function NotificationContextProvider({
 
   return (
     <NotificationContext.Provider
-      value={{ notification, showNotification, hideNotification }}>
+      value={{ notification, showNotification, hideNotification, isLoading, setIsLoading }}>
       {children}
     </NotificationContext.Provider>
   )

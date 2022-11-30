@@ -6,11 +6,13 @@ import { useNotificationContext } from '../../context/notification-context'
 import Notification from '../../components/notification'
 import { validateEmail, validateLengthRange } from '../../utils'
 import { ExtendedUser } from '../../models/extended-user'
+import Spinner from '../../components/spinner'
 
 const SignInForm = () => {
   const [hidePassword, setHidePassword] = useState(true)
   const router = useRouter()
-  const { showNotification, notification } = useNotificationContext()
+  const { showNotification, notification, isLoading, setIsLoading } =
+    useNotificationContext()
   const { data: session } = useSession()
 
   useEffect(() => {
@@ -63,6 +65,8 @@ const SignInForm = () => {
       callbackUrl = router.query.from as unknown as string
     }
 
+    setIsLoading(true)
+
     signIn('credentials', {
       email: formData.get('email')?.toString(),
       password: formData.get('password')?.toString(),
@@ -77,6 +81,8 @@ const SignInForm = () => {
           status: 'error'
         })
       }
+    }).finally(()=>{
+      setIsLoading(false)
     })
   }
 
@@ -136,6 +142,7 @@ const SignInForm = () => {
               <a className='ml-2  text-indigo-600'>RESET PASSWORD</a>
             </Link>
           </p>
+          {isLoading && <Spinner />}
         </div>
       </form>
     </section>
